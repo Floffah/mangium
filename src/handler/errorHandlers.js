@@ -18,19 +18,23 @@
  *     @link https://github.com/floffah/
  */
 
-const Path = require('path'),
-    QueryFile = require('./QueryFile');
+const uuid = require('uuid'),
+    Path = require('path'),
+    fs = require('fs');
 
-class SqliteDatabase {
-    constructor(dbManager) {
-        this._dbManager = dbManager;
-        this._dbManager.manager.setPath("db", Path.resolve(this._dbManager.manager.getPath("data"), 'db'));
-        this._queries = new QueryFile(Path.resolve(__dirname, 'sqlite.queries'));
+module.exports.reg = (manager) => {
+    function errhandle(err, origin) {
+        let erruuid = uuid.v4(),
+            path = Path.resolve(manager.getPath("err"), `${erruuid}.err`);
+        fs.writeFileSync(path, `${err.stack}`);
+        if(typeof origin === "string") {
+            manager.getLogger().err(`An error has occured. Origin: ${origin}.`);
+        } else {
+            manager.getLogger().err(`An error has occured.`);
+        }
+        manager.getLogger().err(`See more information at ${path}`);
     }
-
-    init() {
-
-    }
-}
-
-module.exports = SqliteDatabase;
+    process.on('uncaughtException', errhandle);
+    process.on('unhandledRejection', errhandle);
+    process.on('rejectionHandled', errhandle);
+};

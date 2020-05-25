@@ -49,7 +49,7 @@ class QueryFile {
         if(this._queries[query] !== undefined) {
             let query = this._queries[query];
             Object.keys(replacers).forEach((replacer) => {
-                query.replace(new RegExp(replacer, 'g'), replacers[replacer]);
+                query.replace(new RegExp("{{" + replacer + "}}", 'g'), replacers[replacer]);
             });
             return query;
         } else {

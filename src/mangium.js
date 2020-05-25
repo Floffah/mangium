@@ -17,7 +17,9 @@
  *     @author Floffah & Mangium Contributors
  *     @link https://github.com/floffah/
  */
-require('pretty-error').start();
+
+// Old- may be removed
+//require('pretty-error').start();
 
 console.log("    Mangium  Copyright (C) 2020  Floffah & Mangium Contributors\n" +
     "    This program comes with ABSOLUTELY NO WARRANTY; for details see the \"LICENSE\" file.\n" +
@@ -27,9 +29,14 @@ console.log("    Mangium  Copyright (C) 2020  Floffah & Mangium Contributors\n" 
 let Manager = require('./managers/Manager'),
     SqliteDatabase = require('./db/SqliteDatabase');
 
+
 const IOHandler = require('./handler/IOHandler');
 
 let manager = new Manager();
+
+require('./handler/errorHandlers').reg(manager);
+
+notafunc();
 
 manager.getDatabase().setdb(SqliteDatabase);
 manager.initialize();

@@ -34,7 +34,8 @@ class Manager {
             ["data", Path.join(__dirname, '../../data')],
             ["config", Path.join(__dirname, '../../data/config')],
             ["cache", Path.join(__dirname, '../../data/cache')],
-            ["web", Path.join(__dirname, '../../media/dist')]
+            ["web", Path.join(__dirname, '../../media/dist')],
+            ["err", Path.join(__dirname, '../../data/logs/errors')]
         ]);
         this._paths.forEach((v, k) => {
             if(!fs.existsSync(v)) {

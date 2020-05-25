@@ -30,7 +30,8 @@
     "pretty-error": "^2.1.1",
     "socket.io": "^2.3.0",
     "threads": "^1.4.1",
-    "time-stamp": "^2.2.0"
+    "time-stamp": "^2.2.0",
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
