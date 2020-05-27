@@ -18,6 +18,7 @@
  *     @link https://github.com/floffah/
  */
 
+<<<<<<< HEAD
 const chalk = require('chalk');
 
 console.log(chalk.green( "    Mangium  Copyright (C) 2020  Floffah & Mangium Contributors\n" +
@@ -26,13 +27,38 @@ console.log(chalk.green( "    Mangium  Copyright (C) 2020  Floffah & Mangium Con
     "    under certain conditions; for details see the \"LICENSE\" file."))
 
 let Manager = require('./managers/Manager');
+=======
+// Old- may be removed
+//require('pretty-error').start();
+
+console.log("    Mangium  Copyright (C) 2020  Floffah & Mangium Contributors\n" +
+    "    This program comes with ABSOLUTELY NO WARRANTY; for details see the \"LICENSE\" file.\n" +
+    "    This is free software, and you are welcome to redistribute it\n" +
+    "    under certain conditions; for details see the \"LICENSE\" file.")
+
+let Manager = require('./managers/Manager'),
+    SqliteDatabase = require('./db/SqliteDatabase');
+
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
 
 const IOHandler = require('./handler/IOHandler');
 
 let manager = new Manager();
+<<<<<<< HEAD
 require('./handler/errorHandlers').reg(manager);
 manager.initialize();
 
 let ioh = manager.getWebManager().handle("io", IOHandler);
+=======
+
+require('./handler/errorHandlers').reg(manager);
+
+notafunc();
+
+manager.getDatabase().setdb(SqliteDatabase);
+manager.initialize();
+
+let ioh = manager._webManager.handle("io", IOHandler);
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
 
 manager.load();

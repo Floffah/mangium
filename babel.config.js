@@ -1,5 +1,6 @@
 module.exports = {
     presets: [
+<<<<<<< HEAD
         ["@babel/preset-env", {
             targets: {
                 browsers: ["defaults",
@@ -10,6 +11,9 @@ module.exports = {
                     "maintained node versions"]
             }
         }],
+=======
+        "@babel/preset-env",
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
         "@babel/preset-react"
     ],
     plugins: [

@@ -22,6 +22,10 @@
   "homepage": "https://github.com/Floffah/mangium#readme",
   "dependencies": {
     "async": "^3.2.0",
+<<<<<<< HEAD
+=======
+    "better-sqlite3": "^7.0.1",
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
     "chalk": "^4.0.0",
     "debug": "^4.1.1",
     "express": "^4.17.1",
@@ -50,18 +54,27 @@
     "cssnano": "^4.1.10",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
+<<<<<<< HEAD
     "jquery": "^3.5.1",
     "nexe": "^3.3.2",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
+=======
+    "nexe": "^3.3.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
     "prettier": "^2.0.5",
     "prettier-webpack-plugin": "^1.2.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
+<<<<<<< HEAD
     "sass": "^1.26.5",
+=======
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
     "sass-loader": "^8.0.2",
     "socket.io-client": "^2.3.0",
     "source-map-loader": "^0.2.4",

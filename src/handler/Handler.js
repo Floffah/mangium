@@ -21,6 +21,10 @@
 class Handler {
     /**
      *
+<<<<<<< HEAD
+=======
+     * @param {String} name
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
      * @param {Object} [options]
      */
     constructor(options) {
@@ -32,12 +36,15 @@ class Handler {
      * @param {../managers/WebManager} webmanager
      */
     onListen(webmanager) {};
+<<<<<<< HEAD
 
     /**
      * Fired when Mangium needs to be set up.
      * @param {../managers/WebManager} webmanager
      */
     needSetup(webmanager) {}
+=======
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
 }
 
 module.exports = Handler;

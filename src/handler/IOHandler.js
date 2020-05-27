@@ -20,6 +20,7 @@
 
 const Handler = require('./Handler');
 
+<<<<<<< HEAD
 class IOHandler extends Handler {
     constructor(manager, opts) {
         super("IO");
@@ -32,17 +33,30 @@ class IOHandler extends Handler {
             if(this._webmanager.getState() === "setup") {
                 skt.emit('setup')
             }
+=======
+class IOHandler extends Handler{
+    constructor(manager, opts) {
+        super("IO");
+    }
+
+    connection(socket) {
+        socket.on('data', (dt) => {
+
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
         });
     }
 
     onListen(webmanager) {
         webmanager.io = require('socket.io')(webmanager.server);
         webmanager.io.on('connection', this.connection);
+<<<<<<< HEAD
         this._webmanager = webmanager;
     }
 
     needSetup(webmanager) {
 
+=======
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
     }
 }
 

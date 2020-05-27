@@ -33,10 +33,15 @@ class WebManager {
         this._app = undefined
         this._http = undefined
         this._webconf = undefined
+<<<<<<< HEAD
         this._handlers = undefined
         this._state = "starting"
 
         this.io = undefined
+=======
+        this._io = undefined
+        this._handlers = undefined
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
     }
 
     create() {
@@ -84,6 +89,7 @@ class WebManager {
         });
     }
 
+<<<<<<< HEAD
     needSetup() {
         this._state = setup;
         Object.keys(this._handlers).forEach((k) => {
@@ -93,6 +99,8 @@ class WebManager {
         });
     }
 
+=======
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
     /**
      *
      * @param {String} name
@@ -108,6 +116,7 @@ class WebManager {
     get server() {
         return this._server;
     }
+<<<<<<< HEAD
 
     getState() {
         return this._state
@@ -116,6 +125,8 @@ class WebManager {
     setState(state) {
         this._state = state;
     }
+=======
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
 }
 
 module.exports = WebManager

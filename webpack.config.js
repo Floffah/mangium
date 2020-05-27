@@ -25,17 +25,24 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
+<<<<<<< HEAD
                 loader: ['babel-loader'],
+=======
+                loader: ['babel-loader']
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
             },
             {
                 test: /\.s[ac]ss$/,
                 loader: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
             },
             {
+<<<<<<< HEAD
                 test: /\.css$/,
                 loader: ['style-loader', 'css-loader', 'postcss-loader']
             },
             {
+=======
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
                 test: /\.(png|svg|jpg|gif)$/,
                 loader: ['url-loader']
             },
@@ -46,10 +53,13 @@ module.exports = {
         ]
     },
     plugins: [
+<<<<<<< HEAD
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
         }),
+=======
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
         new Prettier({
             trailingComma: 'all',
             semi: false,
@@ -57,8 +67,12 @@ module.exports = {
         new webpack.BannerPlugin(fs.readFileSync(path.join(__dirname, 'LICENSE'), 'utf8')),
         new HtmlPlugin({
             title: 'Mangium',
+<<<<<<< HEAD
             hash: true,
             template: "media/html/index.html"
+=======
+            hash: true
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
         })
     ],
     devtool: 'source-map',

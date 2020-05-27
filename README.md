@@ -4,6 +4,12 @@ Open source service & project manager for developers or small teams which can pr
 When using Mangium, please remember that it was made to be free to use, just work, and no more than that. If you want a big feature that could quite easily be a plugin, it probably is a plugin and if not make one.
 Collaborated should be minimal-ish
 
+<<<<<<< HEAD
+=======
+# Chat with us
+Join the [Discord](https://discord.gg/2Nrkvd5)
+
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
 # Contributing/developers
 There is kind of a lot of weird things I did to make me seem cool so please read [developers.md](developers.md)
 

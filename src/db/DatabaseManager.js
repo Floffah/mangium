@@ -18,11 +18,14 @@
  *     @link https://github.com/floffah/
  */
 
+<<<<<<< HEAD
 const fs = require('fs'),
     low = require('lowdb'),
     fisy = require('lowdb/adapters/FileSync'),
     Path = require('path');
 
+=======
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
 class DatabaseManager {
     /**
      *
@@ -31,6 +34,7 @@ class DatabaseManager {
     constructor(manager) {
         this._manager = manager;
         this._db = undefined;
+<<<<<<< HEAD
         this._dbtypes = {};
         this._config = undefined;
     }
@@ -70,6 +74,12 @@ class DatabaseManager {
 
     regdb(name, databaseType) {
         this._dbtypes[name] = databaseType;
+=======
+    }
+
+    setdb(databaseType) {
+        this._db = new databaseType(this);
+>>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
     }
 
     init() {
