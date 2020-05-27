@@ -93,11 +93,7 @@ class Logger {
                 break;
         }
         let newer = Date.now();
-<<<<<<< HEAD
         let message = chalk`{blue ${timestamp("HH:mm.ss")}} ${sts} ${type === "error" || type === "fatal" ? chalk`{red ${messages.join(" ")}}` : messages.join(" ")} {cyan +${newer - this.last}ms}`;
-=======
-        let message = chalk`{blue ${timestamp("HH:mm.ss")}} ${sts}: ${type === "error" || type === "fatal" ? chalk`{red ${messages.join(" ")}}` : messages.join(" ")} {cyan +${newer - this.last}ms}`;
->>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
         console.log(message);
         this.last = newer;
     }

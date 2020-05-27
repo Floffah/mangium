@@ -23,14 +23,10 @@ const Logger = require('../log/Log'),
     fs = require('fs'),
     chalk = require('chalk'),
     WebManager = require('./WebManager'),
-<<<<<<< HEAD
     DatabaseManager = require('../db/DatabaseManager'),
     SqliteDatabase = require('../db/SqliteDatabase'),
     low = require('lowdb'),
     fisy = require('lowdb/adapters/FileSync');
-=======
-    DatabaseManager = require('../db/DatabaseManager');
->>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
 
 class Manager {
     /**
@@ -42,10 +38,7 @@ class Manager {
             ["config", Path.join(__dirname, '../../data/config')],
             ["cache", Path.join(__dirname, '../../data/cache')],
             ["web", Path.join(__dirname, '../../media/dist')],
-<<<<<<< HEAD
             ["db", Path.join(__dirname, '../../data/db')],
-=======
->>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
             ["err", Path.join(__dirname, '../../data/logs/errors')]
         ]);
         this._paths.forEach((v, k) => {
@@ -54,23 +47,13 @@ class Manager {
             }
         });
         this._logger = new Logger(this, false);
-<<<<<<< HEAD
         this._initialized = false;
         this._config = low(new fisy(Path.join(this.getPath("config"), 'config.json')));
-=======
-        this._dbManager = new DatabaseManager(this);
-        this._initialized = false;
-    }
-
-    getDatabase() {
-        return this._dbManager;
->>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
     }
 
     initialize() {
         this.getLogger().info("Initialising mangium...");
 
-<<<<<<< HEAD
         this._dbManager = new DatabaseManager(this);
         this._dbManager.regdb("sqlite", SqliteDatabase);
         this._dbManager.initConfig().then(didset => {
@@ -79,9 +62,6 @@ class Manager {
             }
             this.getLogger().info("Initialised database");
         });
-=======
-        this._dbManager.init();
->>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
 
         this._webManager = new WebManager(this);
         this._webManager.create();
@@ -91,12 +71,9 @@ class Manager {
 
     load() {
         this._webManager.listen();
-<<<<<<< HEAD
         if(this._config.get("setup").value() === false) {
             this._webManager.needSetup();
         }
-=======
->>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
     }
 
     /**
@@ -109,32 +86,21 @@ class Manager {
     }
 
     /**
-<<<<<<< HEAD
      * Set a path
-=======
-     *
->>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
      * @param {String} name
      * @param {String} path
      */
     setPath(name, path) {
-<<<<<<< HEAD
         this._paths.set(name, path);
-=======
-        this._paths.set(path, name);
->>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
     }
 
     getLogger() {
         return this._logger;
     }
-<<<<<<< HEAD
 
     getWebManager() {
         return this._webManager;
     }
-=======
->>>>>>> 919e4e5b169cb9ffe8a376d28015e0ce9e1b324c
 }
 
 module.exports = Manager;
