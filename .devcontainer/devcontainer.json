@@ -1,0 +1,4 @@
+{
+  "name": "Mangium",
+  "forwardPorts": [3000]
+}
