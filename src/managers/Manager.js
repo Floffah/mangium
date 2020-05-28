@@ -44,6 +44,7 @@ class Manager {
             ["cache", Path.join(__dirname, '../../data/cache')],
             ["web", Path.join(__dirname, '../../media/dist')],
             ["db", Path.join(__dirname, '../../data/db')],
+            ["logs", Path.join(__dirname, '../../data/logs')],
             ["err", Path.join(__dirname, '../../data/logs/errors')]
         ]);
         this._paths.forEach((v, k) => {
