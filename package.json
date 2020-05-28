@@ -8,7 +8,8 @@
     "test": "npx webpack && node src/mangium",
     "pack": "npx webpack --watch",
     "devtest": "npx concurrently npm:pack npm:start",
-    "##": "Only use devtest if you aren't watching the logs"
+    "##": "Only use devtest if you aren't watching the logs",
+    "cib": "npx webpack && node src/mangium --cib"
   },
   "repository": {
     "type": "git",
