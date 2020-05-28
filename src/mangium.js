@@ -34,6 +34,7 @@ if (process.argv.includes("--cib")) {
         cib: true,
         cibdone() {
             manager.end();
+            process.exit(0);
         }
     });
     require('./handler/errorHandlers').reg(manager);
