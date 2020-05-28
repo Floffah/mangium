@@ -15,4 +15,5 @@ When contributing just keep in mind that Mangium shouldn't be completely profess
  - I can't access the web panel!
     - Most likely this is because the hostname and port is probably not what you'd expect. You can change it in `data/config/web.json`
  - I'm seeing two different types of errors!
+    - You are using an old version. All errors are logged and saved as error files.
     - If you are seeing an error which starts with "Error:" with a red background, that is an error in the code. Errors that follow the format of every other kind of log is a Mangium error.

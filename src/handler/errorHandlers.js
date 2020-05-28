@@ -33,6 +33,7 @@ module.exports.reg = (manager) => {
             manager.getLogger().err(`An error has occured.`);
         }
         manager.getLogger().err(`See more information at ${path}`);
+        manager.passError(err);
     }
     process.on('uncaughtException', errhandle);
     process.on('unhandledRejection', errhandle);

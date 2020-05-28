@@ -31,8 +31,13 @@ const Logger = require('../log/Log'),
 class Manager {
     /**
      * Mangium manager.
+     * @param {object} opts
+     * @param {boolean} opts.cib
+     * @param {cibdone} opts.cibdone
      */
-    constructor() {
+    constructor(opts) {
+        this._options = opts;
+        this._errors = [];
         this._paths = new Map([
             ["data", Path.join(__dirname, '../../data')],
             ["config", Path.join(__dirname, '../../data/config')],
@@ -74,6 +79,23 @@ class Manager {
         if(this._config.get("setup").value() === false) {
             this._webManager.needSetup();
         }
+
+        if(this._options.cibdone !== undefined) {
+            this._options.cibdone(this._errors.length >= 1, this._errors);
+        }
+    }
+
+    end() {
+        this._webManager.stop();
+        this.getLogger().info("Mangium stopped.");
+    }
+
+    /**
+     * Pass an error to mangium if there was an error along the way. The error is sent to the cibuild area when it runs cibdone.
+     * @param err
+     */
+    passError(err) {
+        this._errors.push(err);
     }
 
     /**
@@ -104,3 +126,9 @@ class Manager {
 }
 
 module.exports = Manager;
+
+/**
+ * @callback cibdone
+ * @param {boolean} diderr
+ * @param {Error[]} [err]
+ */

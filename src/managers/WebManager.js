@@ -116,6 +116,11 @@ class WebManager {
     setState(state) {
         this._state = state;
     }
+
+    stop() {
+        this._server.close();
+        this._manager.getLogger().info("Stopping HTTP server.");
+    }
 }
 
 module.exports = WebManager
