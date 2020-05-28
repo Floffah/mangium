@@ -8,6 +8,12 @@ media/js/mangium.js
 
 # Generated
 
+# Yarn
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
+
 # Logs
 logs
 *.log
