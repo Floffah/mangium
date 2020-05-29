@@ -77,7 +77,7 @@ class Manager {
 
     load() {
         this._webManager.listen();
-        if(this._config.get("setup").value() === false) {
+        if(this._config.get("setup").value() !== true) {
             this._webManager.needSetup();
         }
 
@@ -117,10 +117,18 @@ class Manager {
         this._paths.set(name, path);
     }
 
+    /**
+     *
+     * @returns {Logger}
+     */
     getLogger() {
         return this._logger;
     }
 
+    /**
+     *
+     * @returns {WebManager}
+     */
     getWebManager() {
         return this._webManager;
     }

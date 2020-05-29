@@ -22,26 +22,24 @@ const Handler = require('./Handler');
 
 class IOHandler extends Handler {
     constructor(manager, opts) {
-        super("IO");
-
-        this._webmanager = undefined;
+        super(manager, "IO");
+        this._manager = manager;
     }
 
     connection(socket) {
-        socket.on('connection', (skt) => {
-            if(this._webmanager.getState() === "setup") {
-                skt.emit('setup')
-            }
+        if (this._manager.getWebManager().getState() === "setup") {
+            socket.emit('data', {event: "setup"});
+        }
+    }
+
+    onListen() {
+        this.io = require('socket.io')(this._manager.getWebManager().server);
+        this.io.on('connection', (socket) => {
+            this.connection(socket);
         });
     }
 
-    onListen(webmanager) {
-        webmanager.io = require('socket.io')(webmanager.server);
-        webmanager.io.on('connection', this.connection);
-        this._webmanager = webmanager;
-    }
-
-    needSetup(webmanager) {
+    needSetup() {
 
     }
 }

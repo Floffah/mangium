@@ -9,4 +9,8 @@ const skt = io()
 
 skt.on("data", Socket.handle)
 
+Socket.registerHandler("setup", () => {
+  //TODO: setup
+})
+
 import "./setup"

@@ -38,16 +38,16 @@ if (process.argv.includes("--cib")) {
         }
     });
     require('./handler/errorHandlers').reg(manager);
-    manager.initialize();
 
+    manager.initialize();
     let ioh = manager.getWebManager().handle("io", IOHandler);
 
     manager.load();
 } else {
     let manager = new Manager({cib: false});
     require('./handler/errorHandlers').reg(manager);
-    manager.initialize();
 
+    manager.initialize();
     let ioh = manager.getWebManager().handle("io", IOHandler);
 
     manager.load();

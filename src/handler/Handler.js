@@ -21,23 +21,24 @@
 class Handler {
     /**
      *
-     * @param {Object} [options]
+     * @param {Manager} manager
+     * @param {String} name
      */
-    constructor(options) {
-        this._options = options;
+    constructor(manager, name) {
+        this._name = name;
     }
 
     /**
      * Fired right before the server starts listening
-     * @param {../managers/WebManager} webmanager
      */
-    onListen(webmanager) {};
+    onListen() {
+    };
 
     /**
      * Fired when Mangium needs to be set up.
-     * @param {../managers/WebManager} webmanager
      */
-    needSetup(webmanager) {}
+    needSetup() {
+    }
 }
 
 module.exports = Handler;

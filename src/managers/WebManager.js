@@ -73,6 +73,7 @@ class WebManager {
 
     listen() {
         Object.keys(this._handlers).forEach((k) => {
+            this._handlers[k] = new this._handlers[k](this._manager);
             if (typeof this._handlers[k].onListen === "function") {
                 this._handlers[k].onListen(this);
             }
@@ -85,10 +86,10 @@ class WebManager {
     }
 
     needSetup() {
-        this._state = setup;
+        this.setState("setup");
         Object.keys(this._handlers).forEach((k) => {
-            if (typeof this._handlers[k].onListen === "function") {
-                this._handlers[k].needSetup(this);
+            if (typeof this._handlers[k].needSetup === "function") {
+                this._handlers[k].needSetup(this._manager);
             }
         });
     }
@@ -100,9 +101,8 @@ class WebManager {
      * @returns {Handler}
      */
     handle(name, handler) {
-        let handlerc = new handler()
-        this._handlers[name] = handlerc
-        return handlerc
+        this._handlers[name] = handler
+        return handler
     }
 
     get server() {
