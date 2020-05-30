@@ -1,12 +1,10 @@
 ![Code Scanning](https://github.com/Floffah/mangium/workflows/Code%20Scanning/badge.svg)
 
 # Mangium
-Open source service & project manager for developers or small teams which can probably be upscaled because of its extendability.
+Open source service & project manager for developers or small teams.
 
 When using Mangium, please remember that it was made to be free to use, just work, and no more than that. If you want a big feature that could quite easily be a plugin, it probably is a plugin and if not make one.
 Collaborated should be minimal-ish
-
-Please note: Although github actions builds Mangium after every commit, releases created by these will be deleted if it is a new release. That is just for pre-releases/patches. Real releases will be built by TeamCity running on my home server (hence why real releases are windows only because it runs windows server 2019) so users using other operating systems should use pre-release/patch releases (because other operating systems are not supported right now.)
 
 # Contributing/developers
 There is kind of a lot of weird things I did to make me seem cool so please read [developers.md](developers.md)
