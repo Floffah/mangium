@@ -7,9 +7,9 @@ When using Mangium, please remember that it was made to be free to use, just wor
 Collaborated should be minimal-ish
 
 ## Links
-[Trello](https://trello.com/b/T0UsFc2D)<br/>
-[Bug tracker](https://github.com/Floffah/mangium/projects/2)<br/>
-[Discord](https://discord.gg/2Nrkvd5)<br/>
+[Trello](https://trello.com/b/T0UsFc2D) <br/>
+[Bug tracker](https://github.com/Floffah/mangium/projects/2) <br/>
+[Discord](https://discord.gg/2Nrkvd5) <br/>
 
 # Contributing/developers
 There is kind of a lot of weird things I did to make me seem cool so please read [developers.md](developers.md)

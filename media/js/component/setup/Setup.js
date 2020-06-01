@@ -56,4 +56,5 @@ class Setup extends React.Component {
 export default {
   SetupPages,
   Setup,
+  SetupPage,
 }

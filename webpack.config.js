@@ -50,10 +50,6 @@ module.exports = {
             $: "jquery",
             jQuery: "jquery"
         }),
-        new Prettier({
-            trailingComma: 'all',
-            semi: false,
-        }),
         new webpack.BannerPlugin(fs.readFileSync(path.join(__dirname, 'LICENSE'), 'utf8')),
         new HtmlPlugin({
             title: 'Mangium',
