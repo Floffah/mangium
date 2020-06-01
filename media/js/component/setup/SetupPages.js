@@ -17,12 +17,24 @@
  *     @author Floffah & Mangium Contributors
  *     @link https://github.com/floffah/
  */
-
 import React from "react"
-import ReactDOM from "react-dom"
-import Socket from "./socket"
-import Setup from "./component/setup/Setup"
 
-Socket.registerHandler("setup", (data) => {
-  ReactDOM.render(<Setup.Setup />, document.getElementById("content"))
-})
+class Agree extends React.Component {
+  render() {
+    return [
+      <div className="setup-terms">
+        <p>M</p>
+      </div>,
+      <div className="btn-container">
+        <button className="btn btn-secondary btn-setup-disagree">
+          Disagree
+        </button>
+        <button className="btn btn-success btn-setup-agree">Agree</button>
+      </div>,
+    ]
+  }
+}
+
+export default {
+  Agree,
+}
