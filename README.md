@@ -1,4 +1,5 @@
 ![Code Scanning](https://github.com/Floffah/mangium/workflows/Code%20Scanning/badge.svg)
+![Test](https://github.com/Floffah/mangium/workflows/Test/badge.svg)
 
 # Mangium
 Open source service & project manager for developers or small teams.
