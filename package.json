@@ -42,6 +42,7 @@
     "@babel/plugin-transform-react-inline-elements": "^7.9.0",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "autoprefixer": "^9.8.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",

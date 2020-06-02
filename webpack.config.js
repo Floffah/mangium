@@ -7,7 +7,7 @@ const fs = require('fs');
 const Prettier = require("prettier-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const Ocap = require("optimize-css-assets-webpack-plugin");
-const HtmlPlugin = require('html-webpack-plugin')
+const HtmlPlugin = require('html-webpack-plugin');
 
 let production = false;
 

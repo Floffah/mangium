@@ -1,8 +1,7 @@
 media/js/mangium.js
 
-
-
-
+media/font/*
+!media/font/generator_config.txt
 
 
 

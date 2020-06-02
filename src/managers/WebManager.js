@@ -83,6 +83,7 @@ class WebManager {
                 .getLogger()
                 .info("Web panel listening on address " + this._server.address().address + ":" + this._server.address().port)
         });
+        this._app.use((req, res) => res.redirect("/"));
     }
 
     needSetup() {
@@ -107,6 +108,10 @@ class WebManager {
 
     get server() {
         return this._server;
+    }
+
+    get app() {
+        return this._app;
     }
 
     getState() {
