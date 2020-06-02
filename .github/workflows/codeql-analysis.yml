@@ -2,8 +2,7 @@ name: "Code Scanning"
 
 on:
   push:
-  schedule:
-    - cron: '0 0 * * 0'
+    branches: [ master ]
 
 jobs:
   CodeQL-Build:
@@ -11,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
 
-    runs-on: windows-latest # because i am testing, building on windows, and using teamcity on windows server.
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
