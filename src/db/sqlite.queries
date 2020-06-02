@@ -1,2 +1,9 @@
 - test
 test query
+
+- SettingsTableCheck
+IF EXISTS
+    (SELECT name FROM Settings)
+    PRINT 'exist'
+ELSE
+    PRINT 'nonexistent'
