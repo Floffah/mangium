@@ -1,4 +1,4 @@
-name: Test & Build
+name: Test
 
 on:
   pull_request:
@@ -16,34 +16,3 @@ jobs:
           node-version: 14
       - run: npm ci
       - run: npm run cib
-  build:
-    runs-on: windows-latest
-    env:
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-          with:
-            node-version: 14
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            It is recommended to extract the source and run it. Using an executable may lead to unexpected errors.
-          draft: true
-          prerelease: true
-      - name: 'Create Executable'
-        run: 'npx nexe src/mangium.js --resource ./**/* --build --sourceUrl https://nodejs.org/dist/v14.4.0/node-v14.4.0.tar.gz --output dist/mangium.exe'
-      - name: Upload Executable
-          uses: actions/upload-release-asset@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-            asset_path: ./dist/mangium.exe
-            asset_name: mangium-${{ github.ref }}.exe
-            asset_content_type: application/vnd.microsoft.portable-executable
