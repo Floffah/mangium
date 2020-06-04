@@ -9,7 +9,8 @@
     "pack": "npx webpack --watch",
     "devtest": "npx concurrently npm:pack npm:start",
     "##": "Only use devtest if you aren't watching the logs",
-    "cib": "npx webpack && node src/mangium --cib"
+    "cib": "npx webpack && node src/mangium --cib",
+    "build": "npx nexe mangium.js --sourceUrl https://nodejs.org/dist/v14.4.0/node-v14.4.0.tar.gz"
   },
   "repository": {
     "type": "git",

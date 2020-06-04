@@ -1,0 +1,3 @@
+[submodule "media/js/external/FloffsComponent"]
+	path = media/js/external/FloffsComponent
+	url = https://github.com/Floffah/FloffsComponent
