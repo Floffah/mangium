@@ -1,0 +1,3 @@
+[submodule "media/js/external/Components"]
+	path = media/js/external/Components
+	url = https://github.com/Floffah/Components
