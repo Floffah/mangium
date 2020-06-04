@@ -36,12 +36,26 @@ module.exports = {
                 loader: ['style-loader', 'css-loader', 'postcss-loader']
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
+                test: /\.(png|svg|jpg|gif|woff|woff2|eot|ttf|otf)$/,
                 loader: ['url-loader']
             },
             {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                loader: ['file-loader']
+                test: /\.(md)$/,
+                use: [
+                    'html-loader',
+                    {
+                        loader: 'markdown-loader',
+                        options: {
+                            highlight: (code, lang) => {
+                                if (!lang || ['text', 'literal', 'nohighlight'].includes(lang)) {
+                                    return `<pre class="hljs">${code}</pre>`;
+                                }
+                                const html = highlight.highlight(lang, code).value;
+                                return `<span class="hljs">${html}</span>`;
+                            },
+                        },
+                    }
+                ]
             }
         ]
     },

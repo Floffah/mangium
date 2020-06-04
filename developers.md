@@ -16,6 +16,9 @@ Socket.io communicates to the server with the event as the event name and the da
 
 When I say it connects to the tcp server, it doesn't really. The api handles socket.io events and tcp packets in the same place using the exact same code so it is kind of just two ways to connect to the one api.
 
+Please stick to the [open-color](https://yeun.github.io/open-color/) color scheme and the [Ant Design](https://ant.design/) design library.
+Mangium no longer uses bootstrap.
+
 # Backend code
 I tried to write it in a class-based format as much as I could because why not.
 
