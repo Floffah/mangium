@@ -1,7 +1,5 @@
 import React from 'react';
 
-/*import './gruvbox-dark.css';
-import './markdown.css';*/
 
 const wrapMarkup = html => ({
     __html: html,

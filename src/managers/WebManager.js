@@ -9,9 +9,9 @@ const express = require("express"),
     Path = require("path"),
     low = require("lowdb"),
     fisy = require("lowdb/adapters/FileSync"),
-    fs = require("fs"),
-    SocketHandler = require("../handler/IOHandler"),
-    Handler = require('../handler/Handler');
+    fs = require("fs");
+
+const APIManager = require('./APIManager');
 
 class WebManager {
     constructor(manager) {
@@ -21,9 +21,8 @@ class WebManager {
         this._http = undefined
         this._webconf = undefined
         this._handlers = undefined
-        this._state = "starting"
-
-        this.io = undefined
+        this._apimanager = undefined;
+        this._state = "starting";
     }
 
     create() {
@@ -53,7 +52,10 @@ class WebManager {
             res.sendFile(Path.resolve(this._manager.getPath("web"), "index.html"), {
                 header: "Content-Type: text/html; charset=UTF-8"
             });
-        })
+        });
+
+        this._apimanager = new APIManager(this);
+        this._apimanager.create();
 
         this._created = true
     }
@@ -70,7 +72,6 @@ class WebManager {
                 .getLogger()
                 .info("Web panel listening on address " + this._server.address().address + ":" + this._server.address().port)
         });
-        this._app.use((req, res) => res.redirect("/"));
     }
 
     needSetup() {
@@ -99,6 +100,14 @@ class WebManager {
 
     get app() {
         return this._app;
+    }
+
+    get api() {
+        return this._apimanager;
+    }
+
+    get manager() {
+        return this._manager;
     }
 
     getState() {

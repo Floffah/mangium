@@ -7,10 +7,9 @@
 
 import React from "react";
 import ReactDOM from "react-dom"
-import Socket from "./socket"
 import Setup from "./component/setup/Setup";
 import Markdown from './component/markdown';
-import terms from '../markdown/terms.md';
+import {post} from './lib/comms';
 
 let setupM = {
     page: 0,
@@ -42,10 +41,14 @@ let setupM = {
     setupDone() {
         console.log('Done dee')
     },
-}
+};
+
+post('/getState', {
+    currentState: 'pageload'
+}).then((data) => {
+    if(data.data.state === 'setup') {
+        setupM.init();
+    }
+});
 
 export default setupM
-
-Socket.registerHandler("setup", (data) => {
-    setupM.init()
-})

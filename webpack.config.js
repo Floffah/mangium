@@ -13,7 +13,7 @@ let production = false;
 
 module.exports = {
     mode: production ? "production" : "development",
-    entry: "./media/js/index.js",
+    entry: "./wsrc/index.js",
     output: {
         filename: "bundle.js",
         path: path.resolve(__dirname, 'media/dist'),
@@ -60,6 +60,11 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./media/dist/library/library.json')
+        }),
+        new webpack.IgnorePlugin(/^electron$/),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"

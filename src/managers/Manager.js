@@ -13,9 +13,7 @@ const Logger = require('../log/Log'),
     DatabaseManager = require('../db/DatabaseManager'),
     SqliteDatabase = require('../db/SqliteDatabase'),
     low = require('lowdb'),
-    fisy = require('lowdb/adapters/FileSync'),
-    APIManager = require('../api/APIManager'),
-    TCPConnection = require('../api/TcpConnection');
+    fisy = require('lowdb/adapters/FileSync');
 
 class Manager {
     /**
@@ -57,10 +55,6 @@ class Manager {
             }
             this.getLogger().info("Initialised database");
         });
-
-        this._apiManager = new APIManager(this);
-        this._apiManager.registerConnectionType(TCPConnection);
-        this._apiManager.init();
 
         this._webManager = new WebManager(this);
         this._webManager.create();
@@ -124,14 +118,6 @@ class Manager {
      */
     getWebManager() {
         return this._webManager;
-    }
-
-    /**
-     * Get the api manager.
-     * @returns {APIManager}
-     */
-    getAPI() {
-        return this._apiManager;
     }
 }
 
