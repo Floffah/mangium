@@ -69,7 +69,6 @@ module.exports = {
             $: "jquery",
             jQuery: "jquery"
         }),
-        new webpack.BannerPlugin(fs.readFileSync(path.join(__dirname, 'LICENSE'), 'utf8')),
         new HtmlPlugin({
             title: 'Mangium',
             hash: true,

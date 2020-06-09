@@ -31,7 +31,7 @@ if (process.argv.includes("--cib")) {
     manager.load();
 
 } else {
-    trackMem();
+    if(process.argv.includes("--mem")) trackMem();
 
     let manager = new Manager({cib: false});
     require('./handler/errorHandlers').reg(manager);

@@ -6,6 +6,7 @@
  */
 import React from "react"
 import SetupM from "../../setup"
+
 import {Button} from 'antd'
 
 class Agree extends React.Component {
@@ -13,7 +14,7 @@ class Agree extends React.Component {
         return [
             <h1 key={0}>Terms</h1>,
             <div key={1} className="setup-terms" id="setup-terms">
-                <p>M</p>
+                <p>Fetching...</p>
             </div>,
             <div key={2} className="btn-container">
                 <Button className="btn-setup-disagree"  onClick={SetupM.lastPage}>

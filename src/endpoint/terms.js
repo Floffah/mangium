@@ -16,7 +16,7 @@ class Terms extends Endpoint {
     constructor(props) {
         super(props, {
             path: '/terms',
-            types: ['get', 'post']
+            types: ['post']
         });
 
         this._namespace = uuid.v5(this.manager.getWebManager().config.get("hostname").value(), uuid.v5.URL);
@@ -26,7 +26,7 @@ class Terms extends Endpoint {
 
     run(reqinfo, info) {
         let termsession;
-        if(reqinfo.type === "post") {
+        if(info.type === "finish") {
             termsession = this._termslink[info.signature];
             if(!termsession) {
                 return {
@@ -56,7 +56,7 @@ class Terms extends Endpoint {
                     success: true
                 }
             }
-        } else if(reqinfo.type === "get") {
+        } else if(info.type === "init") {
             termsession = uuid.v5(info.signature, this._namespace);
             this._termsessions.set(termsession, {
                 signature: info.signature,
@@ -64,7 +64,7 @@ class Terms extends Endpoint {
             });
             this._termslink[info.signature] = termsession;
             return {
-                md: fs.readFileSync(path.resolve(__dirname, '../../media/markdown', 'terms.md'), 'utf8'),
+                md: fs.readFileSync(Path.resolve(__dirname, '../../media/markdown', 'terms.md'), 'utf8'),
             }
         }
     }

@@ -20,7 +20,7 @@ class State extends Endpoint {
             let state = this.manager.getWebManager().getState();
             if(state === info.currentState) {
                 return {
-                    state: 'error'
+                    error: 'sameState'
                 }
             } else {
                 return {

@@ -1,12 +1,12 @@
 import React from 'react';
+import marked from 'marked'
 
-
-const wrapMarkup = html => ({
-    __html: html,
-});
-
-const Markdown = ({ content }) => (
-    <div className="markdown" dangerouslySetInnerHTML={wrapMarkup(content)} />
-);
+class Markdown extends React.Component {
+    render() {
+        return (
+            <div dangerouslySetInnerHTML={{__html: marked(this.props.content)}}></div>
+        )
+    }
+}
 
 export default Markdown;

@@ -9,14 +9,21 @@ import React from "react";
 import ReactDOM from "react-dom"
 import Setup from "./component/setup/Setup";
 import Markdown from './component/markdown';
-import {post} from './lib/comms';
+import {post, get} from './lib/comms';
 
 let setupM = {
     page: 0,
+    el: <Setup.Setup current={0}/>,
+    signature: `mangium-setup-terms-${Date.now()}`,
     init() {
-        ReactDOM.render(<Setup.Setup/>, document.getElementById("content"));
+        ReactDOM.render(this.el, document.getElementById("content"));
         setupM.page = 0;
-        $(".setup-terms").html(terms);
+        post("/terms", {
+            type: 'init',
+            signature: this.signature,
+        }).then((response) => {
+            ReactDOM.render(<Markdown content={response.data.md}/>, document.getElementById("setup-terms"));
+        });
     },
     nextPage() {
         if ($(`.setup-pages .setup-page[data-page="${setupM.page + 1}"]`).length) {
@@ -45,8 +52,8 @@ let setupM = {
 
 post('/getState', {
     currentState: 'pageload'
-}).then((data) => {
-    if(data.data.state === 'setup') {
+}).then((resp) => {
+    if(resp.data.state === 'setup') {
         setupM.init();
     }
 });

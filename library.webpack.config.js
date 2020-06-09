@@ -19,16 +19,23 @@ module.exports = {
     },
     entry: {
         library: [
-            'react',
             'jquery',
-            'antd',
-            '@ant-design/icons',
             'axios',
+            'async',
+            'marked',
+
+            'react',
+            'react-dom',
+
             '@fortawesome/fontawesome-free/js/all.min',
             '@fortawesome/fontawesome-free/css/all.min.css',
+
+            '@babel/runtime/helpers/interopRequireDefault.js',
+            '@babel/runtime/helpers/interopRequireWildcard.js',
+
+            'antd',
             'antd/dist/antd.css',
-            'react-dom',
-            'async'
+            '@ant-design/icons/lib/components/AntdIcon.js',
         ]
     },
     module: {
