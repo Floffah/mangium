@@ -1,0 +1,3 @@
+[submodule "wsrc/external/Components"]
+	path = wsrc/external/Components
+	url = https://github.com/Floffah/Components
