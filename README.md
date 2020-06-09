@@ -7,6 +7,9 @@ Open source service & project manager for developers or small teams.
 When using Mangium, please remember that it was made to be free to use, just work, and no more than that. If you want a big feature that could quite easily be a plugin, it probably is a plugin and if not make one.
 Collaborated should be minimal-ish
 
+## Usage
+See [the wiki](https://github.com/Floffah/mangium/wiki) to learn how to use and set up.
+
 ## Links
 [Trello](https://trello.com/b/T0UsFc2D) <br/>
 [Bug tracker](https://github.com/Floffah/mangium/projects/2) <br/>

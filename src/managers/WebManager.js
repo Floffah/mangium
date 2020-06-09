@@ -110,6 +110,10 @@ class WebManager {
         return this._manager;
     }
 
+    get config() {
+        return this._webconf;
+    }
+
     getState() {
         return this._state
     }
