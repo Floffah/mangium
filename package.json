@@ -10,7 +10,7 @@
     "pack": "npx webpack --watch",
     "devtest": "npx concurrently npm:pack npm:start",
     "##": "Only use devtest if you aren't watching the logs",
-    "cib": "npx webpack && node src/mangium --cib",
+    "cib": "npx webpack --config library.webpack.config.js && npx webpack && node src/mangium --cib",
     "run": "npm start",
     "run:firstrun": "npm run pack && npm start"
   },

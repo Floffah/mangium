@@ -20,6 +20,12 @@ There is kind of a lot of weird things I did to make me seem cool so please read
 
 When contributing just keep in mind that Mangium shouldn't be completely professional. Put some funny messages in it! Come on, we're developers. Can't we have some fun occasionally?
 
+# FAQ
+ - Why is Mangium named after at tree?
+    - It kind of sounds like manager
+    - Mangium can be extended (with plugins) like a tree on steroids can grow branches
+
+
 # Help
  - For some reason the time at the end of the log is really big?
     - This is because currently, that time is the milliseconds since the last log. This will be changed in the future but it is like that so I can test timings.
