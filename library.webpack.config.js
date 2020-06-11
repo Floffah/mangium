@@ -26,6 +26,7 @@ module.exports = {
 
             'react',
             'react-dom',
+            'react-dom/server',
 
             '@fortawesome/fontawesome-free/js/all.min',
             '@fortawesome/fontawesome-free/css/all.min.css',

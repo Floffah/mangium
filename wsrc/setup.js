@@ -9,7 +9,8 @@ import React from "react";
 import ReactDOM from "react-dom"
 import Setup from "./component/setup/Setup";
 import Markdown from './component/markdown';
-import {post, get} from './lib/comms';
+import {post} from './lib/comms';
+import {renderToString} from 'react-dom/server';
 
 let setupM = {
     page: 0,
@@ -17,33 +18,35 @@ let setupM = {
     signature: `mangium-setup-terms-${Date.now()}`,
     init() {
         ReactDOM.render(this.el, document.getElementById("content"));
-        setupM.page = 0;
         post("/terms", {
             type: 'init',
             signature: this.signature,
         }).then((response) => {
-            ReactDOM.render(<Markdown content={response.data.md}/>, document.getElementById("setup-terms"));
+            setupM.termsmd = <Markdown content={response.data.md}/>
+            $("#setup-terms").html(renderToString(setupM.termsmd));
+            setupM.setOpenPage(0);
         });
     },
     nextPage() {
-        if ($(`.setup-pages .setup-page[data-page="${setupM.page + 1}"]`).length) {
-            $(".setup-pages .setup-page").removeClass("setup-page-show")
-            $(`.setup-pages .setup-page[data-page="${setupM.page}"]`).addClass(
-                "setup-page-show",
-            )
-            setupM.page++
-        } else {
-            setupM.setupDone()
-        }
+        setupM.page++
+        $(".setup-pages .setup-page.setup-page-show").removeClass("setup-page-show")
+        $(`.setup-pages .setup-page[data-page="${setupM.page}"]`).addClass(
+            "setup-page-show",
+        )
     },
     lastPage() {
-        if ($(`.setup-pages .setup-page[data-page="${setupM.page - 1}"]`).length) {
-            $(".setup-pages .setup-page").removeClass("setup-page-show")
-            $(`.setup-pages .setup-page[data-page="${setupM.page}"]`).addClass(
-                "setup-page-show",
-            )
-            setupM.page--
-        }
+        setupM.page--
+        $(".setup-page.setup-page-show").removeClass("setup-page-show")
+        $(`.setup-page[data-page="${setupM.page}"]`).addClass(
+            "setup-page-show",
+        )
+    },
+    setOpenPage(page) {
+        setupM.page = page;
+        $(".setup-pages .setup-page").removeClass("setup-page-show")
+        $(`.setup-pages .setup-page[data-page="${setupM.page}"]`).addClass(
+            "setup-page-show",
+        )
     },
     setupDone() {
         console.log('Done dee')
@@ -53,7 +56,7 @@ let setupM = {
 post('/getState', {
     currentState: 'pageload'
 }).then((resp) => {
-    if(resp.data.state === 'setup') {
+    if (resp.data.state === 'setup') {
         setupM.init();
     }
 });

@@ -1,5 +1,6 @@
 module.exports = {
     presets: [
+        "@babel/preset-react",
         ["@babel/preset-env", {
             targets: {
                 browsers: ["defaults",
@@ -9,8 +10,7 @@ module.exports = {
                     "not IE_Mob 11",
                     "maintained node versions"]
             }
-        }],
-        "@babel/preset-react"
+        }]
     ],
     plugins: [
         "@babel/plugin-syntax-dynamic-import",
@@ -18,7 +18,7 @@ module.exports = {
     ],
     env: {
         production: {
-            only: ["src"],
+            only: ["wsrc"],
             plugins: [
                 [
                     "transform-react-remove-prop-types",
