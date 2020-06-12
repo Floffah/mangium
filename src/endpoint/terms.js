@@ -16,7 +16,9 @@ class Terms extends Endpoint {
     constructor(props) {
         super(props, {
             path: '/terms',
-            types: ['post']
+            types: ['post'],
+            description: 'Create a terms and conditions session and get the terms and conditions markdown file.',
+            errors: ['incoSignature', 'largeTimeDiff']
         });
 
         this._namespace = uuid.v5(this.manager.getWebManager().config.get("hostname").value(), uuid.v5.URL);
@@ -38,7 +40,7 @@ class Terms extends Endpoint {
                     error: 'largeTimeDiff'
                 }
             }
-            let config = low(new fisy(Path.join(this.getPath("config"), 'config.json')));
+            let config = low(new fisy(Path.join(this.manager.getPath("config"), 'config.json')));
             if(info.accepted === true) {
                 config.set("terms", {
                     time: Date.now(),

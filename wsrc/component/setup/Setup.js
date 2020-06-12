@@ -59,8 +59,8 @@ const Setup = () => {
         </div>,
         <div key={1} className="setup-steps">
             <Drawer
-                title="Steps"
-                placement="right"
+                title="Setup steps"
+                placement="left"
                 closable={true}
                 visible={visible}
                 onClose={drawerClose}
@@ -69,6 +69,7 @@ const Setup = () => {
                     <Steps.Step title="Terms & Conditions"/>
                     <Steps.Step title="Names & Info"/>
                     <Steps.Step title="Database"/>
+                    <Steps.Step title="User setup"/>
                 </Steps>
             </Drawer>
         </div>

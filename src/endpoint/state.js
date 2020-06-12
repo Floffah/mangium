@@ -11,7 +11,9 @@ class State extends Endpoint {
     constructor(props) {
         super(props, {
             path: '/getState',
-            types: ['post']
+            types: ['post'],
+            description: 'Get the current state',
+            errors: ["sameState"]
         });
     }
 

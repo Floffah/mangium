@@ -11,6 +11,7 @@ import Setup from "./component/setup/Setup";
 import Markdown from './component/markdown';
 import {post} from './lib/comms';
 import {renderToString} from 'react-dom/server';
+import {showError} from './lib/errors';
 
 let setupM = {
     page: 0,
@@ -25,6 +26,16 @@ let setupM = {
             setupM.termsmd = <Markdown content={response.data.md}/>
             $("#setup-terms").html(renderToString(setupM.termsmd));
             setupM.setOpenPage(0);
+        });
+    },
+    accterm(y) {
+        post("/terms", {
+            type: 'finish',
+            signature: this.signature,
+            accepted: y
+        }).then(() => {}).catch((err) => {
+            console.error(err);
+            showError('unknown');
         });
     },
     nextPage() {

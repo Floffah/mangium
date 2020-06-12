@@ -70,6 +70,10 @@ class APIManager {
         }
     }
 
+    get endpoints() {
+        return this._endpoints;
+    }
+
     get webmanager() {
         return this._webmanager;
     }

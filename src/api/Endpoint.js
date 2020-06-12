@@ -8,10 +8,12 @@
 class Endpoint {
     /**
      *
-     * @param {Manager} manager
-     * @param {object} info
-     * @param {String} info.path
-     * @param {'get'|'post'} info.type
+     * @param {Manager} manager Just pass the first argument in your constructor
+     * @param {object} info Endpoint info
+     * @param {string} info.path Path of endpoint (after /api/v1). Must start with /
+     * @param {'get'|'post'} info.type Request method
+     * @param {string} info.description Endpoint description
+     * @param {string[]} [info.errors] Possible errors that might be returned
      */
     constructor(manager, info) {
         this.info = info;
@@ -19,10 +21,10 @@ class Endpoint {
     }
 
     /**
-     * @param {object} reqinfo
-     * @param {'get'|'post'} reqinfo.type
-     * @param {String} reqinfo.path
-     * @param {object} [data]
+     * @param {object} reqinfo Info about the request
+     * @param {'get'|'post'} reqinfo.type Request method
+     * @param {String} reqinfo.path Request path
+     * @param {object} [data] Data sent with the request. Only in post requests
      */
     run(reqinfo, data) {}
 }
