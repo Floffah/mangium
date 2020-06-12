@@ -15,3 +15,4 @@ import React from "react"
 import ReactDOM from "react-dom"
 
 import "./setup"
+import './pagesetup'

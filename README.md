@@ -7,6 +7,8 @@ Open source service & project manager for developers or small teams.
 When using Mangium, please remember that it was made to be free to use, just work, and no more than that. If you want a big feature that could quite easily be a plugin, it probably is a plugin and if not make one.
 Collaborated should be minimal-ish
 
+Mangium is very plugin driven. A lot of the stuff it does it part of a built in plugin that may be enabled or disabled depending on what you choose during setup
+
 ## Usage
 See [the wiki](https://github.com/Floffah/mangium/wiki) to learn how to use and set up.
 
@@ -27,6 +29,9 @@ When contributing just keep in mind that Mangium shouldn't be completely profess
 
 
 # Help
+ - I installed a plugin but its not there!
+    - This is probably because you haven't approved it yet. Plugins have access to a lot of things so you have to approve what it does before it is enabled no matter how you install it.
+    - It could also be caused by an error in the plugin.
  - For some reason the time at the end of the log is really big?
     - This is because currently, that time is the milliseconds since the last log. This will be changed in the future but it is like that so I can test timings.
  - I can't access the web panel!
