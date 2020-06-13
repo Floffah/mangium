@@ -13,6 +13,29 @@ function isBtmSc(el) {
     return el.innerHeight() - el.scrollTop()  >= el.innerHeight()
 }
 
+class Start extends React.Component {
+    render() {
+        return [
+            <h1 key={0}>Start</h1>,
+            <div key={1} className="setup-start setup-content-container">
+                <p>Hi! You must be new to Mangium.</p>
+                <p>This page will let you set up Mangium any way you want. Please follow the steps in order to complete the setup.</p>
+                <p>You can see where you are at any given time by clicking the menu button.</p>
+            </div>,
+            <div key={2} className="btn-container">
+                <Button className="btn-setup-disagree" disabled>
+                    Back
+                </Button>
+                <Button type="primary" className="btn-setup-agree" onClick={() => {
+                    SetupM.nextPage();
+                }}>
+                    Next
+                </Button>
+            </div>,
+        ]
+    }
+}
+
 class Agree extends React.Component {
     trackScrolling() {
         let el = $("#setup-terms");
@@ -40,7 +63,10 @@ class Agree extends React.Component {
                 <p>Fetching...</p>
             </div>,
             <div key={2} className="btn-container">
-                <Button className="btn-setup-disagree" onClick={() => {
+                <Button className="btn-setup-disagree" onLoad={this.trackScrolling} onClick={SetupM.lastPage}>
+                    Back
+                </Button>
+                <Button className="btn-setup-disagree" onLoad={this.trackScrolling} onClick={() => {
                     SetupM.nextPage();
                     SetupM.accterm(false);
                 }}>
@@ -81,5 +107,5 @@ class Info extends React.Component {
 }
 
 export default {
-    Agree, Info
+    Start, Agree, Info
 }

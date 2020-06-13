@@ -26,9 +26,12 @@ class SetupPages extends React.Component {
         return (
             <div className="setup-pages">
                 <SetupPage page={0}>
-                    <Pages.Agree/>
+                    <Pages.Start/>
                 </SetupPage>
                 <SetupPage page={1}>
+                    <Pages.Agree/>
+                </SetupPage>
+                <SetupPage page={2}>
                     <Pages.Info/>
                 </SetupPage>
             </div>
@@ -66,6 +69,7 @@ const Setup = () => {
                 onClose={drawerClose}
             >
                 <Steps size="small" current={currentStep} direction="vertical">
+                    <Steps.Step title="Start"/>
                     <Steps.Step title="Terms & Conditions"/>
                     <Steps.Step title="Names & Info"/>
                     <Steps.Step title="Database"/>
