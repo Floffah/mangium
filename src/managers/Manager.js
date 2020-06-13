@@ -10,10 +10,11 @@ const Logger = require('../log/Log'),
     fs = require('fs'),
     chalk = require('chalk'),
     WebManager = require('./WebManager'),
-    DatabaseManager = require('../db/DatabaseManager'),
-    SqliteDatabase = require('../db/SqliteDatabase'),
     low = require('lowdb'),
-    fisy = require('lowdb/adapters/FileSync');
+    fisy = require('lowdb/adapters/FileSync'),
+    Database = require('../db/Database'),
+    Sqlite = require('../db/SqliteType'),
+    knex = require('knex');
 
 class Manager {
     /**
@@ -47,14 +48,10 @@ class Manager {
     initialize() {
         this.getLogger().info("Initialising mangium...");
 
-        this._dbManager = new DatabaseManager(this);
-        this._dbManager.regdb("sqlite", SqliteDatabase);
-        this._dbManager.initConfig().then(didset => {
-            if(didset === false) {
-                this._dbManager.setdb("sqlite");
-            }
-            this.getLogger().info("Initialised database");
+        this._systemDb = new Database(Sqlite, {
+            path: Path.resolve(this.getPath("db"), 'system.sqlite'),
         });
+        this._systemDb.run(knex('settings').create());
 
         this._webManager = new WebManager(this);
         this._webManager.create();
