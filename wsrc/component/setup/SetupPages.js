@@ -23,10 +23,10 @@ class Start extends React.Component {
                 <p>You can see where you are at any given time by clicking the menu button.</p>
             </div>,
             <div key={2} className="btn-container">
-                <Button className="btn-setup-disagree" disabled>
+                <Button className="btn-setup-back" disabled>
                     Back
                 </Button>
-                <Button type="primary" className="btn-setup-agree" onClick={() => {
+                <Button type="primary" className="btn-setup-next" onClick={() => {
                     SetupM.nextPage();
                 }}>
                     Next
@@ -63,7 +63,7 @@ class Agree extends React.Component {
                 <p>Fetching...</p>
             </div>,
             <div key={2} className="btn-container">
-                <Button className="btn-setup-disagree" onLoad={this.trackScrolling} onClick={SetupM.lastPage}>
+                <Button className="btn-setup-back" onLoad={this.trackScrolling} onClick={SetupM.lastPage}>
                     Back
                 </Button>
                 <Button className="btn-setup-disagree" onLoad={this.trackScrolling} onClick={() => {
@@ -95,10 +95,10 @@ class Info extends React.Component {
                 </Select>
             </div>,
             <div key={2} className="btn-container">
-                <Button className="btn-setup-disagree" onClick={SetupM.lastPage}>
+                <Button className="btn-setup-back" onClick={SetupM.lastPage}>
                     Back
                 </Button>
-                <Button type="primary" className="btn-setup-agree" onClick={SetupM.nextPage}>
+                <Button type="primary" className="btn-setup-next" onClick={SetupM.nextPage}>
                     Next
                 </Button>
             </div>,
