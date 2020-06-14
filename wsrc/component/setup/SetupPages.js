@@ -59,14 +59,16 @@ class Agree extends React.Component {
     render() {
         return [
             <h1 key={0}>Terms</h1>,
-            <div key={1} className="setup-terms" id="setup-terms">
+            <div key={1} className="setup-terms" id="setup-terms" onLoad={() => {
+                $("#setup-terms").scrollTop();
+            }}>
                 <p>Fetching...</p>
             </div>,
             <div key={2} className="btn-container">
-                <Button className="btn-setup-back" onLoad={this.trackScrolling} onClick={SetupM.lastPage}>
+                <Button className="btn-setup-back" onClick={SetupM.lastPage}>
                     Back
                 </Button>
-                <Button className="btn-setup-disagree" onLoad={this.trackScrolling} onClick={() => {
+                <Button className="btn-setup-disagree" onClick={() => {
                     SetupM.nextPage();
                     SetupM.accterm(false);
                 }}>

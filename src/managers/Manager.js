@@ -61,6 +61,7 @@ class Manager {
         });
 
         // db load
+        // cant stop wont stop initializing
         try {
             if (!arrays(this._systemDb.run(q.settings.listTables()).all()).hasExact({name: 'settings'})) {
                 this._systemDb.run(q.settings.createTable()).run();
@@ -76,7 +77,7 @@ class Manager {
         this._webManager = new WebManager(this);
         this._webManager.create();
 
-        // finish initialise
+        // finish initialize
         this._initialized = true;
     }
 
