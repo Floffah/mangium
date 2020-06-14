@@ -22,6 +22,9 @@ Mangium no longer uses bootstrap.
 # Backend code
 I tried to write it in a class-based format as much as I could because why not.
 
+# Databases
+If you wish to write a new database connection type, please add it to db/Database.js and make sure Database.run() returns almost exactly what [better-sqlite3's statement](https://github.com/JoshuaWise/better-sqlite3/blob/HEAD/docs/api.md#class-statement) does in order to avoid incompatibility issues and because the way that library does it is just logical.
+
 # API
 The api is a TCP server running on port 56 that communicates using packets full of JSON that follows the format
 ```JSON

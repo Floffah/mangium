@@ -27,7 +27,7 @@
   "dependencies": {
     "async": "^3.2.0",
     "axios": "^0.19.2",
-    "better-sqlite3": "^7.0.1",
+    "better-sqlite3": "^7.1.0",
     "body-parser": "^1.19.0",
     "chalk": "^4.0.0",
     "debug": "^4.1.1",
@@ -37,6 +37,7 @@
     "lowdb": "^1.0.0",
     "marked": "^1.1.0",
     "socket.io": "^2.3.0",
+    "sqlite3": "^4.2.0",
     "threads": "^1.4.1",
     "time-stamp": "^2.2.0",
     "uuid": "^8.1.0"

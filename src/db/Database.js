@@ -6,11 +6,14 @@
  */
 
 const Path = require('path'),
-    Runner = require('runner');
+    bs3 = require('better-sqlite3');
 
 class Database {
-    constructor(dbType, opts) {
-        this.dbType = new dbType(opts);
+    constructor(opts, ko) {
+        this.opts = opts;
+        if(opts.type === 'sqlite') {
+            this.db = bs3(opts.path);
+        }
     }
 
     run(query) {
@@ -20,11 +23,7 @@ class Database {
         } else {
             qry = query.toString();
         }
-        return new Runner(qry, this);
-    }
-
-    executeQuery(query, ...args) {
-        return this.dbType.run(query, ...args);
+        return this.db.prepare(query);
     }
 }
 

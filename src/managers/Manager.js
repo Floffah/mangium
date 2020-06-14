@@ -13,8 +13,8 @@ const Logger = require('../log/Log'),
     low = require('lowdb'),
     fisy = require('lowdb/adapters/FileSync'),
     Database = require('../db/Database'),
-    Sqlite = require('../db/SqliteType'),
-    knex = require('knex');
+    knex = require('knex'),
+    arrays = require('../util/Arrays');
 
 class Manager {
     /**
@@ -36,7 +36,7 @@ class Manager {
             ["err", Path.join(__dirname, '../../data/logs/errors')]
         ]);
         this._paths.forEach((v, k) => {
-            if(!fs.existsSync(v)) {
+            if (!fs.existsSync(v)) {
                 fs.mkdirSync(v);
             }
         });
@@ -48,10 +48,16 @@ class Manager {
     initialize() {
         this.getLogger().info("Initialising mangium...");
 
-        this._systemDb = new Database(Sqlite, {
+        this._systemDb = new Database({
             path: Path.resolve(this.getPath("db"), 'system.sqlite'),
+            type: 'sqlite'
         });
-        this._systemDb.run(knex('settings').create());
+
+        if (!arrays(
+            this._systemDb.run(require('../db/queries/settings').listTables()).all()
+        ).hasExact({name: 'settings'})) {
+            this._systemDb.run(require('../db/queries/settings').createTable()).run();
+        }
 
         this._webManager = new WebManager(this);
         this._webManager.create();
@@ -61,11 +67,11 @@ class Manager {
 
     load() {
         this._webManager.listen();
-        if(this._config.get("setup").value() !== true) {
+        if (this._config.get("setup").value() !== true) {
             this._webManager.needSetup();
         }
 
-        if(this._options.cibdone !== undefined) {
+        if (this._options.cibdone !== undefined) {
             this._options.cibdone(this._errors.length >= 1, this._errors);
         }
     }
@@ -76,7 +82,8 @@ class Manager {
     }
 
     /**
-     * Pass an error to mangium if there was an error along the way. The error is sent to the cibuild area when it runs cibdone.
+     * Pass an error to mangium if there was an error along the way. The error is sent to the cibuild area when it runs
+     * cibdone.
      * @param err
      */
     passError(err) {
