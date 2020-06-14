@@ -4,7 +4,7 @@ I write the code in a way and using tools that is "modern" and I see a lot of de
 Please keep in mind that Mangium was made to be free to use, just work, and no more than that. If you want to add a big feature that could quite easily be a plugin, make it a plugin instead.
 
 # Web panel
-The web panel is built using Webpack (with react), and sass for css. Oh, also I use the [open-color](https://yeun.github.io/open-color/) colour theme
+The web panel is built using Webpack (with react), and sass for css. Oh, also I use the [open-color](https://yeun.github.io/open-color/) colour theme (and [Ant Design](https://ant.design)'s too)
 
 Page urls use the format `http(s)://some.url/#/path`
 

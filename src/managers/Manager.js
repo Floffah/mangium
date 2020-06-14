@@ -14,7 +14,12 @@ const Logger = require('../log/Log'),
     fisy = require('lowdb/adapters/FileSync'),
     Database = require('../db/Database'),
     knex = require('knex'),
-    arrays = require('../util/Arrays');
+    arrays = require('../util/Arrays'),
+    {saveErr} = require('../handler/errorHandlers');
+
+let q = {
+    settings: require('../db/queries/settings')
+}
 
 class Manager {
     /**
@@ -43,34 +48,46 @@ class Manager {
         this._logger = new Logger(this, false);
         this._initialized = false;
         this._config = low(new fisy(Path.join(this.getPath("config"), 'config.json')));
+        this.dodb = false;
     }
 
     initialize() {
         this.getLogger().info("Initialising mangium...");
 
+        // db create
         this._systemDb = new Database({
             path: Path.resolve(this.getPath("db"), 'system.sqlite'),
             type: 'sqlite'
         });
 
-        if (!arrays(
-            this._systemDb.run(require('../db/queries/settings').listTables()).all()
-        ).hasExact({name: 'settings'})) {
-            this._systemDb.run(require('../db/queries/settings').createTable()).run();
+        // db load
+        try {
+            if (!arrays(this._systemDb.run(q.settings.listTables()).all()).hasExact({name: 'settings'})) {
+                this._systemDb.run(q.settings.createTable()).run();
+            }
+            this.getLogger().info("Database initialised");
+            this.dodb = true;
+        } catch(e) {
+            this.getLogger().warn("Something went wrong while initialising the database. Saving...");
+            saveErr(this, new Error("Database could not be initialised."), "Database load error")
         }
 
+        // db web create
         this._webManager = new WebManager(this);
         this._webManager.create();
 
+        // finish initialise
         this._initialized = true;
     }
 
     load() {
+        // web start
         this._webManager.listen();
         if (this._config.get("setup").value() !== true) {
             this._webManager.needSetup();
         }
 
+        // end if in build mode
         if (this._options.cibdone !== undefined) {
             this._options.cibdone(this._errors.length >= 1, this._errors);
         }

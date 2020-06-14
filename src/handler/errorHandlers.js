@@ -32,3 +32,22 @@ module.exports.reg = (manager) => {
     process.on('unhandledRejection', errhandle);
     process.on('rejectionHandled', errhandle);
 };
+
+module.exports.saveErr = (manager, err, message) => {
+    let erruuid = uuid.v4(),
+        path = Path.resolve(manager.getPath("err"), `${erruuid}.err`);
+    if(err) {
+        fs.writeFileSync(path, `${err.stack}`);
+    }
+    if(typeof message === "string") {
+        manager.getLogger().err(`An error has been saved. Message: ${message}.`);
+    } else {
+        manager.getLogger().err(`An error has occured.`);
+    }
+    if(err) {
+        manager.getLogger().err(`See more information at ${path}`);
+        manager.passError(err);
+    } else {
+        console.log(arguments);
+    }
+}
