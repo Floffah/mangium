@@ -13,7 +13,15 @@ class State extends Endpoint {
             path: '/getState',
             types: ['post'],
             description: 'Get the current state',
-            errors: ["sameState"]
+            errors: ["sameState"],
+            posts: [{
+                currentState: "state"
+            }],
+            returns: [{
+                state: "state"
+            }, {
+                error: "error"
+            }]
         });
     }
 

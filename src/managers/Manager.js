@@ -12,14 +12,7 @@ const Logger = require('../log/Log'),
     WebManager = require('./WebManager'),
     low = require('lowdb'),
     fisy = require('lowdb/adapters/FileSync'),
-    Database = require('../db/Database'),
-    knex = require('knex'),
-    arrays = require('../util/Arrays'),
-    {saveErr} = require('../handler/errorHandlers');
-
-let q = {
-    settings: require('../db/queries/settings')
-}
+    DatabaseManager = require('./DatabaseManager');
 
 class Manager {
     /**
@@ -40,38 +33,41 @@ class Manager {
             ["logs", Path.join(__dirname, '../../data/logs')],
             ["err", Path.join(__dirname, '../../data/logs/errors')]
         ]);
-        this._paths.forEach((v, k) => {
+        this._paths.forEach((v) => {
             if (!fs.existsSync(v)) {
                 fs.mkdirSync(v);
             }
         });
         this._logger = new Logger(this, false);
         this._initialized = false;
-        this._config = low(new fisy(Path.join(this.getPath("config"), 'config.json')));
         this.dodb = false;
     }
 
     initialize() {
         this.getLogger().info("Initialising mangium...");
 
-        // db create
-        this._systemDb = new Database({
-            path: Path.resolve(this.getPath("db"), 'system.sqlite'),
-            type: 'sqlite'
-        });
+        // config
+        if (!fs.existsSync(Path.join(this.getPath("config"), "config.json"))) {
+            this._config = low(new fisy(Path.join(this.getPath("config"), 'config.json')));
+            this._config.defaults({
+                web: {
+                    hostname: "127.0.0.1",
+                    port: 3000
+                },
+                database: {
+                    type: "sqlite"
+                },
+                settings: {
+                    setup: false
+                }
+            }).write()
+        } else {
+            this._config = low(new fisy(Path.join(this.getPath("config"), 'config.json')));
+        }
 
         // db load
-        // cant stop wont stop initializing
-        try {
-            if (!arrays(this._systemDb.run(q.settings.listTables()).all()).hasExact({name: 'settings'})) {
-                this._systemDb.run(q.settings.createTable()).run();
-            }
-            this.getLogger().info("Database initialised");
-            this.dodb = true;
-        } catch(e) {
-            this.getLogger().warn("Something went wrong while initialising the database. Saving...");
-            saveErr(this, new Error("Database could not be initialised."), "Database load error")
-        }
+        this._dbManager = new DatabaseManager(this);
+        this._dbManager.init();
 
         // db web create
         this._webManager = new WebManager(this);

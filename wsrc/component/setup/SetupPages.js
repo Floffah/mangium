@@ -208,21 +208,10 @@ function Review() {
 class Done extends React.Component {
     render() {
         return [
-            //<h1 key={0}>Start</h1>,
             <div key={1} className="setup-done setup-content-container">
                 <Result status="success" title="You've finished the setup!"
                         subTitle={[<span>Saving&nbsp;&nbsp;</span>, <Spin size="small"/>]}/>
             </div>,
-            // <div key={2} className="btn-container">
-            //     <Button className="btn-setup-back" disabled>
-            //         Back
-            //     </Button>
-            //     <Button type="primary" className="btn-setup-next" onClick={() => {
-            //         SetupM.nextPage();
-            //     }}>
-            //         Next
-            //     </Button>
-            // </div>,
         ]
     }
 }

@@ -14,7 +14,17 @@ class State extends Endpoint {
             path: '/multi',
             types: ['post'],
             description: 'Send multiple "requests" as one.',
-            errors: ["incoInfo", "incoReq"]
+            errors: ["incoInfo", "incoReq"],
+            posts: [{
+                requests: [{
+                    path: "string"
+                }]
+            }],
+            returns: [{
+                requests: ["api return body"]
+            }, {
+                error: "error"
+            }]
         });
     }
 
