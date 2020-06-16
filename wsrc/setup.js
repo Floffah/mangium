@@ -17,6 +17,7 @@ let setupM = {
     page: 0,
     el: <Setup.Setup current={0}/>,
     signature: `mangium-setup-terms-${Date.now()}`,
+    settings: new Map(),
     init() {
         ReactDOM.render(this.el, document.getElementById("content"));
         post("/terms", {

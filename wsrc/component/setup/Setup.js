@@ -34,6 +34,15 @@ class SetupPages extends React.Component {
                 <SetupPage page={2}>
                     <Pages.Info/>
                 </SetupPage>
+                <SetupPage page={3}>
+                    <Pages.Admin/>
+                </SetupPage>
+                <SetupPage page={4}>
+                    <Pages.Review/>
+                </SetupPage>
+                <SetupPage page={5}>
+                    <Pages.Done/>
+                </SetupPage>
             </div>
         )
     }
@@ -71,9 +80,9 @@ const Setup = () => {
                 <Steps size="small" current={currentStep} direction="vertical">
                     <Steps.Step title="Start"/>
                     <Steps.Step title="Terms & Conditions"/>
-                    <Steps.Step title="Names & Info"/>
-                    <Steps.Step title="Database"/>
-                    <Steps.Step title="User setup"/>
+                    <Steps.Step title="Info"/>
+                    <Steps.Step title="Admin Account"/>
+                    <Steps.Step title="Review"/>
                 </Steps>
             </Drawer>
         </div>
