@@ -210,7 +210,7 @@ class Done extends React.Component {
         return [
             <div key={1} className="setup-done setup-content-container">
                 <Result status="success" title="You've finished the setup!"
-                        subTitle={[<span>Saving&nbsp;&nbsp;</span>, <Spin size="small"/>]}/>
+                        subTitle={[<span key={0}>Saving&nbsp;&nbsp;</span>, <Spin size="small" key={1}/>]}/>
             </div>,
         ]
     }

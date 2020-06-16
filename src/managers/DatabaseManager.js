@@ -23,15 +23,15 @@ class DatabaseManager {
 
     init() {
         // db create
-        this._dbs._systemDb = new Database({
+        this._dbs.systemDb = new Database({
             path: Path.resolve(this._manager.getPath("db"), 'system.sqlite'),
             type: 'sqlite'
         });
 
         // cant stop wont stop initializing
         try {
-            if (!arrays(this._dbs._systemDb.run(q.settings.listTables()).all()).hasExact({name: 'settings'})) {
-                this._dbs._systemDb.run(q.settings.createTable()).run();
+            if (!arrays(this._dbs.systemDb.run(q.settings.listTables()).all()).hasExact({name: 'settings'})) {
+                this._dbs.systemDb.run(q.settings.createTable()).run();
             }
             this._manager.getLogger().info("Database initialised");
             this.dodb = true;
@@ -39,6 +39,14 @@ class DatabaseManager {
             this._manager.getLogger().warn("Something went wrong while initialising the database. Saving...");
             saveErr(this, new Error("Database could not be initialised."), "Database load error")
         }
+    }
+
+    /**
+     *
+     * @returns {{}}
+     */
+    getDbs() {
+        return this._dbs;
     }
 }
 

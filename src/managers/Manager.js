@@ -132,6 +132,14 @@ class Manager {
 
     /**
      *
+     * @returns {DatabaseManager}
+     */
+    getDbManager() {
+        return this._dbManager;
+    }
+
+    /**
+     *
      * @returns {Logger}
      */
     getLogger() {

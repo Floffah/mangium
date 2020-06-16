@@ -15,5 +15,8 @@ module.exports = {
             "'name' varchar(255),\n" +
             "'data' json" +
             ")"
+    },
+    setupAdmin() {
+        return "insert or replace into settings (name, data) values (?, ?);"
     }
 }

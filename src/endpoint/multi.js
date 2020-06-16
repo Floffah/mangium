@@ -38,6 +38,7 @@ class State extends Endpoint {
                         requests[requests.indexOf(v)] = {
                             error: "incoReq"
                         }
+                        d(new Error("bad oof"));
                     } else {
                         requests[requests.indexOf(v)] = ep.run();
                     }

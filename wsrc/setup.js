@@ -9,7 +9,7 @@ import React from "react";
 import ReactDOM from "react-dom"
 import Setup from "./component/setup/Setup";
 import Markdown from './component/markdown';
-import {post} from './lib/comms';
+import {post, get} from './lib/comms';
 import {renderToString} from 'react-dom/server';
 import {showError} from './lib/errors';
 
@@ -61,7 +61,30 @@ let setupM = {
         )
     },
     setupDone() {
-        console.log('Done dee')
+        post("/settings", {
+            "access-code": "setup",
+            settings: [
+                {
+                    at: "config",
+                    setting: "info.using",
+                    value: setupM.settings.get("using"),
+                },
+                {
+                    at: "config",
+                    setting: "database.type",
+                    value: "SQLite",
+                },
+                {
+                    at: "settings",
+                    setting: "admin",
+                    value: JSON.stringify(setupM.settings.get("admin"))
+                }
+            ]
+        }).then(res => {
+            get("/setupDone").then(() => {
+                window.location.reload();
+            });
+        });
     },
 };
 
