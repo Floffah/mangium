@@ -40,9 +40,8 @@ class Terms extends Endpoint {
                     error: 'largeTimeDiff'
                 }
             }
-            let config = low(new fisy(Path.join(this.manager.getPath("config"), 'config.json')));
             if(info.accepted === true) {
-                config.set("terms", {
+                this.manager.getConfig().set("info.terms", {
                     time: Date.now(),
                     accepted: true
                 }).write();
@@ -50,7 +49,7 @@ class Terms extends Endpoint {
                     success: true
                 }
             } else {
-                config.set("terms", {
+                this.manager.getConfig().set("info.terms", {
                     time: Date.now(),
                     accepted: false
                 }).write();
