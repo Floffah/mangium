@@ -21,7 +21,7 @@ class Terms extends Endpoint {
             errors: ['incoSignature', 'largeTimeDiff']
         });
 
-        this._namespace = uuid.v5(this.manager.getWebManager().config.get("hostname").value(), uuid.v5.URL);
+        this._namespace = uuid.v5(this.manager.getConfig().get("web.hostname").value(), uuid.v5.URL);
         this._termsessions = new Map();
         this._termslink = {};
     }

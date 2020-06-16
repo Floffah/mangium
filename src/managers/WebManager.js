@@ -6,10 +6,7 @@
  */
 
 const express = require("express"),
-    Path = require("path"),
-    low = require("lowdb"),
-    fisy = require("lowdb/adapters/FileSync"),
-    fs = require("fs");
+    Path = require("path");
 
 const APIManager = require('./APIManager');
 
@@ -19,7 +16,6 @@ class WebManager {
         this._created = false
         this._app = undefined
         this._http = undefined
-        this._webconf = undefined
         this._handlers = undefined
         this._apimanager = undefined;
         this._state = "starting";
@@ -29,16 +25,6 @@ class WebManager {
         if (this._created === true && this._app === undefined && this._http === undefined) {
             this._manager.getLogger().err("This WebManager has already been created")
             return
-        }
-
-        if (!fs.existsSync(Path.join(this._manager.getPath("config"), "web.json"))) {
-            this._webconf = low(new fisy(Path.join(this._manager.getPath("config"), "web.json")))
-            this._webconf.defaults({
-                hostname: "127.0.0.1",
-                port: 3000
-            }).write()
-        } else {
-            this._webconf = low(new fisy(Path.join(this._manager.getPath("config"), "web.json")))
         }
 
         this._handlers = {}
@@ -67,7 +53,7 @@ class WebManager {
                 this._handlers[k].onListen(this);
             }
         });
-        this._server.listen(this._webconf.get("port").value(), this._webconf.get("hostname").value(), () => {
+        this._server.listen(this._manager.getConfig().get("web.port").value(), this._manager.getConfig().get("web.hostname").value(), () => {
             this._manager
                 .getLogger()
                 .info("Web panel listening on address " + this._server.address().address + ":" + this._server.address().port)
@@ -108,10 +94,6 @@ class WebManager {
 
     get manager() {
         return this._manager;
-    }
-
-    get config() {
-        return this._webconf;
     }
 
     getState() {

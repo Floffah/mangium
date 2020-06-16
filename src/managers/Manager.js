@@ -80,7 +80,7 @@ class Manager {
     load() {
         // web start
         this._webManager.listen();
-        if (this._config.get("setup").value() !== true) {
+        if (this._config.get("settings.setup").value() !== true) {
             this._webManager.needSetup();
         }
 
@@ -120,6 +120,14 @@ class Manager {
      */
     setPath(name, path) {
         this._paths.set(name, path);
+    }
+
+    /**
+     *
+     * @returns {If<*[AsyncProperty], Promise<Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], AsyncTag>, *>>, Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], SyncTag>, *>> | If<*[AsyncProperty], Promise<Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], AsyncTag>, *>>, Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], SyncTag>, *>>}
+     */
+    getConfig() {
+        return this._config;
     }
 
     /**
