@@ -12,7 +12,7 @@
     "##": "Only use devtest if you aren't watching the logs",
     "cib": "npx webpack --config library.webpack.config.js && npx webpack && node src/mangium --cib",
     "run": "node .",
-    "run:firstrun": "npx webpack --config library.webpack.config.js && npx webpack && node ."
+    "run:firstrun": "npm install && npx webpack --config library.webpack.config.js && npx webpack && node ."
   },
   "repository": {
     "type": "git",
