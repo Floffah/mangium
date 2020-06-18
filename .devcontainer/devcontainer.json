@@ -1,5 +1,0 @@
-{
-  "name": "Mangium",
-	"dockerFile": "Dockerfile",
-  "forwardPorts": [3000]
-}
