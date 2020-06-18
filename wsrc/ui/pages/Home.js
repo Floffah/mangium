@@ -6,9 +6,14 @@
  */
 
 import React from 'react'
+import M from '../common/Menu'
 
-export class Home extends React.Component {
+export default class Home extends React.Component {
     render() {
-        return (<p>Hi</p>);
+        return (
+            <div className="home-body">
+                <M/>
+            </div>
+        );
     }
 }

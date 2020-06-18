@@ -10,7 +10,7 @@ import React from 'react';
 export default class Starting extends React.Component {
     render() {
         return (
-            <div className="starting-content"></div>
+            <div className="starting-content"><p>Please refresh the page</p></div>
         )
     }
 }

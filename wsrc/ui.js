@@ -32,24 +32,18 @@ function changePage(page) {
         reqpage = page;
         window.location.href = page;
     }
-    console.log(pages["/starting"]())
+    pages.default();
     if (typeof pages[reqpage] === "function") {
-        console.log(pages[reqpage]());
-        ReactDOM.render(<Body>
-            {pages[reqpage]()}
-        </Body>, document.getElementById("content"));
+        ReactDOM.render(<Body>{pages[reqpage]()}</Body>, document.getElementById("content"));
     } else {
         window.location.href = "#/home"
-        ReactDOM.render(<Body>
-            {pages["/home"]()}
-        </Body>, document.getElementById("content"));
+        ReactDOM.render(<Body>{pages["/home"]()}</Body>, document.getElementById("content"));
     }
 }
 
 post('/getState', {
     currentState: 'pageload'
 }).then((res) => {
-    pages.default();
     try {
         if (res.data.state === "starting") {
             changePage("/starting")
@@ -58,6 +52,6 @@ post('/getState', {
         }
     } catch(e) {
         console.error(e);
-        showError("Could not find the specified page.")
+        showError("Something wen't wrong while loading the page.")
     }
 });
