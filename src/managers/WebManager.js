@@ -69,6 +69,10 @@ class WebManager {
         });
     }
 
+    started() {
+        this.setState("running");
+    }
+
     /**
      *
      * @param {String} name

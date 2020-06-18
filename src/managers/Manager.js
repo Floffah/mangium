@@ -88,6 +88,8 @@ class Manager {
         if (this._options.cibdone !== undefined) {
             this._options.cibdone(this._errors.length >= 1, this._errors);
         }
+
+        this._webManager.started();
     }
 
     end() {

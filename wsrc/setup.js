@@ -20,6 +20,7 @@ let setupM = {
     settings: new Map(),
     init() {
         ReactDOM.render(this.el, document.getElementById("content"));
+        $("body").addClass("dots");
         post("/terms", {
             type: 'init',
             signature: this.signature,

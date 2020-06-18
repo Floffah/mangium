@@ -1,4 +1,3 @@
-
 /*
  *     Copyright (C) 2020   Floffah
  *
@@ -6,11 +5,10 @@
  *     @link https://github.com/floffah/
  */
 
-import './ui'
+import React from 'react'
 
-
-import React from "react"
-import ReactDOM from "react-dom"
-
-import "./setup"
-import './pagesetup'
+export class Home extends React.Component {
+    render() {
+        return (<p>Hi</p>);
+    }
+}
