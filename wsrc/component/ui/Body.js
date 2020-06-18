@@ -24,8 +24,8 @@ export default class Body extends React.Component {
 
     render() {
         return [
-            <Button key={0} className="theme-switch-button" onClick={this.switchTheme}><BulbOutlined/></Button>,
-            <div key={1} className="body-content">{this.props.children}</div>
+            <div key={0} className="body-content">{this.props.children}</div>,
+            <Button key={1} className="theme-switch-button" onClick={this.switchTheme}><BulbOutlined/></Button>,
         ]
     }
 }

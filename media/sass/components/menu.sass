@@ -7,11 +7,46 @@
 
 .navmenu
   width: 200px
-  height: 100%
+  height: calc(100% - 40px)
   position: fixed
   left: 0
-  top: 0
+  top: 40px
   border-right: 2px solid #bfbfbf
+  outline-offset: -2px
+  background-color: #f0f0f0
+  ul
+    background-color: #f0f0f0
 
 body.dark .navmenu
   border-right: 2px solid #595959
+  background-color: #141414
+  ul
+    background-color: #141414
+
+.topbar
+  position: fixed
+  height: 40px
+  width: 100%
+  top: 0
+  left: 0
+  background-color: #1890ff
+  .brand
+    position: fixed
+    top: 1px
+    left: 20px
+    margin: 0
+    color: white
+
+body.dark .topbar
+  background-color: #0050b3
+  .brand
+    color: black
+
+.belownav-content
+  position: fixed
+  top: 50px
+  left: 210px
+  height: calc(100% - 60px)
+  width: calc(100% - 220px)
+  overflow-y: auto
+  overflow-x: hidden

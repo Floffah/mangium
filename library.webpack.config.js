@@ -35,8 +35,12 @@ module.exports = {
             '@babel/runtime/helpers/interopRequireWildcard.js',
 
             'antd',
-            'antd/dist/antd.css',
+            'antd/dist/antd.min.css',
+            'antd/dist/antd.dark.min.css',
             '@ant-design/icons/lib/components/AntdIcon.js',
+            '@ant-design/icons/es/index.js',
+
+            '@antv/g2plot'
         ]
     },
     module: {
