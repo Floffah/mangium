@@ -30,8 +30,8 @@ export default class Home extends React.Component {
             data: memdata,
             xField: 'hour',
             yField: 'memory',
-            height: 400,
-            width: 500,
+            height: 300,
+            width: 400,
             name: 'Memory usage',
             yAxis: {
                 max: 10,
