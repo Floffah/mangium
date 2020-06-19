@@ -75,6 +75,8 @@ class Manager {
 
         // finish initialize
         this._initialized = true;
+
+        this.load();
     }
 
     load() {

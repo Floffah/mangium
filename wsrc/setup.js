@@ -89,12 +89,4 @@ let setupM = {
     },
 };
 
-post('/getState', {
-    currentState: 'pageload'
-}).then((resp) => {
-    if (resp.data.state === 'setup') {
-        setupM.init();
-    }
-});
-
 export default setupM

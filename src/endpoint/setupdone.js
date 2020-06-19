@@ -26,7 +26,7 @@ class State extends Endpoint {
         if(reqinfo.type === "get") {
             let state = this.manager.getWebManager().getState();
             if(state === "setup") {
-                this.manager.getWebManager().setState("starting");
+                this.manager.getWebManager().setState("running");
                 this.manager.getConfig().set("settings.setup", true).write();
                 return {
                     success: true

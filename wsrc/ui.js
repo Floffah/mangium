@@ -15,6 +15,7 @@ import pages from './ui/pages';
 import {post} from "./lib/comms";
 import Body from './component/ui/Body'
 import {showError} from './lib/errors'
+import SetupM from './setup'
 
 if (localStorage.getItem("dark") === "yes") {
     require('antd/dist/antd.dark.min.css')
@@ -45,12 +46,14 @@ post('/getState', {
     currentState: 'pageload'
 }).then((res) => {
     try {
-        if (res.data.state === "starting") {
+        if (res.data.state === "setup") {
+            SetupM.init();
+        } else if (res.data.state === "starting") {
             changePage("/starting")
-        } else if (res.data.state !== "setup") {
+        } else {
             changePage();
         }
-    } catch(e) {
+    } catch (e) {
         console.error(e);
         showError("Something wen't wrong while loading the page.")
     }

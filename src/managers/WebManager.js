@@ -70,7 +70,9 @@ class WebManager {
     }
 
     started() {
-        this.setState("running");
+        if(this.getState() !== "setup") {
+            this.setState("running");
+        }
     }
 
     /**

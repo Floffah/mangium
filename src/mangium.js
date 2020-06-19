@@ -28,8 +28,6 @@ if (process.argv.includes("--cib")) {
 
     manager.initialize();
 
-    manager.load();
-
 } else {
     if(process.argv.includes("--mem")) trackMem();
 
@@ -37,8 +35,6 @@ if (process.argv.includes("--cib")) {
     require('./handler/errorHandlers').reg(manager);
 
     manager.initialize();
-
-    manager.load();
 }
 
 function trackMem() {
