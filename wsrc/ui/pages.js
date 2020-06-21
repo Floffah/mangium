@@ -6,11 +6,15 @@
  */
 
 import React from "react";
+import {changePage} from "../ui";
+
 import Starting from "../component/ui/Starting";
 import Home from './pages/Home'
 
 import NoMob from './pages/util/NoMobile';
 import Login from './pages/util/Login'
+
+import NoPermission from './pages/util/403'
 
 export default {
     default: () => {
@@ -26,8 +30,15 @@ export default {
     "/nomobile": () => {
         return <NoMob/>
     },
+    "/403": () => {
+        return <NoPermission/>
+    },
     "/login": () => {
-        $("body").addClass("dots")
-        return <Login/>
+        if(!localStorage.getItem("access_code")) {
+            $("body").addClass("dots")
+            return <Login/>
+        } else {
+            changePage("/403");
+        }
     }
 }

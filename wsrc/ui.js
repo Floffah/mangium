@@ -27,7 +27,7 @@ if (localStorage.getItem("dark") === "yes") {
     require('antd/dist/antd.min.css')
 }
 
-function changePage(page) {
+export function changePage(page) {
     let reqpage = window.location.hash.substr(1);
     if (page) {
         reqpage = page;
@@ -56,7 +56,7 @@ post('/getState', {
             SetupM.init();
         } else if (isMobileDevice()) {
             changePage("/nomobile")
-        } else if(!sessionStorage.getItem("access_token")) {
+        } else if(!sessionStorage.getItem("access_code")) {
             changePage("/login");
         } else  if (res.data.state === "starting") {
             changePage("/starting")

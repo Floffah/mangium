@@ -7,8 +7,25 @@
 
 import React from 'react'
 import {Button, Input} from 'antd';
+import {post} from '../../../lib/comms'
+import {showError} from "../../../lib/errors";
+import {changePage} from "../../../ui";
 
 export default class Login extends React.Component {
+    login() {
+        post("/access", {
+            username: $(".login-uname input").val(),
+            password: $(".login-pass input").val()
+        }).then((resp) => {
+            if(resp.data.error) {
+                showError(resp.data.error);
+            } else {
+                localStorage.setItem("access_code", resp.data["access_code"]);
+                changePage("/home");
+            }
+        })
+    }
+
     render() {
         return [
             <div key={0} className="topbar">
@@ -26,7 +43,7 @@ export default class Login extends React.Component {
                 </div>
                 <div className="btn-container">
                     <Button disabled>Sign up</Button>
-                    <Button type="primary">Login</Button>
+                    <Button type="primary" onClick={this.login}>Login</Button>
                 </div>
             </div>
         ]

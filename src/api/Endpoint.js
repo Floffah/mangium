@@ -14,6 +14,8 @@ class Endpoint {
      * @param {'get'|'post'} info.type Request method
      * @param {string} info.description Endpoint description
      * @param {string[]} [info.errors] Possible errors that might be returned
+     * @param {object[]} [info.posts] What should be in a post request
+     * @param {object[]} info.returns Information that might be returned
      */
     constructor(manager, info) {
         this.info = info;
