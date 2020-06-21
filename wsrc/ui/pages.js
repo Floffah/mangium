@@ -9,6 +9,9 @@ import React from "react";
 import Starting from "../component/ui/Starting";
 import Home from './pages/Home'
 
+import NoMob from './pages/util/NoMobile';
+import Login from './pages/util/Login'
+
 export default {
     default: () => {
         $("body").removeClass("dots")
@@ -19,5 +22,12 @@ export default {
     },
     "/home": () => {
         return <Home/>
+    },
+    "/nomobile": () => {
+        return <NoMob/>
+    },
+    "/login": () => {
+        $("body").addClass("dots")
+        return <Login/>
     }
 }

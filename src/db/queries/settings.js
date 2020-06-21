@@ -6,10 +6,6 @@
  */
 
 module.exports = {
-    listTables() {
-        return "Select name from sqlite_master\n" +
-            "where type = 'table';"
-    },
     createTable() {
         return "CREATE TABLE 'settings' (\n" +
             "'name' varchar(255),\n" +

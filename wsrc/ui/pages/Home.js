@@ -32,8 +32,6 @@ export default class Home extends React.Component {
             data: memdata,
             xField: 'hour',
             yField: 'memory',
-            height: 300,
-            width: 400,
             name: 'Memory usage',
             yAxis: {
                 max: 10,
@@ -79,7 +77,7 @@ export default class Home extends React.Component {
                                 width: "calc(100% - 400px)"
                             }}
                         >
-                            <Tabs defaultActiveKe="0" size="small" type="card">
+                            <Tabs defaultActiveKey="0" size="small" type="card">
                                 <Tabs.TabPane tab="Memory" key="0">
                                     <div id="memchart" className="chart-container">
                                     </div>

@@ -12,7 +12,9 @@ const Database = require('../db/Database'),
     Path = require('path');
 
 let q = {
-    settings: require('../db/queries/settings')
+    settings: require('../db/queries/settings'),
+    user: require('../db/queries/user'),
+    common: require('../db/queries/common'),
 }
 
 class DatabaseManager {
@@ -27,17 +29,29 @@ class DatabaseManager {
             path: Path.resolve(this._manager.getPath("db"), 'system.sqlite'),
             type: 'sqlite'
         });
+        this._dbs.userDb = new Database({
+            path: Path.resolve(this._manager.getPath("db"), 'users.sqlite'),
+            type: 'sqlite'
+        });
 
         // cant stop wont stop initializing
         try {
-            if (!arrays(this._dbs.systemDb.run(q.settings.listTables()).all()).hasExact({name: 'settings'})) {
+            if (!arrays(this._dbs.systemDb.run(q.common.listTables()).all()).hasExact({name: 'settings'})) {
                 this._dbs.systemDb.run(q.settings.createTable()).run();
             }
+            if (!arrays(this._dbs.userDb.run(q.common.listTables()).all()).hasExact({name: 'users'})) {
+                this._dbs.userDb.run(q.user.createTable()).run();
+            }
+            if (!arrays(this._dbs.userDb.run(q.common.listTables()).all()).hasExact({name: 'access'})) {
+                this._dbs.userDb.run(q.user.createAccess()).run();
+            }
+
             this._manager.getLogger().info("Database initialised");
             this.dodb = true;
         } catch(e) {
             this._manager.getLogger().warn("Something went wrong while initialising the database. Saving...");
-            saveErr(this, new Error("Database could not be initialised."), "Database load error")
+            console.error(e)
+            saveErr(this._manager, new Error("Database could not be initialised."), "Database load error")
         }
     }
 

@@ -9,7 +9,8 @@ const Endpoint = require('../api/Endpoint');
 const async = require('async');
 
 let q = {
-    settings: require('../db/queries/settings')
+    settings: require('../db/queries/settings'),
+    user: require('../db/queries/user'),
 }
 
 class State extends Endpoint {
@@ -55,6 +56,8 @@ class State extends Endpoint {
                 } else if(v.at === "settings") {
                     if(v.setting === "admin") {
                         this.manager.getDbManager().getDbs().systemDb.run(q.settings.setupAdmin()).run("admin", v.value);
+                        let d = JSON.parse(v.value);
+                        this.manager.getDbManager().getDbs().userDb.run(q.user.addUser()).run(d.uname, d.pass, JSON.stringify({override: "ALL"}), "admin");
                     }
                 }
             });

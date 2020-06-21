@@ -8,6 +8,7 @@ const Prettier = require("prettier-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const Ocap = require("optimize-css-assets-webpack-plugin");
 const HtmlPlugin = require('html-webpack-plugin');
+const ObfuscatePlugin = require ('webpack-obfuscator');
 
 let production = false;
 
@@ -73,6 +74,9 @@ module.exports = {
             title: 'Mangium',
             hash: true,
             template: "media/html/index.html"
+        }),
+        new ObfuscatePlugin({
+            rotateStringArray: true
         })
     ],
     devtool: 'source-map',
