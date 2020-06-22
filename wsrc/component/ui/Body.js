@@ -7,7 +7,7 @@
 
 import React from 'react';
 import {Button, Menu} from "antd";
-import {BulbOutlined, InfoCircleOutlined, SettingOutlined} from "@ant-design/icons";
+import {BulbOutlined, InfoCircleOutlined, SettingOutlined, ToolOutlined} from "@ant-design/icons";
 import {changePage} from "../../ui";
 
 
@@ -33,7 +33,7 @@ export default class Body extends React.Component {
                         mode="inline"
                         defaultSelectedKeys={[this.props.menukey]}
                     >
-                        <Menu.SubMenu key="admin" title="Admin">
+                        <Menu.SubMenu key="admin" title="Admin" icon={<ToolOutlined />}>
                             <Menu.Item key="dash" icon={<InfoCircleOutlined/>} onClick={() => changePage("/admin")}>Dashboard</Menu.Item>
                             <Menu.Item key="settings" icon={<SettingOutlined/>} onClick={() => changePage("/admin/settings")}>Settings</Menu.Item>
                         </Menu.SubMenu>
@@ -57,7 +57,10 @@ export default class Body extends React.Component {
         return [
             <div key={0} className="body-content">
                 <div className="topbar">
-                    <h2 className="brand">Mangium</h2>
+                    <h2 className="brand" style={{
+                        userSelect: "none",
+                        cursor: "pointer"
+                    }} onClick={() => changePage("/home")}>Mangium</h2>
                 </div>
                 {navmenu}
                 {belownav}
