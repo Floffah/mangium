@@ -9,7 +9,7 @@ import React from "react";
 import {changePage} from "../ui";
 
 import Starting from "../component/ui/Starting";
-import Home from './pages/Home'
+import Dashboard from './pages/Dashboard'
 import Settings from './pages/Settings';
 
 import NoMob from './pages/util/NoMobile';
@@ -27,13 +27,6 @@ export default {
         return {
             el: <Starting/>,
             sidebar: false,
-        }
-    },
-    "/home": () => {
-        return {
-            el: <Home/>,
-            sidebar: true,
-            key: "home"
         }
     },
     "/nomobile": () => {
@@ -66,6 +59,13 @@ export default {
                 el: <NoPermission/>,
                 sidebar: false
             }
+        }
+    },
+    "/admin": () => {
+        return {
+            el: <Dashboard/>,
+            sidebar: true,
+            key: "dash"
         }
     },
     "/admin/settings": () => {

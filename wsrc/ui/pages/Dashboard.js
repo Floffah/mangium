@@ -10,7 +10,7 @@ import {Line} from '@antv/g2plot';
 import {Col, Row, Statistic, Tabs} from 'antd'
 import {CloudServerOutlined, UserOutlined} from '@ant-design/icons'
 
-export default class Home extends React.Component {
+export default class Dashboard extends React.Component {
     componentDidMount() {
         let memdata = [
             {hour: "0000", memory: 9},

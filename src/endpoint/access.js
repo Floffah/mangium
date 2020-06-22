@@ -47,7 +47,7 @@ class Access extends Endpoint {
             }
             let exists = this.manager.getDbManager().getDbs().userDb.run(q.user.findAccess()).get(fetched.userid);
             if(exists && exists.token) {
-                if(Date.from(exists.expires) < new Date()) {
+                if(new Date(Date.parse(exists.expires)) < new Date()) {
                     this.manager.getDbManager().getDbs().userDb.run(q.user.deleteAccess()).run(exists.token);
                     let ac = crypto.randomBytes(256);
                     let achex = ac.toString("hex");
