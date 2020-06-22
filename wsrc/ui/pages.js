@@ -10,11 +10,13 @@ import {changePage} from "../ui";
 
 import Starting from "../component/ui/Starting";
 import Home from './pages/Home'
+import Settings from './pages/Settings';
 
 import NoMob from './pages/util/NoMobile';
 import Login from './pages/util/Login'
 
 import NoPermission from './pages/util/403'
+import NoPage from './pages/util/404'
 
 export default {
     default: () => {
@@ -22,23 +24,55 @@ export default {
     },
     "/starting": () => {
         $("body").addClass("dots")
-        return <Starting/>
+        return {
+            el: <Starting/>,
+            sidebar: false,
+        }
     },
     "/home": () => {
-        return <Home/>
+        return {
+            el: <Home/>,
+            sidebar: true,
+            key: "home"
+        }
     },
     "/nomobile": () => {
-        return <NoMob/>
+        return {
+            el: <NoMob/>,
+            sidebar: false,
+        }
     },
     "/403": () => {
-        return <NoPermission/>
+        return {
+            el: <NoPermission/>,
+            sidebar: true,
+        }
+    },
+    "/404": () => {
+        return {
+            el: <NoPage/>,
+            sidebar: true,
+        }
     },
     "/login": () => {
         if(!localStorage.getItem("access_code")) {
             $("body").addClass("dots")
-            return <Login/>
+            return {
+                el: <Login/>,
+                sidebar: false,
+            }
         } else {
-            changePage("/403");
+            return {
+                el: <NoPermission/>,
+                sidebar: false
+            }
+        }
+    },
+    "/admin/settings": () => {
+        return {
+            el: <Settings/>,
+            sidebar: true,
+            key: "settings"
         }
     }
 }

@@ -12,9 +12,6 @@ export default class NoPermission extends React.Component {
     render() {
         return (
             <div className="page-error-body">
-                <div key={0} className="topbar">
-                    <h2 className="brand">Mangium</h2>
-                </div>
                 <div className="page-error-container">
                     <Result
                         status="403"

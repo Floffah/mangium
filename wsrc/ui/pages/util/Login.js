@@ -28,9 +28,6 @@ export default class Login extends React.Component {
 
     render() {
         return [
-            <div key={0} className="topbar">
-                <h2 className="brand">Mangium</h2>
-            </div>,
             <div key={1} className="login-container">
                 <h2>Login</h2>
                 <div className="login-padder">

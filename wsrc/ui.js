@@ -9,7 +9,6 @@ import ReactDOM from "react-dom"
 
 import '@fortawesome/fontawesome-free/js/all.min'
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import "../media/sass/styles.sass"
 
 import pages from './ui/pages';
 import {post} from "./lib/comms";
@@ -26,6 +25,7 @@ if (localStorage.getItem("dark") === "yes") {
     localStorage.setItem("dark", "no");
     require('antd/dist/antd.min.css')
 }
+import "../media/sass/styles.sass"
 
 export function changePage(page) {
     let reqpage = window.location.hash.substr(1);
@@ -35,10 +35,11 @@ export function changePage(page) {
     }
     pages.default();
     if (typeof pages[reqpage] === "function") {
-        ReactDOM.render(<Body>{pages[reqpage]()}</Body>, document.getElementById("content"));
+        let renderPage = pages[reqpage]();
+        ReactDOM.render(<Body doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
     } else {
-        window.location.href = "#/home"
-        ReactDOM.render(<Body>{pages["/home"]()}</Body>, document.getElementById("content"));
+        let renderPage = pages["/404"]();
+        ReactDOM.render(<Body doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
     }
 }
 
@@ -56,7 +57,7 @@ post('/getState', {
             SetupM.init();
         } else if (isMobileDevice()) {
             changePage("/nomobile")
-        } else if(!sessionStorage.getItem("access_code")) {
+        } else if(!localStorage.getItem("access_code")) {
             changePage("/login");
         } else  if (res.data.state === "starting") {
             changePage("/starting")

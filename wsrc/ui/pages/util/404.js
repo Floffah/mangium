@@ -6,21 +6,20 @@
  */
 
 import React from 'react'
-
 import {Result} from 'antd';
 
-export default class Home extends React.Component {
-
+export default class NoPermission extends React.Component {
     render() {
         return (
-            <div className="nomob-body">
-                <div className="nomob-container">
+            <div className="page-error-body">
+                <div className="page-error-container">
                     <Result
-                        status="error"
-                        title="Mangium currently does not support mobile users yet."
+                        status="404"
+                        title="404"
+                        subTitle="Page not found."
                     />
                 </div>
             </div>
-        );
+        )
     }
 }
