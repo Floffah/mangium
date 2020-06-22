@@ -42,7 +42,10 @@ class User {
         if(data.password && data.username) {
             let found = this._manager.getDbManager().getDbs().run(q.user.getUser()).get(data.username, data.password);
             if(found) {
-                this.data = found;
+                this.data = {
+                    ...found,
+                    permissions: new Permissions(found.permissions),
+                };
                 return this;
             } else {
                 this.data = null;
@@ -51,7 +54,10 @@ class User {
         } else if(data.userid) {
             let found = this._manager.getDbManager().getDbs().run(q.user.getUserID()).get(data.userid);
             if(found) {
-                this.data = found;
+                this.data = {
+                    ...found,
+                    permissions: new Permissions(found.permissions),
+                };
                 return this;
             } else {
                 this.data = null;
@@ -62,7 +68,10 @@ class User {
             if(foundAccess.userid) {
                 let found = this._manager.getDbManager().getDbs().run(q.user.getUserID()).get(foundAccess.userid);
                 if(found) {
-                    this.data = found;
+                    this.data = {
+                        ...found,
+                        permissions: new Permissions(found.permissions),
+                    };
                     return this;
                 } else {
                     this.data = null;

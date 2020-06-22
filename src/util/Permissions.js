@@ -14,14 +14,23 @@ class Permissions {
         }
     }
 
+    /**
+     *
+     * @param permission
+     * @returns {boolean}
+     */
     hasPermission(permission) {
         if(this._perms.override === "all") {
             return true;
         }
+        if(Object.keys(this._perms).includes(permission) && this._perms[permission] === "all") {
+            return true;
+        }
+        return false;
     }
 
-    setPermission() {
-
+    setPermission(permission, type) {
+        this._perms[permission] = type === true ? "all" : "none";
     }
 
     toObject() {
