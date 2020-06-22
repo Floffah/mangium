@@ -10,7 +10,7 @@ module.exports = {
         return `INSERT INTO access (token, userid, expires) VALUES (?,?,?);`
     },
     getToken() {
-        return `SELECT token FROM access WHERE token = ?;`
+        return `SELECT token,userid FROM access WHERE token = ?;`
     },
     findAccess() {
         return `SELECT token,expires FROM access WHERE userid = ?`;
@@ -24,6 +24,9 @@ module.exports = {
     },
     getUser() {
         return `SELECT * FROM users WHERE username = ? AND password = ?;`
+    },
+    getUserID() {
+        return `SELECT * FROM users WHERE userid = ?;`
     },
 
     createAccess() {
