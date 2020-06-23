@@ -11,6 +11,17 @@ import ReactDOM from 'react-dom';
 import {Alert} from 'antd'
 
 let lasterrid = 0;
+let lastoverlayid = 0;
+
+/**
+ *
+ * @param {React.Component} el
+ */
+export function openOverlay(el) {
+    $("#overlay").append(`<div id="overlay-${lastoverlayid}"></div>`);
+    ReactDOM.render(el, `overlay-${lastoverlayid}`);
+    lastoverlayid++;
+}
 
 export function showError(type) {
     let errmsg = translateError(type);

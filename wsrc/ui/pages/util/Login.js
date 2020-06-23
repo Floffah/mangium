@@ -8,7 +8,7 @@
 import React from 'react'
 import {Button, Input} from 'antd';
 import {post} from '../../../lib/comms'
-import {showError} from "../../../lib/errors";
+import {showError} from "../../../lib/overlay";
 import {changePage} from "../../../ui";
 
 export default class Login extends React.Component {

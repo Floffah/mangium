@@ -43,3 +43,5 @@ if (localStorage.getItem('animations') === null || localStorage.getItem('animati
     $("#overlay").append("<div id=\"animcontainer\"></div>");
     ReactDOM.render(<AnimDrawer/>, document.getElementById("animcontainer"));
 }
+
+export default AnimDrawer;

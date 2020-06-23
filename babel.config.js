@@ -1,16 +1,7 @@
 module.exports = {
     presets: [
+        "@babel/preset-env",
         "@babel/preset-react",
-        ["@babel/preset-env", {
-            targets: {
-                browsers: ["defaults",
-                    "last 1 version",
-                    "> 1%",
-                    "not IE 11",
-                    "not IE_Mob 11",
-                    "maintained node versions"]
-            }
-        }]
     ],
     plugins: [
         "@babel/plugin-syntax-dynamic-import",

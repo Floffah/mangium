@@ -13,7 +13,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import pages from './ui/pages';
 import {post} from "./lib/comms";
 import Body from './component/ui/Body'
-import {showError} from './lib/errors'
+import {showError} from './lib/overlay'
 import SetupM from './setup'
 
 if (localStorage.getItem("dark") === "yes") {

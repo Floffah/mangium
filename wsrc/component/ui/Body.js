@@ -6,9 +6,11 @@
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Button, Menu} from "antd";
 import {BulbOutlined, InfoCircleOutlined, SettingOutlined, ToolOutlined} from "@ant-design/icons";
 import {changePage} from "../../ui";
+import AnimDrawer from "../../pagesetup";
 
 
 export default class Body extends React.Component {
@@ -66,6 +68,10 @@ export default class Body extends React.Component {
                 {belownav}
             </div>,
             <Button key={1} className="theme-switch-button" onClick={this.switchTheme}><BulbOutlined/></Button>,
+            <Button key={2} className="pgsetup-open-button" onClick={() => {
+                $("#overlay").append("<div id=\"animcontainer\"></div>");
+                ReactDOM.render(<AnimDrawer/>, document.getElementById("animcontainer"));
+            }}><SettingOutlined/></Button>
         ]
     }
 }

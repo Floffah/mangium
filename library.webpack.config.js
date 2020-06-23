@@ -40,7 +40,9 @@ module.exports = {
             '@ant-design/icons/lib/components/AntdIcon.js',
             '@ant-design/icons/es/index.js',
 
-            '@antv/g2plot'
+            '@antv/g2plot',
+
+            'unsplash-js/lib/unsplash',
         ]
     },
     module: {

@@ -27,6 +27,9 @@ $dot-size: 1px
 @import './components/stats'
 @import './components/login'
 @import './components/settings'
+@import './components/unsplash'
+@import './components/buttons'
+@import './components/icon'
 
 body.dots
   background: linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center, linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color
@@ -46,6 +49,10 @@ body.dots
     position: fixed
     bottom: 10px
     right: 20px
+  .pgsetup-open-button
+    position: fixed
+    bottom: 10px
+    right: 76px
 
 #overlay
   position: fixed

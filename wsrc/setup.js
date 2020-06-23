@@ -11,7 +11,7 @@ import Setup from "./component/setup/Setup";
 import Markdown from './component/markdown';
 import {post, get} from './lib/comms';
 import {renderToString} from 'react-dom/server';
-import {showError} from './lib/errors';
+import {showError} from './lib/overlay';
 
 let setupM = {
     page: 0,
