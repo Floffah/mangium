@@ -60,7 +60,11 @@ class APIManager {
                 } else {
                     response = endpoint.run({path: req.path, type: req.method.toLowerCase()});
                 }
-                res.status(200).json(response);
+                if(response.then) {
+                    response.then(resp => res.status(200).json(resp))
+                } else {
+                    res.status(200).json(response);
+                }
                 return true;
             } else {
                 res.status(400).json({

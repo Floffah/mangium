@@ -15,11 +15,12 @@ let lastoverlayid = 0;
 
 /**
  *
- * @param {React.Component} el
+ * @param {React.Component} El
  */
-export function openOverlay(el) {
-    $("#overlay").append(`<div id="overlay-${lastoverlayid}"></div>`);
-    ReactDOM.render(el, `overlay-${lastoverlayid}`);
+export function openOverlay(El) {
+    let id = `overlay-${lastoverlayid}`;
+    $("#overlay #popup").append(`<div id="${id}"></div>`);
+    ReactDOM.render(<El overlayid={id}/>, document.getElementById(id));
     lastoverlayid++;
 }
 
@@ -49,6 +50,8 @@ export function translateError(type) {
         return "Sorry, that action is not supported."
     } else if(type === "notFound") {
         return "Sorry, the information provided did not match any records."
+    } else if(type === "noKeyFound") {
+        return "This server does not have an Unsplash key set."
     }
     return type;
 }

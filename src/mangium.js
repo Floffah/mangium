@@ -14,6 +14,9 @@ console.log(chalk.green("    Mangium  Copyright (C) 2020  Floffah & Mangium Cont
     "    This is free software, and you are welcome to redistribute it\n" +
     "    under certain conditions; for details see the \"LICENSE\" file."))
 
+const fetch = require('node-fetch');
+global.fetch = fetch;
+
 let Manager = require('./managers/Manager');
 
 if (process.argv.includes("--cib")) {

@@ -1,12 +1,12 @@
 {
   "name": "mangium",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Open source service manager for developers or small teams.",
   "main": "src/mangium.js",
   "scripts": {
     "start": "node src/mangium --mem",
     "test": "npx webpack && node src/mangium --mem",
-    "prepack": "npx webpack --config library.webpack.config.js",
+    "dll": "npx webpack --config library.webpack.config.js",
     "pack": "npx webpack --watch",
     "devtest": "npx concurrently npm:pack npm:start",
     "installerpack": "npx webpack --config library.webpack.config.js && npx webpack",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Floffah/mangium.git"
+    "url": "git+https://github.com/mangium/mangium.git"
   },
   "author": "Floffah",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
-    "url": "https://github.com/Floffah/mangium/issues"
+    "url": "https://github.com/mangium/mangium/issues"
   },
-  "homepage": "https://github.com/Floffah/mangium#readme",
+  "homepage": "https://github.com/mangium/mangium#readme",
   "dependencies": {
     "async": "^3.2.0",
     "axios": "^0.19.2",
@@ -37,6 +37,7 @@
     "knex": "^0.21.1",
     "lowdb": "^1.0.0",
     "marked": "^1.1.0",
+    "node-fetch": "^2.6.0",
     "socket.io": "^2.3.0",
     "sqlite3": "^4.2.0",
     "threads": "^1.4.1",

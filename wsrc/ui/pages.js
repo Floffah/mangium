@@ -18,6 +18,8 @@ import Login from './pages/util/Login'
 import NoPermission from './pages/util/403'
 import NoPage from './pages/util/404'
 
+import Build from './pages/util/Build'
+
 export default {
     default: () => {
         $("body").removeClass("dots")
@@ -73,6 +75,13 @@ export default {
             el: <Settings/>,
             sidebar: true,
             key: "settings"
+        }
+    },
+    "/info": () => {
+        return {
+            el: <Build/>,
+            sidebar: true,
+            key: "build"
         }
     }
 }

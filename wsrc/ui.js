@@ -41,6 +41,9 @@ export function changePage(page) {
         let renderPage = pages["/404"]();
         ReactDOM.render(<Body doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
     }
+    if(localStorage.getItem("bgurl")) {
+        $(".belownav-content").css("background-image", "url(" + localStorage.getItem("bgurl") + ")")
+    }
 }
 
 function isMobileDevice() {

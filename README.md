@@ -29,6 +29,8 @@ When contributing just keep in mind that Mangium shouldn't be completely profess
  - Why is Mangium named after at tree?
     - It kind of sounds like manager
     - Mangium can be extended (with plugins) like a tree on steroids can grow branches
+ - I just want to try out Mangium. How do I do this?
+    - Mangium leaves little to no footprint on your computer as it doesnt really install it, it just clones git repositories. Once you delete Mangium's instatllation folder, its gone. Just use the installer and you should be good to go.
 
 
 # Help

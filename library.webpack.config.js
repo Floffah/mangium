@@ -43,6 +43,7 @@ module.exports = {
             '@antv/g2plot',
 
             'unsplash-js/lib/unsplash',
+            'unsplash-js',
         ]
     },
     module: {

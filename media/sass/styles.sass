@@ -30,6 +30,7 @@ $dot-size: 1px
 @import './components/unsplash'
 @import './components/buttons'
 @import './components/icon'
+@import './components/colours'
 
 body.dots
   background: linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center, linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color
@@ -37,8 +38,6 @@ body.dots
   &.dark
     background: linear-gradient(90deg, $darkbg ($dot-space - $dot-size), transparent 1%) center, linear-gradient($darkbg ($dot-space - $dot-size), transparent 1%) center, $darkdot
     background-size: $dot-space $dot-space
-
-
 
 #content
   position: fixed

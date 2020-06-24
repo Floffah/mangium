@@ -17,6 +17,7 @@
 body.dark .navmenu
   border-right: 2px solid #595959
   background-color: #141414
+
   ul
     background-color: #141414
 
@@ -27,6 +28,7 @@ body.dark .navmenu
   top: 0
   left: 0
   background-color: #1890ff
+
   .brand
     position: fixed
     top: 1px
@@ -36,6 +38,7 @@ body.dark .navmenu
 
 body.dark .topbar
   background-color: #0050b3
+
   .brand
     color: black
 
@@ -48,10 +51,34 @@ body.dark .topbar
   overflow-y: auto
   overflow-x: hidden
   background-color: #f5f5f5
+  background-position: center
+  background-repeat: no-repeat
+  background-size: cover
+
   &.fullwidth
     height: calc(100% - 40px)
     width: 100%
     left: 0px
 
+.bgcover
+  position: fixed
+  top: 40px
+  left: 200px
+  height: calc(100% - 40px)
+  width: calc(100% - 200px)
+  overflow-y: auto
+  overflow-x: hidden
+  background-color: #f5f5f5
+  opacity: 0.75
+  pointer-events: none
+
+  .belownav-content.fullwidth .bgcover
+    height: calc(100% - 40px)
+    width: 100%
+    left: 0px
+
 body.dark .belownav-content
+  background-color: black
+
+body.dark .bgcover
   background-color: black

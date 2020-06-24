@@ -5,16 +5,23 @@
  *     @link https://github.com/floffah/
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Button, Menu} from "antd";
-import {BulbOutlined, InfoCircleOutlined, SettingOutlined, ToolOutlined} from "@ant-design/icons";
+import React, {useState} from 'react';
+import {Button, Drawer, Menu, Switch} from "antd";
+import {
+    BulbOutlined,
+    CheckOutlined,
+    CloseOutlined,
+    InfoCircleOutlined,
+    SettingOutlined,
+    ToolOutlined
+} from "@ant-design/icons";
 import {changePage} from "../../ui";
-import AnimDrawer from "../../pagesetup";
+import {openOverlay} from "../../lib/overlay";
+import Unsplash from "../util/Unsplash";
 
 
-export default class Body extends React.Component {
-    switchTheme() {
+export default function Body(p) {
+    function switchTheme() {
         if (localStorage.getItem("dark") === "yes") {
             localStorage.setItem("dark", "no");
         } else if (localStorage.getItem("dark") === "no") {
@@ -25,53 +32,85 @@ export default class Body extends React.Component {
         window.location.reload();
     }
 
-    render() {
-        let navmenu;
-        let belownav;
-        if (this.props.doSidebar) {
-            navmenu = (
-                <div className="navmenu">
-                    <Menu
-                        mode="inline"
-                        defaultSelectedKeys={[this.props.menukey]}
-                    >
-                        <Menu.SubMenu key="admin" title="Admin" icon={<ToolOutlined />}>
-                            <Menu.Item key="dash" icon={<InfoCircleOutlined/>} onClick={() => changePage("/admin")}>Dashboard</Menu.Item>
-                            <Menu.Item key="settings" icon={<SettingOutlined/>} onClick={() => changePage("/admin/settings")}>Settings</Menu.Item>
-                        </Menu.SubMenu>
-                    </Menu>
-                </div>
-            )
-            belownav = (
-                <div className="belownav-content">
-                    {this.props.children}
-                </div>
-            )
-        } else {
-            navmenu = <div className="nonav"></div>;
-            belownav = (
-                <div className="belownav-content fullwidth">
-                    {this.props.children}
-                </div>
-            )
-        }
-
-        return [
-            <div key={0} className="body-content">
-                <div className="topbar">
-                    <h2 className="brand" style={{
-                        userSelect: "none",
-                        cursor: "pointer"
-                    }} onClick={() => changePage("/home")}>Mangium</h2>
-                </div>
-                {navmenu}
-                {belownav}
-            </div>,
-            <Button key={1} className="theme-switch-button" onClick={this.switchTheme}><BulbOutlined/></Button>,
-            <Button key={2} className="pgsetup-open-button" onClick={() => {
-                $("#overlay").append("<div id=\"animcontainer\"></div>");
-                ReactDOM.render(<AnimDrawer/>, document.getElementById("animcontainer"));
-            }}><SettingOutlined/></Button>
-        ]
+    let navmenu;
+    let belownav;
+    if (p.doSidebar) {
+        navmenu = (
+            <div className="navmenu">
+                <Menu
+                    mode="inline"
+                    defaultSelectedKeys={[p.menukey]}
+                >
+                    <Menu.SubMenu key="admin" title="Admin" icon={<ToolOutlined/>}>
+                        <Menu.Item key="dash" icon={<InfoCircleOutlined/>}
+                                   onClick={() => changePage("/admin")}>Dashboard</Menu.Item>
+                        <Menu.Item key="settings" icon={<SettingOutlined/>}
+                                   onClick={() => changePage("/admin/settings")}>Settings</Menu.Item>
+                    </Menu.SubMenu>
+                    <Menu.SubMenu key="info" title="Information" icon={<InfoCircleOutlined/>}>
+                        <Menu.Item key="build" icon={<InfoCircleOutlined/>} onClick={() => changePage("/info")}>Build
+                            Info</Menu.Item>
+                        <Menu.Item disabled key="credits" icon={<BulbOutlined/>}
+                                   onClick={() => changePage("/info/credits")}>Credits</Menu.Item>
+                    </Menu.SubMenu>
+                </Menu>
+            </div>
+        )
+        belownav = (
+            <div className="belownav-content">
+                {p.children}
+            </div>
+        )
+    } else {
+        navmenu = <div className="nonav"></div>;
+        belownav = (
+            <div className="belownav-content fullwidth">
+                {p.children}
+            </div>
+        )
     }
+    const [visiblePGS, setVisiblePGS] = useState(false);
+    const changeAnims = (checked) => {
+        localStorage.setItem('animations', checked);
+    }
+
+    return [
+        <div key={0} className="body-content">
+            <div className="topbar">
+                <h2 className="brand" style={{
+                    userSelect: "none",
+                    cursor: "pointer"
+                }} onClick={() => changePage("/home")}>Mangium</h2>
+            </div>
+            {navmenu}
+            {belownav}
+        </div>,
+        <Button key={1} className="theme-switch-button" onClick={switchTheme}><BulbOutlined/></Button>,
+        <Button key={2} className="pgsetup-open-button" onClick={() => {
+            setVisiblePGS(true)
+        }}><SettingOutlined/></Button>,
+        <Drawer
+            title="Web setup"
+            placement="right"
+            closable={true}
+            onClose={() => {
+                setVisiblePGS(false);
+            }}
+            visible={visiblePGS}
+            key={3}
+        >
+            <p>Would you like to see better animations?</p>
+            <p>This may impact performance</p>
+            <Switch
+                defaultChecked
+                onChange={changeAnims}
+                checkedChildren={<CheckOutlined/>}
+                unCheckedChildren={<CloseOutlined/>}
+            /><br/>
+            {/* <a onClick={() => {*/}
+            {/*    openOverlay(Unsplash); MAY BE ADDED BACK IN THE FUTURE FOR NOW ITS JUST BROKEN LMAO*/}
+            {/*    setVisiblePGS(false);*/}
+            {/*}}>Change background</a>*/}
+        </Drawer>
+    ]
 }
