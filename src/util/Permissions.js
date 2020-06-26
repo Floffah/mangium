@@ -29,6 +29,14 @@ class Permissions {
         return false;
     }
 
+    hasPermissions(permissions) {
+        let does = true;
+        permissions.forEach((p) => {
+            if(this.hasPermission(p) === false) does = false;
+        });
+        return does;
+    }
+
     setPermission(permission, type) {
         this._perms[permission] = type === true ? "all" : "none";
     }

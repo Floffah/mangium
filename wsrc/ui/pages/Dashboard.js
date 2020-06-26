@@ -9,6 +9,7 @@ import React from 'react'
 import {Line} from '@antv/g2plot';
 import {Col, Row, Statistic, Tabs} from 'antd'
 import {CloudServerOutlined, UserOutlined} from '@ant-design/icons'
+import {changePage} from "../../ui";
 
 export default class Dashboard extends React.Component {
     componentDidMount() {
@@ -79,6 +80,11 @@ export default class Dashboard extends React.Component {
                             <Tabs.TabPane tab="Memory" key="0">
                                 <div id="memchart" className="chart-container">
                                 </div>
+                                <a style={{
+                                    position: "absolute",
+                                    right: 20,
+                                    bottom: 5
+                                }} className="memory-information" onClick={() => changePage("/admin/memory")}>More information</a>
                             </Tabs.TabPane>
                         </Tabs>
                     </div>

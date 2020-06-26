@@ -8,23 +8,31 @@
 import React, {useState} from "react";
 import {Button, Col, Input, Row, Select} from "antd";
 import {ExclamationCircleOutlined, ExclamationCircleFilled, LockOutlined} from '@ant-design/icons'
+import {settingSet} from "../../lib/comms";
 
 export default function Settings() {
     let [loading, setLoading] = useState(false);
     let [disabled, setDisabled] = useState(true);
+    let ch = [];
 
     function runSave() {
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-            setDisabled(true);
-        }, 1000);
+        settingSet(ch).then((resp) => {
+            if(!resp.data.error) {
+                setLoading(false);
+                setDisabled(true);
+            }
+        });
     }
 
-    function changed(e) {
+    function changed(e, setting) {
         if(disabled === true) {
             setDisabled(false);
         }
+        ch.push({
+            name: setting,
+            value: e.target.value
+        });
     }
 
 
@@ -40,6 +48,8 @@ export default function Settings() {
                 <Col span={400} style={{height: "15px"}}><p style={{display: "inline-block", width: "400px", padding: "4px 0"}}>Message</p></Col>
                 <Col span={100} style={{height: "15px"}}><p style={{display: "inline-block", width: "100px", padding: "4px 0"}}>Info</p></Col>
             </Row>
+
+
             <SettingsSection title="Database" message="Database configuration">
                 <Setting name="Database" message={<SettingMessage type="info" message="Currently limited to only SQLite as no other database types will be added until after the 0.0.1 milestone"/>}>
                     <Select defaultValue="sqlite" style={{width: "200px"}}>
@@ -52,16 +62,22 @@ export default function Settings() {
                     <Input value="{{data}}/db" disabled style={{width: "200px"}}/>
                 </Setting>
             </SettingsSection>
+
+
             <SettingsSection title="Panel" message="Panel info">
                 <Setting name="Name">
                     <Input value="Mangium" disabled style={{width: "200px"}}/>
                 </Setting>
             </SettingsSection>
+
+
             <SettingsSection title="Access keys" message="Access keys that are required to talk to external APIs">
                 <Setting name="Unsplash" message={<SettingMessage type="warn" message="Currently not needed"/>} info={[<LockOutlined className="primary-clr" key={0}/>]}>
-                    <Input onChange={changed} placeholder="Unsplash Access Key" style={{width: "200px"}}/>
+                    <Input onChange={(e) => changed(e, "unsplash")} placeholder="Unsplash Access Key" style={{width: "200px"}}/>
                 </Setting>
             </SettingsSection>
+
+
             <Button className="btn-success" onClick={runSave} loading={loading}
                     style={{left: "10px", position: "relative"}} disabled={disabled}>Save</Button>
         </div>

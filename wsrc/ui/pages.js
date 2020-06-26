@@ -19,6 +19,7 @@ import NoPermission from './pages/util/403'
 import NoPage from './pages/util/404'
 
 import Build from './pages/util/Build'
+import Memory from "./pages/util/Memory";
 
 export default {
     default: () => {
@@ -75,6 +76,12 @@ export default {
             el: <Settings/>,
             sidebar: true,
             key: "settings"
+        }
+    },
+    '/admin/memory': () => {
+        return {
+            el: <Memory/>,
+            sidebar: true
         }
     },
     "/info": () => {

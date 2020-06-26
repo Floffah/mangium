@@ -26,7 +26,57 @@ function get(path) {
     return axios.get("/api/v1" + path);
 }
 
+function settingSet(settings) {
+    let toSend = [];
+    settings.forEach(s => {
+        if(setting[s.name]) {
+            let setting = translateSetting(s.name);
+            toSend.push({
+                at: setting.at,
+                setting: setting.setting,
+                value: s.value
+            })
+        }
+    })
+    return post("/setting", {
+        "access-code": localStorage.getItem("access_code"),
+        settings: toSend,
+        type: "set"
+    })
+}
+
+function settingGet(settings) {
+    let toSend = [];
+    settings.forEach(s => {
+        if(setting[s.name]) {
+            let setting = translateSetting(s.name);
+            toSend.push({
+                at: setting.at,
+                setting: setting.setting
+            })
+        }
+    });
+    return post("/setting", {
+        "access-code": localStorage.getItem("access_code"),
+        settings: toSend,
+        type: "get"
+    })
+}
+
 export {
     post,
-    get
+    get,
+    settingSet,
+    settingGet,
+}
+
+let setting = {
+    "memint": ["memorySaveInterval", "settings"]
+}
+
+function translateSetting(name) {
+    return {
+        setting: setting[name][0],
+        at: setting[name][1]
+    }
 }

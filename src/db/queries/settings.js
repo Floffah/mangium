@@ -14,5 +14,11 @@ module.exports = {
     },
     setupAdmin() {
         return "insert or replace into settings (name, data) values (?, ?);"
+    },
+    set() {
+        return `insert or replace into settings (name, data) values (?, ?);`
+    },
+    get() {
+        return `SELECT data FROM settings WHERE name = ?;`
     }
 }

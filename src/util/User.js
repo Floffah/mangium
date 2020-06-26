@@ -86,6 +86,10 @@ class User {
             return null;
         }
     }
+
+    getPermissions() {
+        return this.data.permissions;
+    }
 }
 
 module.exports = User;
