@@ -41,6 +41,8 @@ class State extends Endpoint {
     run(reqinfo, info) {
         if (reqinfo.type === "post") {
             if (info["access-code"] === "setup" && this.manager.getWebManager().getState() === "setup") {
+                return this.changeSettings(info, true);
+            } else {
                 return this.changeSettings(info);
             }
         } else {
@@ -50,39 +52,43 @@ class State extends Endpoint {
         }
     }
 
-    changeSettings(info) {
-        let user = new User().find({access_code: info["access-code"]});
+    changeSettings(info, nocheck) {
+        let user = new User(undefined, this.manager).find({access_code: info["access-code"]});
         if (info.type === "set") {
-            return (async () => {
-                let toreturn = {
-                    success: true
-                }
-                await async.forEach(info.settings, (v, d) => {
-                    if(user.getPermissions().hasPermissions(settings[v.setting])) {
-                        if (v.at === "config") {
-                            this.manager.getConfig().set(v.setting, v.value).write();
-                        } else if (v.at === "settings") {
-                            if (v.setting === "admin") {
-                                this.manager.getDbManager().getDbs().systemDb.run(q.settings.setupAdmin()).run("admin", v.value);
-                                let d = JSON.parse(v.value);
-                                this.manager.getDbManager().getDbs().userDb.run(q.user.addUser()).run(d.uname, d.pass, JSON.stringify({override: "ALL"}), "admin");
-                            } else {
-                                this.manager.getDbManager().getDbs().systemDb.run(q.settings.set()).run(v.setting, v.value);
-                            }
-                        }
-                    } else {
-                        toreturn = {
-                            error: "noPermission"
+            //console.log("1");
+            let toret;
+            info.settings.forEach(v => {
+                //console.log("2");
+                if (user.getPermissions().hasPermissions(settings[v.setting]) || nocheck) {
+                    //console.log("3");
+                    if (v.at === "config") {
+                        this.manager.getConfig().set(v.setting, v.value).write();
+                    } else if (v.at === "settings") {
+                        if (v.setting === "admin") {
+                            this.manager.getDbManager().getDbs().systemDb.run(q.settings.setupAdmin()).run("admin", v.value);
+                            let d = JSON.parse(v.value);
+                            this.manager.getDbManager().getDbs().userDb.run(q.user.addUser()).run(d.uname, d.pass, JSON.stringify({override: "ALL"}), "admin");
+                        } else {
+                            //console.log("4");
+                            this.manager.getDbManager().getDbs().systemDb.run(q.settings.set()).run(v.setting, v.value);
                         }
                     }
-                });
-                return toreturn
-            })();
+                    toret = {
+                        success: true,
+                    }
+                } else {
+                    //console.log("5");
+                    toret = {
+                        error: "noPermission"
+                    }
+                }
+            });
+            return toret;
         } else if (info.type === "get") {
             return (async () => {
                 let toreturn = {};
                 await async.forEach(info.settings, (v, d) => {
-                    if(user.getPermissions().hasPermissions(settings[v.setting])) {
+                    if (user.getPermissions().hasPermissions(settings[v.setting]) || nocheck) {
                         if (v.at === "settings") {
                             toreturn[v.setting] = this.manager.getDbManager().getDbs().systemDb.run(q.settings.get()).get(v.setting).data;
                         } else if (v.at === "config") {

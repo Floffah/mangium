@@ -52,6 +52,8 @@ export function translateError(type) {
         return "Sorry, the information provided did not match any records."
     } else if(type === "noKeyFound") {
         return "This server does not have an Unsplash key set."
+    } else if(type === "noPermission") {
+        return "You do not have permission to complete this action."
     }
     return type;
 }

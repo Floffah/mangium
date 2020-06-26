@@ -26,7 +26,7 @@ class User {
         if(data.username && data.password) {
             let permissions = data.permissions ? data.permissions.toObject() : new Permissions.presets.normal();
             let type = data.type ? data.type : "normal";
-            this._manager.getDbManager().getDbs().run(q.user.addUser()).run(data.username, data.password, permissions, type)
+            this._manager.getDbManager().getDbs().userDb.run(q.user.addUser()).run(data.username, data.password, permissions, type)
         } else {
             this.data = null;
             return null;
@@ -40,11 +40,11 @@ class User {
      */
     find(data) {
         if(data.password && data.username) {
-            let found = this._manager.getDbManager().getDbs().run(q.user.getUser()).get(data.username, data.password);
+            let found = this._manager.getDbManager().getDbs().userDb.run(q.user.getUser()).get(data.username, data.password);
             if(found) {
                 this.data = {
                     ...found,
-                    permissions: new Permissions(found.permissions),
+                    permissions: new Permissions(JSON.parse(found.permissions)),
                 };
                 return this;
             } else {
@@ -52,11 +52,11 @@ class User {
                 return null;
             }
         } else if(data.userid) {
-            let found = this._manager.getDbManager().getDbs().run(q.user.getUserID()).get(data.userid);
+            let found = this._manager.getDbManager().getDbs().userDb.run(q.user.getUserID()).get(data.userid);
             if(found) {
                 this.data = {
                     ...found,
-                    permissions: new Permissions(found.permissions),
+                    permissions: new Permissions(JSON.parse(found.permissions)),
                 };
                 return this;
             } else {
@@ -64,13 +64,13 @@ class User {
                 return null;
             }
         } else if(data.access_code) {
-            let foundAccess = this._manager.getDbManager().getDbs().run(q.user.getToken()).get(data.access_code);
+            let foundAccess = this._manager.getDbManager().getDbs().userDb.run(q.user.getToken()).get(data.access_code);
             if(foundAccess.userid) {
-                let found = this._manager.getDbManager().getDbs().run(q.user.getUserID()).get(foundAccess.userid);
+                let found = this._manager.getDbManager().getDbs().userDb.run(q.user.getUserID()).get(foundAccess.userid);
                 if(found) {
                     this.data = {
                         ...found,
-                        permissions: new Permissions(found.permissions),
+                        permissions: new Permissions(JSON.parse(found.permissions)),
                     };
                     return this;
                 } else {

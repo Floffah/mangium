@@ -7,51 +7,72 @@
 
 import React, {useState} from "react";
 import {Button, Col, Input, Row, Select} from "antd";
-import {ExclamationCircleOutlined, ExclamationCircleFilled, LockOutlined} from '@ant-design/icons'
+import {ExclamationCircleFilled, ExclamationCircleOutlined, LockOutlined} from '@ant-design/icons'
 import {settingSet} from "../../lib/comms";
+import async from 'async';
+import {showError} from "../../lib/overlay";
+
+let whatchanged = {};
+let changedto = {};
 
 export default function Settings() {
     let [loading, setLoading] = useState(false);
     let [disabled, setDisabled] = useState(true);
-    let ch = [];
+
+    function changed(e, setting) {
+        if (disabled === true) {
+            setDisabled(false);
+        }
+        if (typeof e === "object") {
+            whatchanged[setting] = true;
+            changedto[setting] = e.target.value;
+        } else {
+            whatchanged[setting] = true;
+            changedto[setting] = e;
+        }
+    }
 
     function runSave() {
+        let ch = [];
+        Object.keys(whatchanged).forEach((k) => {
+            ch.push({
+                name: k,
+                value: changedto[k]
+            });
+        });
         setLoading(true);
         settingSet(ch).then((resp) => {
-            if(!resp.data.error) {
-                setLoading(false);
-                setDisabled(true);
+            console.log(resp);
+            setLoading(false);
+            setDisabled(true);
+            if (resp.data.error) {
+                showError(resp.data.error);
             }
         });
     }
-
-    function changed(e, setting) {
-        if(disabled === true) {
-            setDisabled(false);
-        }
-        ch.push({
-            name: setting,
-            value: e.target.value
-        });
-    }
-
 
     return (
         <div className="settings-container" style={{
             padding: "10px",
         }}>
             <h2>Settings</h2>
-            <p style={{position: "relative", left: "10px"}}><LockOutlined className="primary-clr" key={0}/> represents settings which have a value that is not sent to any client for security reasons.</p>
+            <p style={{position: "relative", left: "10px"}}><LockOutlined className="primary-clr" key={0}/> represents
+                settings which have a value that is not sent to any client for security reasons.</p>
             <Row gutter={38} style={{left: "10px", position: "relative"}}>
-                <Col span={2} style={{height: "15px"}}><p style={{display: "inline-block", padding: "4px 0"}}>Name</p></Col>
-                <Col span={200} style={{height: "15px"}}><p style={{display: "inline-block", width: "200px", padding: "4px 0"}}>Input</p></Col>
-                <Col span={400} style={{height: "15px"}}><p style={{display: "inline-block", width: "400px", padding: "4px 0"}}>Message</p></Col>
-                <Col span={100} style={{height: "15px"}}><p style={{display: "inline-block", width: "100px", padding: "4px 0"}}>Info</p></Col>
+                <Col span={2} style={{height: "15px"}}><p style={{display: "inline-block", padding: "4px 0"}}>Name</p>
+                </Col>
+                <Col span={200} style={{height: "15px"}}><p
+                    style={{display: "inline-block", width: "200px", padding: "4px 0"}}>Input</p></Col>
+                <Col span={400} style={{height: "15px"}}><p
+                    style={{display: "inline-block", width: "400px", padding: "4px 0"}}>Message</p></Col>
+                <Col span={100} style={{height: "15px"}}><p
+                    style={{display: "inline-block", width: "100px", padding: "4px 0"}}>Info</p></Col>
             </Row>
 
 
             <SettingsSection title="Database" message="Database configuration">
-                <Setting name="Database" message={<SettingMessage type="info" message="Currently limited to only SQLite as no other database types will be added until after the 0.0.1 milestone"/>}>
+                <Setting name="Database" message={<SettingMessage type="info"
+                                                                  message="Currently limited to only SQLite as no other database types will be added until after the 0.0.1 milestone"/>}>
                     <Select defaultValue="sqlite" style={{width: "200px"}}>
                         <Select.Option value="sqlite">SQLite</Select.Option>
                         <Select.Option value="pg" disabled>PostgreSQL</Select.Option>
@@ -71,14 +92,28 @@ export default function Settings() {
             </SettingsSection>
 
 
-            <SettingsSection title="Access keys" message="Access keys that are required to talk to external APIs">
-                <Setting name="Unsplash" message={<SettingMessage type="warn" message="Currently not needed"/>} info={[<LockOutlined className="primary-clr" key={0}/>]}>
-                    <Input onChange={(e) => changed(e, "unsplash")} placeholder="Unsplash Access Key" style={{width: "200px"}}/>
+            <SettingsSection title="Server Details">
+                <Setting name="Memory save interval">
+                    <Select defaultValue="10" onChange={(v) => changed(v, "memint")}>
+                        <Select.Option value="1">1 minute</Select.Option>
+                        <Select.Option value="5">5 minutes</Select.Option>
+                        <Select.Option value="10">10 minutes</Select.Option>
+                        <Select.Option value="30">30 minutes</Select.Option>
+                    </Select>
                 </Setting>
             </SettingsSection>
 
 
-            <Button className="btn-success" onClick={runSave} loading={loading}
+            <SettingsSection title="Access keys" message="Access keys that are required to talk to external APIs">
+                <Setting name="Unsplash" message={<SettingMessage type="warn" message="Currently not needed"/>}
+                         info={[<LockOutlined className="primary-clr" key={0}/>]}>
+                    <Input onChange={(e) => changed(e, "unsplash")} placeholder="Unsplash Access Key"
+                           style={{width: "200px"}}/>
+                </Setting>
+            </SettingsSection>
+
+
+            <Button className="btn-success" onClick={() => runSave()} loading={loading}
                     style={{left: "10px", position: "relative"}} disabled={disabled}>Save</Button>
         </div>
     )
@@ -101,16 +136,16 @@ class SettingMessage extends React.Component {
     render() {
         let icon;
 
-        if(this.props.type=== "warn") {
+        if (this.props.type === "warn") {
             icon = [<ExclamationCircleOutlined key={0} className="warnicon"/>]
-        } else if(this.props.type === "bigwarn") {
+        } else if (this.props.type === "bigwarn") {
             icon = [<ExclamationCircleFilled key={0} className="bigwarnicon"/>]
-        } else if(this.props.type === "err") {
+        } else if (this.props.type === "err") {
             icon = [<ExclamationCircleFilled key={0} className="erricon"/>]
         } else {
             icon = "";
         }
-        if(icon !== "") {
+        if (icon !== "") {
             icon.push(<span key={1}>&nbsp;&nbsp;</span>)
         }
 

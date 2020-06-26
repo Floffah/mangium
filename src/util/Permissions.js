@@ -7,7 +7,7 @@
 
 class Permissions {
     constructor(perms) {
-        if(perms) {
+        if (perms) {
             this._perms = perms;
         } else {
             this._perms = {};
@@ -20,19 +20,20 @@ class Permissions {
      * @returns {boolean}
      */
     hasPermission(permission) {
-        if(this._perms.override === "all") {
+        if (this._perms.override === "all" || this._perms.override === "ALL") {
             return true;
-        }
-        if(Object.keys(this._perms).includes(permission) && this._perms[permission] === "all") {
+        } else if ((Object.keys(this._perms).includes(permission) && this._perms[permission] === "all")) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     hasPermissions(permissions) {
         let does = true;
         permissions.forEach((p) => {
-            if(this.hasPermission(p) === false) does = false;
+            let doeshave = this.hasPermission(p)
+            if (doeshave === false) does = false;
         });
         return does;
     }
@@ -47,12 +48,10 @@ class Permissions {
 }
 
 module.exports = Permissions;
-module.exports = {
-    presets: {
-        normal() {
-            return new Permissions({
-                override: "none"
-            });
-        }
+module.exports.preset = {
+    normal() {
+        return new Permissions({
+            override: "none"
+        });
     }
 }

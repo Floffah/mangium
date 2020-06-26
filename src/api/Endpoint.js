@@ -27,8 +27,9 @@ class Endpoint {
      * @param {'get'|'post'} reqinfo.type Request method
      * @param {String} reqinfo.path Request path
      * @param {object} [data] Data sent with the request. Only in post requests
+     * @param {express.Response} res
      */
-    run(reqinfo, data) {}
+    run(reqinfo, data, res) {}
 }
 
 module.exports = Endpoint;

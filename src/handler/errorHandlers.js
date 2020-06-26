@@ -24,8 +24,6 @@ module.exports.reg = (manager) => {
         if(err) {
             manager.getLogger().err(`See more information at ${path}`);
             manager.passError(err);
-        } else {
-            console.log(arguments);
         }
     }
     process.on('uncaughtException', errhandle);

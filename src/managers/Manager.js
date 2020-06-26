@@ -12,7 +12,8 @@ const Logger = require('../log/Log'),
     WebManager = require('./WebManager'),
     low = require('lowdb'),
     fisy = require('lowdb/adapters/FileSync'),
-    DatabaseManager = require('./DatabaseManager');
+    DatabaseManager = require('./DatabaseManager'),
+    DockerManager = require('../docker/DockerManager');
 
 class Manager {
     /**
@@ -31,7 +32,8 @@ class Manager {
             ["web", Path.join(__dirname, '../../media/dist')],
             ["db", Path.join(__dirname, '../../data/db')],
             ["logs", Path.join(__dirname, '../../data/logs')],
-            ["err", Path.join(__dirname, '../../data/logs/errors')]
+            ["err", Path.join(__dirname, '../../data/logs/errors')],
+            ["keys", Path.join(__dirname, '../../data/keys')]
         ]);
         this._paths.forEach((v) => {
             if (!fs.existsSync(v)) {
@@ -72,6 +74,10 @@ class Manager {
         // db web create
         this._webManager = new WebManager(this);
         this._webManager.create();
+
+        // docker create
+        this._dockerManager = new DockerManager(this);
+        this._dockerManager.init();
 
         // finish initialize
         this._initialized = true;
@@ -140,6 +146,14 @@ class Manager {
      */
     getDbManager() {
         return this._dbManager;
+    }
+
+    /**
+     *
+     * @returns {DockerManager}
+     */
+    getDockerManager() {
+        //return this._dockerManager;
     }
 
     /**

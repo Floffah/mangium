@@ -37,12 +37,14 @@ function settingSet(settings) {
                 value: s.value
             })
         }
-    })
-    return post("/setting", {
-        "access-code": localStorage.getItem("access_code"),
-        settings: toSend,
-        type: "set"
-    })
+    });
+    while(toSend.length === settings.length) {
+        return post("/settings", {
+            "access-code": localStorage.getItem("access_code"),
+            settings: toSend,
+            type: "set"
+        });
+    }
 }
 
 function settingGet(settings) {
@@ -56,7 +58,7 @@ function settingGet(settings) {
             })
         }
     });
-    return post("/setting", {
+    return post("/settings", {
         "access-code": localStorage.getItem("access_code"),
         settings: toSend,
         type: "get"

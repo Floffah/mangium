@@ -56,11 +56,11 @@ class APIManager {
             if (endpoint.info.types.includes(req.method.toLowerCase())) {
                 let response;
                 if (req.method === 'POST') {
-                    response = endpoint.run({path: req.path, type: req.method.toLowerCase()}, req.body);
+                    response = endpoint.run({path: req.path, type: req.method.toLowerCase()}, req.body, res);
                 } else {
-                    response = endpoint.run({path: req.path, type: req.method.toLowerCase()});
+                    response = endpoint.run({path: req.path, type: req.method.toLowerCase()}, undefined, res);
                 }
-                if(response.then) {
+                if(Promise.resolve(response) === response) {
                     response.then(resp => res.status(200).json(resp))
                 } else {
                     res.status(200).json(response);

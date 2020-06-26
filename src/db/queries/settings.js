@@ -8,12 +8,12 @@
 module.exports = {
     createTable() {
         return "CREATE TABLE 'settings' (\n" +
-            "'name' varchar(255),\n" +
+            "'name' varchar(255) PRIMARY KEY,\n" +
             "'data' json" +
             ")"
     },
     setupAdmin() {
-        return "insert or replace into settings (name, data) values (?, ?);"
+        return "insert into settings (name, data) values (?, ?);"
     },
     set() {
         return `insert or replace into settings (name, data) values (?, ?);`
