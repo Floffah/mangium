@@ -61,6 +61,10 @@ class Manager {
                 },
                 settings: {
                     setup: false
+                },
+                docker: {
+                    version: "v1.40",
+                    socketPath: "//./pipe/docker_engine"
                 }
             }).write()
         } else {
@@ -153,7 +157,7 @@ class Manager {
      * @returns {DockerManager}
      */
     getDockerManager() {
-        //return this._dockerManager;
+        return this._dockerManager;
     }
 
     /**

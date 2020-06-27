@@ -6,14 +6,20 @@
  */
 
 const Endpoint = require('../api/Endpoint');
+const User = require("../util/User");
 
 class Docker extends Endpoint {
     constructor(props) {
         super(props, {
             path: '/docker/containers',
-            types: ['get'],
+            types: ['post'],
             description: 'Get a list of docker containers.',
-            errors: [],
+            errors: ["incoReq", "noPermission"],
+            posts: [
+                {
+                    access_code: "string"
+                }
+            ],
             returns: ["dockerContainerList", {
                 error: "error"
             }]
@@ -21,13 +27,27 @@ class Docker extends Endpoint {
     }
 
     run(reqinfo, info, res) {
-        this.manager.getDockerManager().docker.listContainers({
-            all: true
-        }, (d) => {
-            console.log(d);
-            res.status(200).json(d);
-        })
-        return {nosend: true}
+        if(reqinfo.type === "post") {
+            let user = new User(undefined, this.manager).find({access_code: info["access-code"]});
+            if(user.getPermissions().hasPermissions(["listContainers"])) {
+                this.manager.getDockerManager().docker.listContainers({
+                    all: true
+                }, (e, containers) => {
+                    if(containers) {
+                        res.status(200).json(containers);
+                    }
+                });
+                return {nosend: true}
+            } else {
+                return {
+                    error: "noPermission"
+                }
+            }
+        } else {
+            return {
+                error: "incoReq"
+            }
+        }
     }
 }
 
