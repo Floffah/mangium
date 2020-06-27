@@ -21,6 +21,8 @@ import NoPage from './pages/util/404'
 import Build from './pages/util/Build'
 import Memory from "./pages/util/Memory";
 
+import DockerContainers from "./pages/util/DockerContainers";
+
 export default {
     default: () => {
         $("body").removeClass("dots")
@@ -82,6 +84,13 @@ export default {
         return {
             el: <Memory/>,
             sidebar: true
+        }
+    },
+    "/docker/containers": () => {
+        return {
+            el: <DockerContainers/>,
+            sidebar: true,
+            key: "containers"
         }
     },
     "/info": () => {

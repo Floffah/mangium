@@ -16,6 +16,7 @@ let whatchanged = {};
 let changedto = {};
 
 export default function Settings() {
+    console.log("hi")
     let [loading, setLoading] = useState(false);
     let [disabled, setDisabled] = useState(true);
 

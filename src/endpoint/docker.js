@@ -28,13 +28,15 @@ class Docker extends Endpoint {
 
     run(reqinfo, info, res) {
         if(reqinfo.type === "post") {
-            let user = new User(undefined, this.manager).find({access_code: info["access-code"]});
+            let user = new User(undefined, this.manager).find({access_code: info["access_code"]});
             if(user.getPermissions().hasPermissions(["listContainers"])) {
                 this.manager.getDockerManager().docker.listContainers({
                     all: true
                 }, (e, containers) => {
                     if(containers) {
-                        res.status(200).json(containers);
+                        res.status(200).json({
+                            containers
+                        });
                     }
                 });
                 return {nosend: true}

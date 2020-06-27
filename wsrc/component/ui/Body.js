@@ -13,7 +13,9 @@ import {
     CloseOutlined,
     InfoCircleOutlined,
     SettingOutlined,
-    ToolOutlined
+    ToolOutlined,
+    UnorderedListOutlined,
+    ContainerOutlined,
 } from "@ant-design/icons";
 import {changePage} from "../../ui";
 import {openOverlay} from "../../lib/overlay";
@@ -46,6 +48,9 @@ export default function Body(p) {
                                    onClick={() => changePage("/admin")}>Dashboard</Menu.Item>
                         <Menu.Item key="settings" icon={<SettingOutlined/>}
                                    onClick={() => changePage("/admin/settings")}>Settings</Menu.Item>
+                        <Menu.SubMenu key="docker" title="Docker" icon={<ContainerOutlined />}>
+                            <Menu.Item key="containers" icon={<UnorderedListOutlined />} onClick={() => changePage("/docker/containers")}>Containers</Menu.Item>
+                        </Menu.SubMenu>
                     </Menu.SubMenu>
                     <Menu.SubMenu key="info" title="Information" icon={<InfoCircleOutlined/>}>
                         <Menu.Item key="build" icon={<InfoCircleOutlined/>} onClick={() => changePage("/info")}>Build
