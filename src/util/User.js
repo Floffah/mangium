@@ -87,6 +87,10 @@ class User {
         }
     }
 
+    isNull() {
+        return this.data === null;
+    }
+
     getPermissions() {
         return this.data.permissions;
     }

@@ -40,7 +40,6 @@ export default class Dashboard extends React.Component {
         });
 
         memplot.render();
-        console.log('test')
     }
 
     render() {

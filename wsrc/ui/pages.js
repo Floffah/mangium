@@ -6,8 +6,6 @@
  */
 
 import React from "react";
-import {changePage} from "../ui";
-
 import Starting from "../component/ui/Starting";
 import Dashboard from './pages/Dashboard'
 import Settings from './pages/Settings';
@@ -53,7 +51,7 @@ export default {
         }
     },
     "/login": () => {
-        if(!localStorage.getItem("access_code")) {
+        if (!localStorage.getItem("access_code")) {
             $("body").addClass("dots")
             return {
                 el: <Login/>,
@@ -66,38 +64,43 @@ export default {
             }
         }
     },
-    "/admin": () => {
+    "/admin": (perms) => {
         return {
             el: <Dashboard/>,
             sidebar: true,
-            key: "dash"
+            key: "dash",
+            permission: "administrator"
         }
     },
     "/admin/settings": () => {
         return {
             el: <Settings/>,
             sidebar: true,
-            key: "settings"
+            key: "settings",
+            permission: "administrator"
         }
     },
     '/admin/memory': () => {
         return {
             el: <Memory/>,
-            sidebar: true
+            sidebar: true,
+            permission: "administrator"
         }
     },
     "/docker/containers": () => {
         return {
             el: <DockerContainers/>,
             sidebar: true,
-            key: "containers"
+            key: "containers",
+            permission: "listContainers"
         }
     },
-    "/info": () => {
-        return {
-            el: <Build/>,
-            sidebar: true,
-            key: "build"
+    "/info":
+        () => {
+            return {
+                el: <Build/>,
+                sidebar: true,
+                key: "build"
+            }
         }
-    }
 }

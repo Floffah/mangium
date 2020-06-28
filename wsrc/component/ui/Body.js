@@ -20,6 +20,7 @@ import {
 import {changePage} from "../../ui";
 import {openOverlay} from "../../lib/overlay";
 import Unsplash from "../util/Unsplash";
+import {getPermissions} from "../../ui";
 
 
 export default function Body(p) {
@@ -37,21 +38,28 @@ export default function Body(p) {
     let navmenu;
     let belownav;
     if (p.doSidebar) {
+        let admin = "";
+        if(getPermissions().administrator === true || getPermissions().override === "ALL" || getPermissions().override === "all") {
+            admin = (
+                <Menu.SubMenu key="admin" title="Admin" icon={<ToolOutlined/>}>
+                    <Menu.Item key="dash" icon={<InfoCircleOutlined/>}
+                               onClick={() => changePage("/admin")}>Dashboard</Menu.Item>
+                    <Menu.Item key="settings" icon={<SettingOutlined/>}
+                               onClick={() => changePage("/admin/settings")}>Settings</Menu.Item>
+                    <Menu.SubMenu key="docker" title="Docker" icon={<ContainerOutlined />}>
+                        <Menu.Item key="containers" icon={<UnorderedListOutlined />} onClick={() => changePage("/docker/containers")}>Containers</Menu.Item>
+                    </Menu.SubMenu>
+                </Menu.SubMenu>
+            );
+        }
+
         navmenu = (
             <div className="navmenu">
                 <Menu
                     mode="inline"
                     defaultSelectedKeys={[p.menukey]}
                 >
-                    <Menu.SubMenu key="admin" title="Admin" icon={<ToolOutlined/>}>
-                        <Menu.Item key="dash" icon={<InfoCircleOutlined/>}
-                                   onClick={() => changePage("/admin")}>Dashboard</Menu.Item>
-                        <Menu.Item key="settings" icon={<SettingOutlined/>}
-                                   onClick={() => changePage("/admin/settings")}>Settings</Menu.Item>
-                        <Menu.SubMenu key="docker" title="Docker" icon={<ContainerOutlined />}>
-                            <Menu.Item key="containers" icon={<UnorderedListOutlined />} onClick={() => changePage("/docker/containers")}>Containers</Menu.Item>
-                        </Menu.SubMenu>
-                    </Menu.SubMenu>
+                    {admin}
                     <Menu.SubMenu key="info" title="Information" icon={<InfoCircleOutlined/>}>
                         <Menu.Item key="build" icon={<InfoCircleOutlined/>} onClick={() => changePage("/info")}>Build
                             Info</Menu.Item>
