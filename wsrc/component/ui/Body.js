@@ -11,16 +11,13 @@ import {
     BulbOutlined,
     CheckOutlined,
     CloseOutlined,
+    ContainerOutlined,
     InfoCircleOutlined,
     SettingOutlined,
     ToolOutlined,
     UnorderedListOutlined,
-    ContainerOutlined,
 } from "@ant-design/icons";
-import {changePage} from "../../ui";
-import {openOverlay} from "../../lib/overlay";
-import Unsplash from "../util/Unsplash";
-import {getPermissions} from "../../ui";
+import {changePage, getPermissions} from "../../ui";
 
 
 export default function Body(p) {
@@ -39,18 +36,22 @@ export default function Body(p) {
     let belownav;
     if (p.doSidebar) {
         let admin = "";
-        if(getPermissions().administrator === true || getPermissions().override === "ALL" || getPermissions().override === "all") {
-            admin = (
-                <Menu.SubMenu key="admin" title="Admin" icon={<ToolOutlined/>}>
-                    <Menu.Item key="dash" icon={<InfoCircleOutlined/>}
-                               onClick={() => changePage("/admin")}>Dashboard</Menu.Item>
-                    <Menu.Item key="settings" icon={<SettingOutlined/>}
-                               onClick={() => changePage("/admin/settings")}>Settings</Menu.Item>
-                    <Menu.SubMenu key="docker" title="Docker" icon={<ContainerOutlined />}>
-                        <Menu.Item key="containers" icon={<UnorderedListOutlined />} onClick={() => changePage("/docker/containers")}>Containers</Menu.Item>
+
+        if (localStorage.getItem('access_code')) {
+            if (getPermissions().administrator === true || getPermissions().override === "ALL" || getPermissions().override === "all") {
+                admin = (
+                    <Menu.SubMenu key="admin" title="Admin" icon={<ToolOutlined/>}>
+                        <Menu.Item key="dash" icon={<InfoCircleOutlined/>}
+                                   onClick={() => changePage("/admin")}>Dashboard</Menu.Item>
+                        <Menu.Item key="settings" icon={<SettingOutlined/>}
+                                   onClick={() => changePage("/admin/settings")}>Settings</Menu.Item>
+                        <Menu.SubMenu key="docker" title="Docker" icon={<ContainerOutlined/>}>
+                            <Menu.Item key="containers" icon={<UnorderedListOutlined/>}
+                                       onClick={() => changePage("/docker/containers")}>Containers</Menu.Item>
+                        </Menu.SubMenu>
                     </Menu.SubMenu>
-                </Menu.SubMenu>
-            );
+                );
+            }
         }
 
         navmenu = (
@@ -87,6 +88,17 @@ export default function Body(p) {
         localStorage.setItem('animations', checked);
     }
 
+    let logout = "";
+
+    if (localStorage.getItem('access_code')) {
+        logout = <Button type="primary" style={{float: 'right', top: 4, right: 5}}
+                         onClick={() => {
+                             localStorage.removeItem("access_code");
+                             changePage("/login")
+                         }}
+        >Logout</Button>
+    }
+
     return [
         <div key={0} className="body-content">
             <div className="topbar">
@@ -94,6 +106,7 @@ export default function Body(p) {
                     userSelect: "none",
                     cursor: "pointer"
                 }} onClick={() => changePage("/home")}>Mangium</h2>
+                {logout}
             </div>
             {navmenu}
             {belownav}

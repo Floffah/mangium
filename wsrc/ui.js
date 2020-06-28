@@ -29,12 +29,12 @@ if (localStorage.getItem("dark") === "yes") {
 import "../media/sass/styles.sass"
 
 export function changePage(page) {
+    pages.default();
     let reqpage = window.location.hash.substr(1);
     if (page) {
         reqpage = page;
         window.location.href = "#" + page;
     }
-    pages.default();
     if (typeof pages[reqpage] === "function") {
         let renderPage = pages[reqpage]();
         if(renderPage.permission) {
@@ -66,12 +66,45 @@ function isMobileDevice() {
     return check;
 }
 
+export function grabPermissions(cb) {
+    post("/user/permissions", {
+        access_code: localStorage.getItem("access_code"),
+        user_id: "self"
+    }).then((res) => {
+        clientpermissions = res.data.permissions;
+        cb();
+    });
+}
 
-post("/user/permissions", {
-    access_code: localStorage.getItem("access_code"),
-    user_id: "self"
-}).then((res) => {
-    clientpermissions = res.data.permissions;
+
+if(localStorage.getItem('access_code')) {
+    post("/user/permissions", {
+        access_code: localStorage.getItem("access_code"),
+        user_id: "self"
+    }).then((res) => {
+        clientpermissions = res.data.permissions;
+        post('/getState', {
+            currentState: 'pageload'
+        }).then((res) => {
+            try {
+                if (res.data.state === "setup") {
+                    SetupM.init();
+                } else if (isMobileDevice()) {
+                    changePage("/nomobile")
+                } else if (!localStorage.getItem("access_code")) {
+                    changePage("/login");
+                } else if (res.data.state === "starting") {
+                    changePage("/starting")
+                } else {
+                    changePage();
+                }
+            } catch (e) {
+                console.error(e);
+                showError("Something wen't wrong while loading the page.")
+            }
+        });
+    });
+} else {
     post('/getState', {
         currentState: 'pageload'
     }).then((res) => {
@@ -80,9 +113,9 @@ post("/user/permissions", {
                 SetupM.init();
             } else if (isMobileDevice()) {
                 changePage("/nomobile")
-            } else if(!localStorage.getItem("access_code")) {
+            } else if (!localStorage.getItem("access_code")) {
                 changePage("/login");
-            } else  if (res.data.state === "starting") {
+            } else if (res.data.state === "starting") {
                 changePage("/starting")
             } else {
                 changePage();
@@ -92,4 +125,4 @@ post("/user/permissions", {
             showError("Something wen't wrong while loading the page.")
         }
     });
-});
+}

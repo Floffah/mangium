@@ -16,7 +16,7 @@ module.exports = {
         return `SELECT token,expires FROM access WHERE userid = ?`;
     },
     deleteAccess() {
-        return `DELETE FROM access`;
+        return `DELETE FROM access WHERE token = ?`;
     },
 
     addUser() {

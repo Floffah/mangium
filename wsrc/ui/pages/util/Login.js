@@ -9,7 +9,7 @@ import React from 'react'
 import {Button, Input} from 'antd';
 import {post} from '../../../lib/comms'
 import {showError} from "../../../lib/overlay";
-import {changePage} from "../../../ui";
+import {changePage, grabPermissions} from "../../../ui";
 
 export default class Login extends React.Component {
     login() {
@@ -21,7 +21,9 @@ export default class Login extends React.Component {
                 showError(resp.data.error);
             } else {
                 localStorage.setItem("access_code", resp.data["access_code"]);
-                changePage("/home");
+                grabPermissions(() => {
+                    changePage("/home");
+                })
             }
         })
     }

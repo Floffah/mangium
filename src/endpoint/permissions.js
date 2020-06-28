@@ -34,8 +34,14 @@ class Permissions extends Endpoint {
             let user = new User(undefined, this.manager).find({access_code: info["access_code"]});
             if(user.getPermissions().hasPermission("managePermissions") || info.user_id === "self") {
                 if(info.user_id === "self") {
-                    return {
-                        permissions: user.getPermissions().toObject()
+                    if(user.isNull()) {
+                        return {
+                            error: "notFound"
+                        }
+                    } else {
+                        return {
+                            permissions: user.getPermissions().toObject()
+                        }
                     }
                 } else {
                     let targetuser = new User(undefined, this.manager).find({userid: info.user_id});

@@ -18,7 +18,6 @@ export default function DockerContainers() {
         }).then((resp) => {
             let toRender = [];
             let made = 0;
-            console.log(resp.data.containers);
             resp.data.containers.forEach(container => {
                 let dateC = new Date(0);
                 dateC.setUTCSeconds(container.Created);
