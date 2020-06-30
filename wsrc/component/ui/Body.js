@@ -16,6 +16,7 @@ import {
     SettingOutlined,
     ToolOutlined,
     UnorderedListOutlined,
+    UserOutlined
 } from "@ant-design/icons";
 import {changePage, getPermissions} from "../../ui";
 
@@ -48,6 +49,10 @@ export default function Body(p) {
                         <Menu.SubMenu key="docker" title="Docker" icon={<ContainerOutlined/>}>
                             <Menu.Item key="containers" icon={<UnorderedListOutlined/>}
                                        onClick={() => changePage("/docker/containers")}>Containers</Menu.Item>
+                        </Menu.SubMenu>
+                        <Menu.SubMenu key="users" title="Users" icon={<UserOutlined/>}>
+                            <Menu.Item key="userslist" icon={<UserOutlined/>}
+                                       onClick={() => changePage("/users")}>List</Menu.Item>
                         </Menu.SubMenu>
                     </Menu.SubMenu>
                 );

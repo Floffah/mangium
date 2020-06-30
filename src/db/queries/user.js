@@ -28,6 +28,9 @@ module.exports = {
     getUserID() {
         return `SELECT * FROM users WHERE userid = ?;`
     },
+    listUsers() {
+        return `SELECT * FROM users;`
+    },
 
     createAccess() {
         return "CREATE TABLE 'access' ('token' varchar(256),'userid' integer, FOREIGN KEY(userid) REFERENCES users(userid), 'expires' datetime);"

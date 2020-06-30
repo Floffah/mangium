@@ -41,6 +41,7 @@
     "node-fetch": "^2.6.0",
     "socket.io": "^2.3.0",
     "sqlite3": "^4.2.0",
+    "stacktrace-parser": "^0.1.10",
     "threads": "^1.4.1",
     "time-stamp": "^2.2.0",
     "uuid": "^8.1.0"

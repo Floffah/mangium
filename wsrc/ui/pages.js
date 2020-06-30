@@ -20,6 +20,7 @@ import Build from './pages/util/Build'
 import Memory from "./pages/util/Memory";
 
 import DockerContainers from "./pages/util/DockerContainers";
+import Users from "./pages/Users";
 
 export default {
     default: () => {
@@ -95,8 +96,14 @@ export default {
             permission: "listContainers"
         }
     },
-    "/info":
-        () => {
+    '/users': () => {
+        return {
+            el: <Users/>,
+            sidebar: true,
+            key: "userslist"
+        }
+    },
+    "/info": () => {
             return {
                 el: <Build/>,
                 sidebar: true,

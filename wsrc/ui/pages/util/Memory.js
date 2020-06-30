@@ -57,7 +57,8 @@ export default function Memory() {
                 backgroundColor: 'white',
                 padding: 5,
                 width: "100%",
-                margin: 5
+                margin: 5,
+                borderRadius: 5,
             }}>
                 {memList}
             </div>

@@ -7,14 +7,22 @@
 
 const uuid = require('uuid'),
     Path = require('path'),
-    fs = require('fs');
+    fs = require('fs'),
+    stacktrace = require('stacktrace-parser');
 
 module.exports.reg = (manager) => {
     function errhandle(err, origin) {
         let erruuid = uuid.v4(),
             path = Path.resolve(manager.getPath("err"), `${erruuid}.err`);
         if(err) {
-            fs.writeFileSync(path, `${err.stack}`);
+            fs.writeFileSync(path, JSON.stringify({
+                error: {
+                    message: err.message,
+                    stack: err.stack,
+                    code: err.code
+                },
+                stacktrace: stacktrace.parse(err.stack)
+            }, null, 2));
         }
         if(typeof origin === "string") {
             manager.getLogger().err(`An error has occured. Origin: ${origin}.`);

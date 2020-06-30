@@ -29,7 +29,7 @@ class Endpoint {
      * @param {object} [data] Data sent with the request. Only in post requests
      * @param {express.Response} res
      */
-    run(reqinfo, data, res) {}
+    run(reqinfo, data, res) { }
 }
 
 module.exports = Endpoint;

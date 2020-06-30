@@ -28,13 +28,30 @@ class APIManager {
         this._apir = express.Router();
 
         fs.readdirSync(Path.resolve(__dirname, '../endpoint')).forEach((file) => {
-            let fl = require(Path.resolve(__dirname, '../endpoint', file));
-            let Endpoint = new fl(this._webmanager.manager);
-            if (Endpoint.info.path !== undefined) {
-                this._endpoints.set(Endpoint.info.path, Endpoint);
+            if(fs.statSync(Path.resolve(__dirname, '../endpoint', file)).isDirectory()) {
+                fs.readdirSync(Path.resolve(__dirname, '../endpoint', file)).forEach(fl => {
+
+                    let f = require(Path.resolve(__dirname, '../endpoint', file, fl));
+                    let Endpoint = new f(this._webmanager.manager);
+                    if (Endpoint.info.path !== undefined) {
+                        this._endpoints.set(Endpoint.info.path, Endpoint);
+                    } else {
+                        Endpoint = undefined;
+                        throw new Error("Endpoint does not have a path")
+                    }
+
+                });
             } else {
-                Endpoint = undefined;
-                throw new Error("Endpoint does not have a path")
+
+                let fl = require(Path.resolve(__dirname, '../endpoint', file));
+                let Endpoint = new fl(this._webmanager.manager);
+                if (Endpoint.info.path !== undefined) {
+                    this._endpoints.set(Endpoint.info.path, Endpoint);
+                } else {
+                    Endpoint = undefined;
+                    throw new Error("Endpoint does not have a path")
+                }
+
             }
         })
         this._apir.use(bparse.json());
