@@ -35,12 +35,24 @@ class User {
 
     /**
      *
-     * @param {FindDetails|FindId|FindAccess} data
+     * @param {FindDetails|FindId|FindAccess|FindUsername} data
      * @returns {User|null}
      */
     find(data) {
         if(data.password && data.username) {
             let found = this._manager.getDbManager().getDbs().userDb.run(q.user.getUser()).get(data.username, data.password);
+            if(found) {
+                this.data = {
+                    ...found,
+                    permissions: new Permissions(JSON.parse(found.permissions)),
+                };
+                return this;
+            } else {
+                this.data = null;
+                return null;
+            }
+        } else if(data.username && !data.password) {
+            let found = this._manager.getDbManager().getDbs().userDb.run(q.user.getUsername()).get(data.username);
             if(found) {
                 this.data = {
                     ...found,
@@ -94,6 +106,18 @@ class User {
     getPermissions() {
         return this.data.permissions;
     }
+
+    get username() {
+        return this.data.username;
+    }
+
+    get id() {
+        return this.data.userid;
+    }
+
+    get type() {
+        return this.data.type;
+    }
 }
 
 module.exports = User;
@@ -109,6 +133,11 @@ module.exports = User;
 /**
  * @typedef FindDetails
  * @property {String} password
+ * @property {String} username
+ */
+
+/**
+ * @typedef FindUsername
  * @property {String} username
  */
 

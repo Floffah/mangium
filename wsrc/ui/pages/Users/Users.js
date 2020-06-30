@@ -7,7 +7,8 @@
 
 import React from 'react';
 import {Input, Table} from "antd";
-import {post} from "../../lib/comms";
+import {post} from "../../../lib/comms";
+import {changePage} from "../../../ui";
 
 export default class Users extends React.Component {
     constructor(props) {
@@ -22,8 +23,8 @@ export default class Users extends React.Component {
         this.loadMore = this.loadMore.bind(this);
     }
 
-    onSearch() {
-
+    onSearch(v) {
+        changePage("/users/view", {username: v});
     }
 
     loadMore() {

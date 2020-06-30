@@ -28,7 +28,7 @@ if (localStorage.getItem("dark") === "yes") {
 }
 import "../media/sass/styles.sass"
 
-export function changePage(page) {
+export function changePage(page, data) {
     pages.default();
     let reqpage = window.location.hash.substr(1);
     if (page) {
@@ -36,20 +36,20 @@ export function changePage(page) {
         window.location.href = "#" + page;
     }
     if (typeof pages[reqpage] === "function") {
-        let renderPage = pages[reqpage]();
+        let renderPage = pages[reqpage](data);
         if(renderPage.permission) {
             if(clientpermissions[renderPage.permission] === true || clientpermissions.override === "ALL" || clientpermissions.override === "all") {
-                ReactDOM.render(<Body doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
+                ReactDOM.render(<Body data={data} doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
             } else {
-                renderPage = pages["/403"]();
-                ReactDOM.render(<Body doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
+                renderPage = pages["/403"](data);
+                ReactDOM.render(<Body data={data} doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
             }
         } else {
-            ReactDOM.render(<Body doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
+            ReactDOM.render(<Body data={data} doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
         }
     } else {
-        let renderPage = pages["/404"]();
-        ReactDOM.render(<Body doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
+        let renderPage = pages["/404"](data);
+        ReactDOM.render(<Body data={data} doSidebar={renderPage.sidebar} menukey={renderPage.key}>{renderPage.el}</Body>, document.getElementById("content"));
     }
     if(localStorage.getItem("bgurl")) {
         $(".belownav-content").css("background-image", "url(" + localStorage.getItem("bgurl") + ")")

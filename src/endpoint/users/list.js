@@ -18,7 +18,7 @@ class UserList extends Endpoint {
             path: "/users/list",
             types: ["post"],
             description: 'List users.',
-            errors: ["incoInfo", "incoReq"],
+            errors: ["incoReq", "noPermission"],
             posts: [{
                 access_code: "string",
                 amount: "number",

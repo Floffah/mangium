@@ -20,7 +20,8 @@ import Build from './pages/util/Build'
 import Memory from "./pages/util/Memory";
 
 import DockerContainers from "./pages/util/DockerContainers";
-import Users from "./pages/Users";
+import Users from "./pages/Users/Users";
+import User from "./pages/Users/User";
 
 export default {
     default: () => {
@@ -101,6 +102,12 @@ export default {
             el: <Users/>,
             sidebar: true,
             key: "userslist"
+        }
+    },
+    '/users/view': (d) => {
+        return {
+            el: <User data={d}/>,
+            sidebar: true,
         }
     },
     "/info": () => {

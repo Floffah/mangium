@@ -28,6 +28,9 @@ module.exports = {
     getUserID() {
         return `SELECT * FROM users WHERE userid = ?;`
     },
+    getUsername() {
+        return `SELECT * FROM users WHERE username = ?;`
+    },
     listUsers() {
         return `SELECT * FROM users;`
     },
