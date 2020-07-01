@@ -12,14 +12,25 @@ import {
     CheckOutlined,
     CloseOutlined,
     ContainerOutlined,
+    DashboardOutlined,
+    HomeOutlined,
     InfoCircleOutlined,
     SettingOutlined,
     ToolOutlined,
     UnorderedListOutlined,
-    UserOutlined
+    UserOutlined,
+    ProjectOutlined,
+    CloudServerOutlined
 } from "@ant-design/icons";
 import {changePage, getPermissions} from "../../ui";
 
+function permissionOrOverride(perm) {
+    if(getPermissions()[perm] === true || getPermissions().override === "ALL" || getPermissions().override === "all") {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 export default function Body(p) {
     function switchTheme() {
@@ -64,8 +75,29 @@ export default function Body(p) {
                 <Menu
                     mode="inline"
                     defaultSelectedKeys={[p.menukey]}
+                    defaultOpenKeys={["admin", "home"]}
                 >
                     {admin}
+
+                    <Menu.SubMenu key="home" title="Home" icon={<HomeOutlined/>}>
+                        <Menu.Item key="dashboard" icon={<DashboardOutlined/>}
+                                   onClick={() => changePage("/home/dashboard")}>Dashboard</Menu.Item>
+                        {function () {
+                            if(permissionOrOverride("canSelfProjects")) {
+                                return <Menu.Item key="projects" icon={<ProjectOutlined />} onClick={() => changePage("/home/projects")}>Projects</Menu.Item>
+                            } else {
+                                return "";
+                            }
+                        }()}
+                        {function () {
+                            if(permissionOrOverride("canSelfServices")) {
+                                return <Menu.Item disabled key="services" icon={<CloudServerOutlined />} onClick={() => changePage("/home/services")}>Services</Menu.Item>
+                            } else {
+                                return "";
+                            }
+                        }()}
+                    </Menu.SubMenu>
+
                     <Menu.SubMenu key="info" title="Information" icon={<InfoCircleOutlined/>}>
                         <Menu.Item key="build" icon={<InfoCircleOutlined/>} onClick={() => changePage("/info")}>Build
                             Info</Menu.Item>
