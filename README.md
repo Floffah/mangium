@@ -29,6 +29,11 @@ When contributing just keep in mind that Mangium shouldn't be completely profess
     - Mangium can be extended (with plugins) like a tree on steroids can grow branches
  - I just want to try out Mangium. How do I do this?
     - Mangium leaves little to no footprint on your computer as it doesnt really install it, it just clones git repositories. Once you delete Mangium's instatllation folder, its gone. Just use the installer and you should be good to go.
+ - Why should I use Mangium over something like Pterodactyl?
+    - Mangium has a few big features that (as far as I am aware), pterodactyl doesn't have. Including:
+        - Direct docker integration
+        - Serving code-servers to write your code and commit it without using some crappy custom editor that just doesnt work.
+        - As of writing this, only uses a max of 9mb with everything turned on.
 
 
 # Help
