@@ -65,6 +65,10 @@ class Manager {
                 docker: {
                     version: "v1.40",
                     socketPath: "//./pipe/docker_engine"
+                },
+                enable: {
+                    webpanel: true,
+                    api: true
                 }
             }).write()
         } else {
@@ -76,8 +80,10 @@ class Manager {
         this._dbManager.init();
 
         // db web create
-        this._webManager = new WebManager(this);
-        this._webManager.create();
+        if (this._config.get("enable.webpanel").value() === true) {
+            this._webManager = new WebManager(this);
+            this._webManager.create();
+        }
 
         // docker create
         this._dockerManager = new DockerManager(this);
@@ -91,9 +97,11 @@ class Manager {
 
     load() {
         // web start
-        this._webManager.listen();
-        if (this._config.get("settings.setup").value() !== true) {
-            this._webManager.needSetup();
+        if (this._config.get("enable.webpanel").value() === true) {
+            this._webManager.listen();
+            if (this._config.get("settings.setup").value() !== true) {
+                this._webManager.needSetup();
+            }
         }
 
         // end if in build mode
@@ -105,7 +113,9 @@ class Manager {
     }
 
     end() {
-        this._webManager.stop();
+        if (this._config.get("enable.webpanel").value() === true) {
+            this._webManager.stop();
+        }
         this.getLogger().info("Mangium stopped.");
     }
 
@@ -138,7 +148,10 @@ class Manager {
 
     /**
      *
-     * @returns {If<*[AsyncProperty], Promise<Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], AsyncTag>, *>>, Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], SyncTag>, *>> | If<*[AsyncProperty], Promise<Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], AsyncTag>, *>>, Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], SyncTag>, *>>}
+     * @returns {If<*[AsyncProperty], Promise<Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], AsyncTag>, *>>,
+     *     Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], SyncTag>, *>> | If<*[AsyncProperty],
+     *     Promise<Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], AsyncTag>, *>>,
+     *     Lowdb.Lowdb<RecursivelyExtend<*[ReferenceProperty], SyncTag>, *>>}
      */
     getConfig() {
         return this._config;
@@ -173,7 +186,11 @@ class Manager {
      * @returns {WebManager}
      */
     getWebManager() {
-        return this._webManager;
+        if(this._config.get("enable.webpanel").value() === true) {
+            return this._webManager;
+        } else {
+            return null;
+        }
     }
 }
 

@@ -40,8 +40,11 @@ class WebManager {
             });
         });
 
-        this._apimanager = new APIManager(this);
-        this._apimanager.create();
+
+        if(this._manager.getConfig().get("enable.api").value() === true) {
+            this._apimanager = new APIManager(this);
+            this._apimanager.create();
+        }
 
         this._created = true
     }
@@ -95,7 +98,11 @@ class WebManager {
     }
 
     get api() {
-        return this._apimanager;
+        if(this._manager.getConfig().get("enable.api").value() === true) {
+            return this._apimanager;
+        } else {
+            return null;
+        }
     }
 
     get manager() {
