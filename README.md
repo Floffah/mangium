@@ -33,7 +33,7 @@ When contributing just keep in mind that Mangium shouldn't be completely profess
     - Mangium has a few big features that (as far as I am aware), pterodactyl doesn't have. Including:
         - Direct docker integration
         - Serving code-servers to write your code and commit it without using some crappy custom editor that just doesnt work.
-        - As of writing this, only uses a max of 9mb with everything turned on.
+        - As of writing this, only uses a max of 13mb and average of 11mb with everything turned on (even some plugins loaded).
 
 
 # Help

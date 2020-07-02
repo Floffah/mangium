@@ -54,6 +54,8 @@ export function translateError(type) {
         return "This server does not have an Unsplash key set."
     } else if(type === "noPermission") {
         return "You do not have permission to complete this action."
+    } else if(type === "apiDisabled") {
+        return "This action could not be completed as the API is disabled."
     }
     return type;
 }

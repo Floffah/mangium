@@ -82,7 +82,11 @@ if(localStorage.getItem('access_code')) {
         access_code: localStorage.getItem("access_code"),
         user_id: "self"
     }).then((res) => {
-        clientpermissions = res.data.permissions;
+        if(!res.data.error) {
+            clientpermissions = res.data.permissions;
+        } else {
+            showError(res.data.error)
+        }
         post('/getState', {
             currentState: 'pageload'
         }).then((res) => {

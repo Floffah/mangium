@@ -44,6 +44,12 @@ class WebManager {
         if(this._manager.getConfig().get("enable.api").value() === true) {
             this._apimanager = new APIManager(this);
             this._apimanager.create();
+        } else {
+            this._app.use("/api", (req, res) => {
+                res.status(200).json({
+                    error: "apiDisabled"
+                });
+            });
         }
 
         this._created = true

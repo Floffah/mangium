@@ -13,7 +13,9 @@ const Logger = require('../log/Log'),
     low = require('lowdb'),
     fisy = require('lowdb/adapters/FileSync'),
     DatabaseManager = require('./DatabaseManager'),
-    DockerManager = require('../docker/DockerManager');
+    DockerManager = require('../docker/DockerManager'),
+    Events = require('../events/Events'),
+    PluginManager = require('../plugins/PluginManager');
 
 class Manager {
     /**
@@ -33,7 +35,8 @@ class Manager {
             ["db", Path.join(__dirname, '../../data/db')],
             ["logs", Path.join(__dirname, '../../data/logs')],
             ["err", Path.join(__dirname, '../../data/logs/errors')],
-            ["keys", Path.join(__dirname, '../../data/keys')]
+            ["keys", Path.join(__dirname, '../../data/keys')],
+            ["plugins", Path.join(__dirname, '../../plugins')]
         ]);
         this._paths.forEach((v) => {
             if (!fs.existsSync(v)) {
@@ -47,6 +50,8 @@ class Manager {
 
     initialize() {
         this.getLogger().info("Initialising mangium...");
+
+        this._events = new Events();
 
         // config
         if (!fs.existsSync(Path.join(this.getPath("config"), "config.json"))) {
@@ -89,6 +94,10 @@ class Manager {
         this._dockerManager = new DockerManager(this);
         this._dockerManager.init();
 
+        // plugins craete
+        this._pluginManager = new PluginManager(this);
+        this._pluginManager.loadPlugins();
+
         // finish initialize
         this._initialized = true;
 
@@ -109,7 +118,12 @@ class Manager {
             this._options.cibdone(this._errors.length >= 1, this._errors);
         }
 
-        this._webManager.started();
+        if (this._config.get("enable.webpanel").value() === true) {
+            this._webManager.started();
+        }
+
+        // do epic plugin stuff
+        this._pluginManager.enablePlugins();
     }
 
     end() {
@@ -186,7 +200,7 @@ class Manager {
      * @returns {WebManager}
      */
     getWebManager() {
-        if(this._config.get("enable.webpanel").value() === true) {
+        if (this._config.get("enable.webpanel").value() === true) {
             return this._webManager;
         } else {
             return null;
