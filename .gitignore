@@ -4,6 +4,10 @@ data/
 
 permissions.md
 
+plugins/**/node_modules
+plugins/**/package-lock.json
+plugins/cache.json
+
 # Generated
 
 # Yarn
