@@ -28,9 +28,6 @@ module.exports = {
             'react-dom',
             'react-dom/server',
 
-            '@fortawesome/fontawesome-free/js/all.min',
-            '@fortawesome/fontawesome-free/css/all.min.css',
-
             '@babel/runtime/helpers/interopRequireDefault.js',
             '@babel/runtime/helpers/interopRequireWildcard.js',
 

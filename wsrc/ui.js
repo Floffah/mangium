@@ -7,9 +7,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-import '@fortawesome/fontawesome-free/js/all.min'
-import '@fortawesome/fontawesome-free/css/all.min.css'
-
 import pages from './ui/pages';
 import {post} from "./lib/comms";
 import Body from './component/ui/Body'

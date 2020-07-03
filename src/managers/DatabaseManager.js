@@ -6,7 +6,6 @@
  */
 
 const Database = require('../db/Database'),
-    knex = require('knex'),
     arrays = require('../util/Arrays'),
     {saveErr} = require('../handler/errorHandlers'),
     Path = require('path');
