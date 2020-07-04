@@ -38,7 +38,7 @@ function settingSet(settings) {
             })
         }
     });
-    while(toSend.length === settings.length) {
+    while(toSend.length >= settings.length) {
         return post("/settings", {
             "access-code": localStorage.getItem("access_code"),
             settings: toSend,
@@ -73,7 +73,8 @@ export {
 }
 
 let setting = {
-    "memint": ["memorySaveInterval", "settings"]
+    "memint": ["memorySaveInterval", "settings"],
+    "unsplash": ["keys.unsplash", "config"]
 }
 
 function translateSetting(name) {

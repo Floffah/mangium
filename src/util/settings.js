@@ -6,5 +6,6 @@
  */
 
 module.exports = {
-    "memorySaveInterval": ["viewDetails"]
+    "memorySaveInterval": ["viewDetails"],
+    "unsplash": ["editKeys"]
 }

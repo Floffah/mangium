@@ -59,7 +59,7 @@ class State extends Endpoint {
             let toret;
             info.settings.forEach(v => {
                 //console.log("2");
-                if (user.getPermissions().hasPermissions(settings[v.setting]) || nocheck) {
+                if (user.getPermissions().hasPermission(settings[v.setting]) || nocheck) {
                     //console.log("3");
                     if (v.at === "config") {
                         this.manager.getConfig().set(v.setting, v.value).write();

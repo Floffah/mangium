@@ -6,10 +6,9 @@
  */
 
 import React, {useState} from "react";
-import {Button, Col, Input, Row, Select} from "antd";
-import {ExclamationCircleFilled, ExclamationCircleOutlined, LockOutlined} from '@ant-design/icons'
+import {Button, Col, Input, message, Row, Select} from "antd";
+import {CheckOutlined, ExclamationCircleFilled, ExclamationCircleOutlined, LockOutlined} from '@ant-design/icons'
 import {settingSet} from "../../lib/comms";
-import async from 'async';
 import {showError} from "../../lib/overlay";
 
 let whatchanged = {};
@@ -40,11 +39,16 @@ export default function Settings() {
                 value: changedto[k]
             });
         });
+        console.log(ch);
         setLoading(true);
         settingSet(ch).then((resp) => {
             console.log(resp);
             setLoading(false);
             setDisabled(true);
+            message.open({
+                content: "Saved",
+                icon: <CheckOutlined className="greenclr"/>
+            });
             if (resp.data.error) {
                 showError(resp.data.error);
             }
@@ -56,6 +60,8 @@ export default function Settings() {
             padding: "10px",
         }}>
             <h2>Settings</h2>
+            <Button className="btn-success" onClick={() => runSave()} loading={loading}
+                    style={{left: "10px", position: "relative", marginBottom: 10}} disabled={disabled}>Save</Button>
             <p style={{position: "relative", left: "10px"}}><LockOutlined className="primary-clr" key={0}/> represents
                 settings which have a value that is not sent to any client for security reasons.</p>
             <Row gutter={38} style={{left: "10px", position: "relative"}}>
