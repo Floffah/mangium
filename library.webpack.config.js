@@ -47,11 +47,11 @@ module.exports = {
         rules: [
             {
                 test: /\.s[ac]ss$/,
-                loader: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+                loader: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
                 test: /\.css$/,
-                loader: ['style-loader', 'css-loader', 'postcss-loader']
+                loader: ['style-loader', 'css-loader']
             },
             {
                 test: /\.(png|svg|jpg|gif|woff|woff2|eot|ttf|otf)$/,

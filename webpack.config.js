@@ -21,11 +21,57 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                loader: ['babel-loader'],
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            "@babel/preset-env",
+                            "@babel/preset-react",
+                        ],
+                        plugins: [
+                            "@babel/plugin-syntax-dynamic-import",
+                            "@babel/plugin-proposal-class-properties"
+                        ],
+                        env: {
+                            production: {
+                                only: ["wsrc"],
+                                plugins: [
+                                    [
+                                        "transform-react-remove-prop-types",
+                                        {
+                                            removeImport: true
+                                        }
+                                    ],
+                                    "@babel/plugin-transform-react-inline-elements",
+                                    "@babel/plugin-transform-react-constant-elements"
+                                ]
+                            }
+                        }
+                    }
+
+                }],
             },
             {
                 test: /\.s[ac]ss$/,
-                loader: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+                use: [{loader: 'style-loader'}, {loader: 'css-loader'}, {
+                    loader: 'postcss-loader', options: {
+                        plugins: [
+                            require('postcss-import'),
+                            require('postcss-preset-env'),
+                            require('cssnano'),
+                            require('autoprefixer')({
+                                overrideBrowserslist: [
+                                    "defaults",
+                                    "last 1 version",
+                                    "> 1%",
+                                    "not IE 11",
+                                    "not IE_Mob 11",
+                                    "maintained node versions"
+                                ]
+                            }),
+                        ],
+                    }
+                }, {loader: 'sass-loader'}]
             },
             {
                 test: /\.css$/,
