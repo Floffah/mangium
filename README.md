@@ -1,4 +1,3 @@
-![Code Scanning](https://github.com/Floffah/mangium/workflows/Code%20Scanning/badge.svg)
 ![Test](https://github.com/Floffah/mangium/workflows/Test/badge.svg)
 
 Came here for the installer? [Click here](https://github.com/Mangium/installer)<br/>

@@ -6,8 +6,7 @@
  */
 
 const express = require("express"),
-    Path = require("path"),
-    ws = require('ws');
+    Path = require("path");
 
 const APIManager = require('./APIManager');
 
