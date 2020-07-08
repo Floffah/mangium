@@ -81,7 +81,7 @@ class Manager {
         }
 
         // db load
-        this._dbManager = new DatabaseManager(this);
+        this._dbManager = new DatabaseManager(this, "sqlite");
         this._dbManager.init();
 
         // db web create

@@ -23,7 +23,7 @@ class Database {
         } else {
             qry = query.toString();
         }
-        if (opts.type === 'sqlite') {
+        if (this.opts.type === 'sqlite') {
             return this.db.prepare(query);
         }
     }
