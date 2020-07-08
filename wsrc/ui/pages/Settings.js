@@ -39,10 +39,8 @@ export default function Settings() {
                 value: changedto[k]
             });
         });
-        console.log(ch);
         setLoading(true);
         settingSet(ch).then((resp) => {
-            console.log(resp);
             setLoading(false);
             setDisabled(true);
             message.open({

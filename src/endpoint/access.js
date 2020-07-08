@@ -10,7 +10,7 @@ const async = require('async');
 const crypto = require('crypto');
 
 let q = {
-    user: require('../db/queries/user'),
+    user: require('../db/queries/sqlite/user'),
 }
 
 class Access extends Endpoint {

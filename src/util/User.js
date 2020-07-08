@@ -8,7 +8,7 @@
 const Permissions = require('./Permissions');
 
 let q = {
-    user: require('../db/queries/user'),
+    user: require('../db/queries/sqlite/user'),
 }
 
 class User {

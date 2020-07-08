@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run Mangium" type="NodeJSConfigurationType" singleton="false" application-parameters="--dev" path-to-js-file="src/mangium.js" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>

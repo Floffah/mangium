@@ -11,8 +11,8 @@ const User = require('../util/User');
 const settings = require('../util/settings');
 
 let q = {
-    settings: require('../db/queries/settings'),
-    user: require('../db/queries/user'),
+    settings: require('../db/queries/sqlite/settings'),
+    user: require('../db/queries/sqlite/user'),
 }
 
 class State extends Endpoint {

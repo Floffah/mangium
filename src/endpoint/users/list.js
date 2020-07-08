@@ -9,7 +9,7 @@ const Endpoint = require('../../api/Endpoint');
 const User = require("../../util/User");
 
 let q = {
-    user: require('../../db/queries/user')
+    user: require('../../db/queries/sqlite/user')
 }
 
 class UserList extends Endpoint {

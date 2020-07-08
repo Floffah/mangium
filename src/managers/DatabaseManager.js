@@ -11,18 +11,32 @@ const Database = require('../db/Database'),
     Path = require('path');
 
 let q = {
-    settings: require('../db/queries/settings'),
-    user: require('../db/queries/user'),
-    common: require('../db/queries/common'),
+    settings: require('../db/queries/sqlite/settings'),
+    user: require('../db/queries/sqlite/user'),
+    common: require('../db/queries/sqlite/common'),
 }
 
 class DatabaseManager {
-    constructor(manager) {
+    constructor(manager, type) {
         this._manager = manager;
         this._dbs = {};
+        this.type = type;
+        if(type === "sqlite") {
+            this.q = {
+                common: require('../db/queries/sqlite/common'),
+                settings: require('../db/queries/sqlite/settings'),
+                user: require('../db/queries/sqlite/user')
+            }
+        }
     }
 
     init() {
+        if(this.type === "sqlite") {
+            this.initSqlite();
+        }
+    }
+
+    initSqlite() {
         // db create
         this._dbs.systemDb = new Database({
             path: Path.resolve(this._manager.getPath("db"), 'system.sqlite'),
@@ -36,13 +50,13 @@ class DatabaseManager {
         // cant stop wont stop initializing
         try {
             if (!arrays(this._dbs.systemDb.run(q.common.listTables()).all()).hasExact({name: 'settings'})) {
-                this._dbs.systemDb.run(q.settings.createTable()).run();
+                this._dbs.systemDb.run(this.q.settings.createTable()).run();
             }
             if (!arrays(this._dbs.userDb.run(q.common.listTables()).all()).hasExact({name: 'users'})) {
-                this._dbs.userDb.run(q.user.createTable()).run();
+                this._dbs.userDb.run(this.q.user.createTable()).run();
             }
             if (!arrays(this._dbs.userDb.run(q.common.listTables()).all()).hasExact({name: 'access'})) {
-                this._dbs.userDb.run(q.user.createAccess()).run();
+                this._dbs.userDb.run(this.q.user.createAccess()).run();
             }
 
             this._manager.getLogger().info("Database initialised");

@@ -11,19 +11,21 @@ const Path = require('path'),
 class Database {
     constructor(opts, ko) {
         this.opts = opts;
-        if(opts.type === 'sqlite') {
+        if (opts.type === 'sqlite') {
             this.db = bs3(opts.path);
         }
     }
 
     run(query) {
         let qry;
-        if(typeof query === "string") {
+        if (typeof query === "string") {
             qry = query;
         } else {
             qry = query.toString();
         }
-        return this.db.prepare(query);
+        if (opts.type === 'sqlite') {
+            return this.db.prepare(query);
+        }
     }
 }
 

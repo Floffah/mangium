@@ -6,7 +6,8 @@
  */
 
 const express = require("express"),
-    Path = require("path");
+    Path = require("path"),
+    ws = require('ws');
 
 const APIManager = require('./APIManager');
 
@@ -41,7 +42,7 @@ class WebManager {
         });
 
 
-        if(this._manager.getConfig().get("enable.api").value() === true) {
+        if (this._manager.getConfig().get("enable.api").value() === true) {
             this._apimanager = new APIManager(this);
             this._apimanager.create();
         } else {
@@ -79,7 +80,7 @@ class WebManager {
     }
 
     started() {
-        if(this.getState() !== "setup") {
+        if (this.getState() !== "setup") {
             this.setState("running");
         }
     }
@@ -104,7 +105,7 @@ class WebManager {
     }
 
     get api() {
-        if(this._manager.getConfig().get("enable.api").value() === true) {
+        if (this._manager.getConfig().get("enable.api").value() === true) {
             return this._apimanager;
         } else {
             return null;
