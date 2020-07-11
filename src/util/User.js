@@ -77,7 +77,7 @@ class User {
             }
         } else if(data.access_code) {
             let foundAccess = this._manager.getDbManager().getDbs().userDb.run(q.user.getToken()).get(data.access_code);
-            if(foundAccess.userid) {
+            if(foundAccess && foundAccess.userid) {
                 let found = this._manager.getDbManager().getDbs().userDb.run(q.user.getUserID()).get(foundAccess.userid);
                 if(found) {
                     this.data = {
