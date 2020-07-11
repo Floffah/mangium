@@ -79,7 +79,7 @@ class APIManager {
                 }
                 if(Promise.resolve(response) === response) {
                     response.then(resp => res.status(200).json(resp))
-                } else if(response.nosend !== true) {
+                } else if((response && response.nosend) !== true) {
                     res.status(200).json(response);
                 }
                 return true;
