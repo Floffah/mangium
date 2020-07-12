@@ -32,15 +32,21 @@ class Permissions extends Endpoint {
     run(reqinfo, info) {
         if (reqinfo.type === "post") {
             let user = new User(undefined, this.manager).find({access_code: info["access_code"]});
-            if(user.getPermissions().hasPermission("managePermissions") || info.user_id === "self") {
+            if((user !== null && user.getPermissions().hasPermission("managePermissions")) || info.user_id === "self") {
                 if(info.user_id === "self") {
-                    if(user.isNull()) {
+                    if(user && user.isNull()) {
                         return {
                             error: "notFound"
                         }
                     } else {
-                        return {
-                            permissions: user.getPermissions().toObject()
+                        if(user) {
+                            return {
+                                permissions: user.getPermissions().toObject()
+                            }
+                        } else {
+                            return {
+                                permissions: {}
+                            }
                         }
                     }
                 } else {
@@ -54,6 +60,10 @@ class Permissions extends Endpoint {
                             permissions: targetuser.getPermissions().toObject()
                         }
                     }
+                }
+            } else {
+                return {
+                    error: "notFound"
                 }
             }
         } else {

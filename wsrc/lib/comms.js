@@ -26,7 +26,7 @@ function get(path) {
     return axios.get("/api/v1" + path);
 }
 
-function settingSet(settings) {
+function settingSet(settings, setup) {
     let toSend = [];
     settings.forEach(s => {
         if(setting[s.name]) {
@@ -40,7 +40,7 @@ function settingSet(settings) {
     });
     while(toSend.length >= settings.length) {
         return post("/settings", {
-            "access-code": localStorage.getItem("access_code"),
+            "access-code": setup === true ? "setup" : localStorage.getItem("access_code"),
             settings: toSend,
             type: "set"
         });

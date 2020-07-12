@@ -39,13 +39,17 @@ class State extends Endpoint {
     }
 
     run(reqinfo, info) {
+        console.log("a")
         if (reqinfo.type === "post") {
             if (info["access-code"] === "setup" && this.manager.getWebManager().getState() === "setup") {
+                console.log("b")
                 return this.changeSettings(info, true);
             } else {
+                console.log("c")
                 return this.changeSettings(info);
             }
         } else {
+            console.log("d")
             return {
                 error: "incoReq"
             }
@@ -55,21 +59,16 @@ class State extends Endpoint {
     changeSettings(info, nocheck) {
         let user = new User(undefined, this.manager).find({access_code: info["access-code"]});
         if (info.type === "set") {
-            //console.log("1");
             let toret;
             info.settings.forEach(v => {
-                //console.log("2");
-                if (user.getPermissions().hasPermission(settings[v.setting]) || nocheck) {
-                    //console.log("3");
+                if (nocheck || user.getPermissions().hasPermission(settings[v.setting])) {
                     if (v.at === "config") {
                         this.manager.getConfig().set(v.setting, v.value).write();
                     } else if (v.at === "settings") {
                         if (v.setting === "admin") {
-                            this.manager.getDbManager().getDbs().systemDb.run(q.settings.setupAdmin()).run("admin", v.value);
                             let d = JSON.parse(v.value);
                             this.manager.getDbManager().getDbs().userDb.run(q.user.addUser()).run(d.uname, d.pass, JSON.stringify({override: "ALL"}), "admin");
                         } else {
-                            //console.log("4");
                             this.manager.getDbManager().getDbs().systemDb.run(q.settings.set()).run(v.setting, v.value);
                         }
                     }
@@ -77,7 +76,6 @@ class State extends Endpoint {
                         success: true,
                     }
                 } else {
-                    //console.log("5");
                     toret = {
                         error: "noPermission"
                     }

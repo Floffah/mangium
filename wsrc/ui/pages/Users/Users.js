@@ -36,6 +36,7 @@ export default class Users extends React.Component {
             res.data.users.forEach(user => {
                 let type = user.type;
                 if (type === "admin") type = "Admin";
+                if (type === "user") type = "User";
                 this.setState({
                         userslist: [
                             ...this.state.userslist,

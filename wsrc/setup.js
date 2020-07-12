@@ -9,7 +9,7 @@ import React from "react";
 import ReactDOM from "react-dom"
 import Setup from "./component/setup/Setup";
 import Markdown from './component/markdown';
-import {post, get} from './lib/comms';
+import {post, get, settingSet} from './lib/comms';
 import {renderToString} from 'react-dom/server';
 import {showError} from './lib/overlay';
 
@@ -64,6 +64,7 @@ let setupM = {
     setupDone() {
         post("/settings", {
             "access-code": "setup",
+            type: "set",
             settings: [
                 {
                     at: "config",
