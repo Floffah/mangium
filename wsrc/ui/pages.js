@@ -22,6 +22,7 @@ import Memory from "./pages/util/Memory";
 import DockerContainers from "./pages/util/DockerContainers";
 import Users from "./pages/Users/Users";
 import User from "./pages/Users/User";
+import UserEdit from "./pages/Users/UserEdit";
 
 export default {
     default: () => {
@@ -110,11 +111,17 @@ export default {
             sidebar: true,
         }
     },
-    "/info": () => {
-            return {
-                el: <Build/>,
-                sidebar: true,
-                key: "build"
-            }
+    '/users/edit': (d) => {
+        return {
+            el: <UserEdit data={d}/>,
+            sidebar: true,
         }
+    },
+    "/info": () => {
+        return {
+            el: <Build/>,
+            sidebar: true,
+            key: "build"
+        }
+    }
 }

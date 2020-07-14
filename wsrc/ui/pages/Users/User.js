@@ -12,7 +12,7 @@ import {showError} from "../../../lib/overlay";
 import {ArrowLeftOutlined, EllipsisOutlined} from '@ant-design/icons';
 import {changePage} from "../../../ui";
 
-export default class Users extends React.Component {
+export default class User extends React.Component {
     constructor(p) {
         super(p);
         this.state = {
@@ -59,7 +59,7 @@ export default class Users extends React.Component {
         let menu = (
             <Menu>
                 <Menu.Item>
-                    <a>Edit</a>
+                    <a onClick={() => changePage("/users/edit", {username: this.state.user.username})}>Edit</a>
                 </Menu.Item>
             </Menu>
         )

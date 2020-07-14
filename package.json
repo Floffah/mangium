@@ -43,7 +43,8 @@
     "stacktrace-parser": "^0.1.10",
     "threads": "^1.6.3",
     "time-stamp": "^2.2.0",
-    "uuid": "^8.2.0"
+    "uuid": "^8.2.0",
+    "ws": "^7.3.0"
   },
   "devDependencies": {
     "@ant-design/icons": "^4.2.1",

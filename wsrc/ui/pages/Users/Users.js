@@ -35,7 +35,7 @@ export default class Users extends React.Component {
         }).then((res) => {
             res.data.users.forEach(user => {
                 let type = user.type;
-                if (type === "admin") type = "Admin";
+                if (type === "admin") type = "Administrator";
                 if (type === "user") type = "User";
                 this.setState({
                         userslist: [
@@ -81,9 +81,9 @@ export default class Users extends React.Component {
                 key: 'actions',
                 render: (t, r) => {
                     return [
-                        <a key={0}>Profile</a>,
+                        <a key={0} onClick={() => changePage("/users/view", {username: r.username})}>Profile</a>,
                         <span key={1}>&nbsp;&nbsp;</span>,
-                        <a key={2}>Edit</a>
+                        <a key={2} onClick={() => changePage("/users/edit", {username: r.username})}>Edit</a>
                     ]
                 }
             },
