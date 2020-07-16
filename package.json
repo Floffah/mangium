@@ -36,6 +36,7 @@
     "draftlog": "^1.0.12",
     "express": "^4.17.1",
     "kind-of": "^6.0.3",
+    "lodash": "^4.17.19",
     "lowdb": "^1.0.0",
     "marked": "^1.1.0",
     "node-fetch": "^2.6.0",
