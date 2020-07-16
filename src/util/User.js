@@ -118,6 +118,26 @@ class User {
     get type() {
         return this.data.type;
     }
+
+    set username(value) {
+        this._manager.getDbManager().getDbs().userDb.run(
+            this._manager.getDbManager().q.user.setUsername(value, this.data.userid)
+        ).run(value);
+        this.data.username = value;
+        return this.data.username;
+    }
+
+    set type(value) {
+        if(["admin", "user"].includes(value)) {
+            this._manager.getDbManager().getDbs().userDb.run(
+                this._manager.getDbManager().q.user.setType(value, this.data.type)
+            ).run(value);
+            this.data.type = value;
+            return this.data.type;
+        } else {
+            throw new Error("Value must be 'admin' or 'user'. Is case sensitive.")
+        }
+    }
 }
 
 module.exports = User;

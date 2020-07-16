@@ -35,6 +35,13 @@ module.exports = {
         return `SELECT * FROM users;`
     },
 
+    setUsername() {
+        return `UPDATE users SET username = ? WHERE id = ?;`
+    },
+    setType() {
+        return `UPDATE users SET type = ? WHERE id = ?;`
+    },
+
     createAccess() {
         return "CREATE TABLE 'access' ('token' varchar(256),'userid' integer, 'expires' datetime, FOREIGN KEY(userid) REFERENCES users(userid));"
     },
