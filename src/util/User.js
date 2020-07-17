@@ -121,8 +121,8 @@ class User {
 
     set username(value) {
         this._manager.getDbManager().getDbs().userDb.run(
-            this._manager.getDbManager().q.user.setUsername(value, this.data.userid)
-        ).run(value);
+            this._manager.getDbManager().q.user.setUsername()
+        ).run(value, this.data.userid);
         this.data.username = value;
         return this.data.username;
     }
@@ -130,8 +130,8 @@ class User {
     set type(value) {
         if(["admin", "user"].includes(value)) {
             this._manager.getDbManager().getDbs().userDb.run(
-                this._manager.getDbManager().q.user.setType(value, this.data.type)
-            ).run(value);
+                this._manager.getDbManager().q.user.setType()
+            ).run(value, this.data.type);
             this.data.type = value;
             return this.data.type;
         } else {

@@ -41,7 +41,7 @@ export default class User extends React.Component {
                 }).then((r) => this.ok(r.data));
             }
         } else {
-            showError("notFound");
+            changePage("/users")
         }
     }
 
@@ -52,6 +52,7 @@ export default class User extends React.Component {
             });
         } else {
             showError(d.error);
+            changePage("/users")
         }
     }
 

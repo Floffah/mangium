@@ -44,7 +44,7 @@ class UserList extends Endpoint {
                 } else if(data.username) {
                     getuser = new User(undefined, this.manager).find({username: data.username});
                 }
-                if(getuser.isNull()) {
+                if(getuser === null || getuser.isNull()) {
                     return {
                         error: "notFound"
                     }

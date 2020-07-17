@@ -24,7 +24,9 @@ export default class Users extends React.Component {
     }
 
     onSearch(v) {
-        changePage("/users/view", {username: v});
+        if(v !== "") {
+            changePage("/users/view", {username: v});
+        }
     }
 
     loadMore() {

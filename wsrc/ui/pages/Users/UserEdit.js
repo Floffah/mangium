@@ -25,8 +25,16 @@ export default class UserEdit extends React.Component {
                 }
             },
             loading: false,
-            disabled: true
+            disabled: true,
+            changed: {
+                username: false,
+                permissions: false,
+                type: false
+            }
         }
+
+        this.onChange = this.onChange.bind(this);
+        this.onSave = this.onSave.bind(this);
     }
 
     componentDidMount() {
@@ -43,7 +51,7 @@ export default class UserEdit extends React.Component {
                 }).then((r) => this.ok(r.data));
             }
         } else {
-            showError("notFound");
+            changePage("/users")
         }
     }
 
@@ -54,7 +62,44 @@ export default class UserEdit extends React.Component {
             });
         } else {
             showError(d.error);
+            changePage("/users")
         }
+    }
+
+    onChange(name, v) {
+        if(this.state.user.id !== "Loading") {
+            if (this.state.disabled === true) {
+                this.setState({
+                    disabled: false
+                })
+            }
+            let value = v;
+            if (typeof v !== "string") {
+                value = v.target.value;
+            }
+            let oldstate = this.state.changed;
+            oldstate[name] = value;
+            this.setState({
+                changed: oldstate
+            });
+        }
+    }
+
+    onSave() {
+        this.setState({
+            disabled: true,
+            loading: true
+        });
+        post("/users/edit", {
+            access_code: localStorage.getItem("access_code"),
+            quserid: this.state.user.id,
+            ...this.state.changed
+        }).then(() => {
+            this.setState({
+                loading: false
+            });
+            setTimeout(() => changePage("/users"), 500)
+        });
     }
 
     render() {
@@ -78,7 +123,13 @@ export default class UserEdit extends React.Component {
                         <div className="user-edit-details" style={{marginTop: 10, marginLeft: 20}}>
                             <Row gutter={gridinfo.row.gutter}>
                                 <Col>
-                                    <Input value={this.state.user.username} addonBefore="Username"/>
+                                    <Input value={(() => {
+                                        if(this.state.changed.username !== false) {
+                                            return this.state.changed.username
+                                        } else {
+                                            return this.state.user.username
+                                        }
+                                    })()} addonBefore="Username" onChange={(e) => this.onChange("username", e)}/>
                                 </Col>
                             </Row>
                             <Row gutter={gridinfo.row.gutter}>
@@ -88,7 +139,13 @@ export default class UserEdit extends React.Component {
                             </Row>
                             <Row gutter={gridinfo.row.gutter}>
                                 <Col>
-                                    <Input value={this.state.user.type} addonBefore="Username"/>
+                                    <Input value={(() => {
+                                        if(this.state.changed.type !== false) {
+                                            return this.state.changed.type
+                                        } else {
+                                            return this.state.user.type
+                                        }
+                                    })()} addonBefore="User type" onChange={(e) => this.onChange("type", e)}/>
                                 </Col>
                             </Row>
                             <Row gutter={gridinfo.row.gutter}>
@@ -101,7 +158,7 @@ export default class UserEdit extends React.Component {
                             </Row>
                         </div>
                         <Button className="btn-success" loading={this.state.loading}
-                                style={{left: "10px", position: "relative"}} disabled={this.state.disabled}>Save</Button>
+                                style={{left: "10px", position: "relative"}} disabled={this.state.disabled} onClick={this.onSave}>Save</Button>
                     </div>
                 </div>
             </div>

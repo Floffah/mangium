@@ -36,10 +36,10 @@ module.exports = {
     },
 
     setUsername() {
-        return `UPDATE users SET username = ? WHERE id = ?;`
+        return `UPDATE users SET username = ? WHERE userid = ?;`
     },
     setType() {
-        return `UPDATE users SET type = ? WHERE id = ?;`
+        return `UPDATE users SET type = ? WHERE userid = ?;`
     },
 
     createAccess() {

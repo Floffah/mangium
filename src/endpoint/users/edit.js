@@ -42,15 +42,20 @@ class UserEdit extends Endpoint {
 
     run(reqinfo, data, res) {
         if (reqinfo.type === "post") {
+            if(!data["access_code"]) {
+                return {
+                    error: "incoReq"
+                }
+            }
             let user = new User(undefined, this.manager).find({access_code: data["access_code"]});
             if (user.getPermissions().hasPermissions(["manageUsers"])) {
                 let getuser;
-                if(data.userid) {
+                if(data.quserid) {
                     getuser = new User(undefined, this.manager).find({userid: data.quserid});
-                } else if(data.username) {
+                } else if(data.qusername) {
                     getuser = new User(undefined, this.manager).find({username: data.qusername});
                 }
-                if(getuser.isNull()) {
+                if(getuser === null || getuser.isNull()) {
                     return {
                         error: "notFound"
                     }
