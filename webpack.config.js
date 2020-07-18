@@ -7,6 +7,50 @@ const HtmlPlugin = require('html-webpack-plugin');
 
 let production = false;
 
+const babelopts = {
+    presets: [
+        "@babel/preset-env",
+        "@babel/preset-react",
+    ],
+    plugins: [
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-class-properties"
+    ],
+    env: {
+        production: {
+            only: ["wsrc"],
+            plugins: [
+                [
+                    "transform-react-remove-prop-types",
+                    {
+                        removeImport: true
+                    }
+                ],
+                "@babel/plugin-transform-react-inline-elements",
+                "@babel/plugin-transform-react-constant-elements"
+            ]
+        }
+    }
+}
+
+const postcssopts = {
+    plugins: [
+        require('postcss-import'),
+        require('postcss-preset-env'),
+        require('cssnano'),
+        require('autoprefixer')({
+            overrideBrowserslist: [
+                "defaults",
+                "last 1 version",
+                "> 1%",
+                "not IE 11",
+                "not IE_Mob 11",
+                "maintained node versions"
+            ]
+        }),
+    ],
+}
+
 module.exports = {
     mode: production ? "production" : "development",
     entry: "./wsrc/index.js",
@@ -23,59 +67,31 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 use: [{
                     loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            "@babel/preset-env",
-                            "@babel/preset-react",
-                        ],
-                        plugins: [
-                            "@babel/plugin-syntax-dynamic-import",
-                            "@babel/plugin-proposal-class-properties"
-                        ],
-                        env: {
-                            production: {
-                                only: ["wsrc"],
-                                plugins: [
-                                    [
-                                        "transform-react-remove-prop-types",
-                                        {
-                                            removeImport: true
-                                        }
-                                    ],
-                                    "@babel/plugin-transform-react-inline-elements",
-                                    "@babel/plugin-transform-react-constant-elements"
-                                ]
-                            }
-                        }
-                    }
-
+                    options: babelopts
                 }],
             },
             {
                 test: /\.s[ac]ss$/,
-                use: [{loader: 'style-loader'}, {loader: 'css-loader'}, {
-                    loader: 'postcss-loader', options: {
-                        plugins: [
-                            require('postcss-import'),
-                            require('postcss-preset-env'),
-                            require('cssnano'),
-                            require('autoprefixer')({
-                                overrideBrowserslist: [
-                                    "defaults",
-                                    "last 1 version",
-                                    "> 1%",
-                                    "not IE 11",
-                                    "not IE_Mob 11",
-                                    "maintained node versions"
-                                ]
-                            }),
-                        ],
+                use: (() => {
+                    if(production) {
+                        return [
+                            {loader: 'style-loader'},
+                            {loader: 'css-loader'},
+                            {loader: 'postcss-loader', options: postcssopts},
+                            {loader: 'sass-loader'}
+                        ]
+                    } else {
+                        return [
+                            {loader: 'style-loader'},
+                            {loader: 'css-loader'},
+                            {loader: 'sass-loader'}
+                        ]
                     }
-                }, {loader: 'sass-loader'}]
+                })()
             },
             {
                 test: /\.css$/,
-                loader: ['style-loader', 'css-loader', 'postcss-loader']
+                loader: ['style-loader', 'css-loader']
             },
             {
                 test: /\.(png|svg|jpg|gif|woff|woff2|eot|ttf|otf)$/,
