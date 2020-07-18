@@ -20,5 +20,8 @@ module.exports = {
     },
     get() {
         return `SELECT data FROM settings WHERE name = ?;`
+    },
+    all() {
+        return `SELECT data,name FROM settings;`
     }
 }

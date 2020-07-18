@@ -6,13 +6,32 @@
  */
 
 import React, {useState} from "react";
-import {Button, Col, Input, message, Row, Select} from "antd";
-import {CheckOutlined, ExclamationCircleFilled, ExclamationCircleOutlined, LockOutlined} from '@ant-design/icons'
-import {settingSet} from "../../lib/comms";
+import {Button, Col, Input, message, Row, Select, Switch} from "antd";
+import {CheckOutlined, ExclamationCircleFilled, ExclamationCircleOutlined, LockOutlined, CloseOutlined} from '@ant-design/icons'
+import {post, settingSet} from "../../lib/comms";
 import {showError} from "../../lib/overlay";
+import {changePage} from "../../ui";
 
 let whatchanged = {};
 let changedto = {};
+
+let settings = {};
+if(Object.keys(settings).length < 1) {
+    post("/settings", {
+        type: "all",
+        "access-code": localStorage.getItem("access_code")
+    }).then((d) => {
+        if(d.data.error) {
+            changePage("/");
+        } else {
+            let stngs = {};
+            for (let setting in d.data) {
+                stngs[d.data[setting].name] = d.data[setting].data;
+            }
+            settings = stngs;
+        }
+    });
+}
 
 export default function Settings() {
     let [loading, setLoading] = useState(false);
@@ -93,12 +112,32 @@ export default function Settings() {
                 <Setting name="Name">
                     <Input value="Mangium" disabled style={{width: "200px"}}/>
                 </Setting>
+                <Setting name="Panel links">
+                    <Switch
+                        checkedChildren={<CheckOutlined />}
+                        unCheckedChildren={<CloseOutlined />}
+                        defaultChecked={(() => {
+                            if(settings.panelLinks) {
+                                return settings.panelLinks === "true";
+                            } else {
+                                return true;
+                            }
+                        })()}
+                        onChange={(v) => changed(v + "", "panellinks")}
+                    />
+                </Setting>
             </SettingsSection>
 
 
             <SettingsSection title="Server Details">
                 <Setting name="Memory save interval">
-                    <Select defaultValue="10" onChange={(v) => changed(v, "memint")}>
+                    <Select defaultValue={(() => {
+                        if(settings.memorySaveInterval) {
+                            return settings.memorySaveInterval + "";
+                        } else {
+                            return "10"
+                        }
+                    })()} onChange={(v) => changed(v, "memint")}>
                         <Select.Option value="1">1 minute</Select.Option>
                         <Select.Option value="5">5 minutes</Select.Option>
                         <Select.Option value="10">10 minutes</Select.Option>

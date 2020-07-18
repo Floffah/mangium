@@ -20,9 +20,10 @@ import {
     UnorderedListOutlined,
     UserOutlined,
     ProjectOutlined,
-    CloudServerOutlined
+    CloudServerOutlined,
+    GithubOutlined
 } from "@ant-design/icons";
-import {changePage, getPermissions} from "../../ui";
+import {changePage, getPermissions, getQInfo} from "../../ui";
 
 function permissionOrOverride(perm) {
     if(getPermissions()[perm] === true || getPermissions().override === "ALL" || getPermissions().override === "all") {
@@ -143,6 +144,26 @@ export default function Body(p) {
                     userSelect: "none",
                     cursor: "pointer"
                 }} onClick={() => changePage("/home")}>Mangium</h2>
+                {
+                    (() => {
+                        console.log(getQInfo().links)
+                        if(getQInfo().links === "true") {
+                            return [
+                                <GithubOutlined style={{
+                                    fontSize: 25,
+                                    color: "white",
+                                    position: "relative",
+                                    marginLeft: 128,
+                                    top: 7.5,
+                                    userSelect: "none",
+                                    cursor: "pointer"
+                                }} key={0} onClick={() => window.open("https://github.com/mangium/mangium", "_blank")}/>
+                            ]
+                        } else {
+                            return "";
+                        }
+                    })()
+                }
                 {logout}
             </div>
             {navmenu}

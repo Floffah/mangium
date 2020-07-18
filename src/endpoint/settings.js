@@ -39,17 +39,13 @@ class State extends Endpoint {
     }
 
     run(reqinfo, info) {
-        console.log("a")
         if (reqinfo.type === "post") {
             if (info["access-code"] === "setup" && this.manager.getWebManager().getState() === "setup") {
-                console.log("b")
                 return this.changeSettings(info, true);
             } else {
-                console.log("c")
                 return this.changeSettings(info);
             }
         } else {
-            console.log("d")
             return {
                 error: "incoReq"
             }
@@ -85,10 +81,11 @@ class State extends Endpoint {
         } else if (info.type === "get") {
             return (async () => {
                 let toreturn = {};
-                await async.forEach(info.settings, (v, d) => {
-                    if (user.getPermissions().hasPermissions(settings[v.setting]) || nocheck) {
+                for (let se in info.settings) {
+                    let v = info.settings[se];
+                    if (settings[v.setting] === ["none"] || user.getPermissions().hasPermissions(settings[v.setting]) || nocheck) {
                         if (v.at === "settings") {
-                            toreturn[v.setting] = this.manager.getDbManager().getDbs().systemDb.run(q.settings.get()).get(v.setting).data;
+                            toreturn[v.setting] = this.manager.getDbManager().getDbs().systemDb.run(this.manager.getDbManager().q.settings.get()).get(v.setting).data;
                         } else if (v.at === "config") {
                             toreturn[v.setting] = this.manager.getConfig().get(v.setting).value();
                         }
@@ -97,9 +94,17 @@ class State extends Endpoint {
                             error: "noPermission"
                         }
                     }
-                });
+                }
                 return toreturn;
             })();
+        } else if (info.type === "all") {
+            if (user.getPermissions().hasPermission("administrator")) {
+                return this.manager.getDbManager().getDbs().systemDb.run(this.manager.getDbManager().q.settings.all()).all();
+            } else {
+                return [{
+                    error: "noPermission"
+                }]
+            }
         }
     }
 }

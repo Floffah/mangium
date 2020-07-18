@@ -28,8 +28,9 @@ function get(path) {
 
 function settingSet(settings, setup) {
     let toSend = [];
-    settings.forEach(s => {
-        if(setting[s.name]) {
+    for (let st in settings) {
+        let s = settings[st];
+        if (setting[s.name]) {
             let setting = translateSetting(s.name);
             toSend.push({
                 at: setting.at,
@@ -37,32 +38,31 @@ function settingSet(settings, setup) {
                 value: s.value
             })
         }
-    });
-    while(toSend.length >= settings.length) {
-        return post("/settings", {
-            "access-code": setup === true ? "setup" : localStorage.getItem("access_code"),
-            settings: toSend,
-            type: "set"
-        });
     }
+    return post("/settings", {
+        "access-code": setup === true ? "setup" : localStorage.getItem("access_code"),
+        settings: toSend,
+        type: "set"
+    });
 }
 
 function settingGet(settings) {
     let toSend = [];
-    settings.forEach(s => {
-        if(setting[s.name]) {
+    for (let st in settings) {
+        let s = settings[st];
+        if (setting[s.name]) {
             let setting = translateSetting(s.name);
             toSend.push({
                 at: setting.at,
                 setting: setting.setting
-            })
+            });
         }
-    });
+    }
     return post("/settings", {
         "access-code": localStorage.getItem("access_code"),
         settings: toSend,
         type: "get"
-    })
+    });
 }
 
 export {
@@ -74,7 +74,8 @@ export {
 
 let setting = {
     "memint": ["memorySaveInterval", "settings"],
-    "unsplash": ["keys.unsplash", "config"]
+    "unsplash": ["keys.unsplash", "config"],
+    "panellinks": ["panelLinks", "settings"]
 }
 
 function translateSetting(name) {

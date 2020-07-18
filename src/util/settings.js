@@ -7,5 +7,6 @@
 
 module.exports = {
     "memorySaveInterval": ["viewDetails"],
-    "unsplash": ["editKeys"]
+    "unsplash": ["editKeys"],
+    "panelLinks": ["none"]
 }
