@@ -8,6 +8,9 @@ plugins/**/node_modules
 plugins/**/package-lock.json
 plugins/cache.json
 
+wsrc/dist
+
+
 # Generated
 
 # Yarn

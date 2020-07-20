@@ -1,7 +1,12 @@
 /*
  *     Copyright (C) 2020   Floffah
+ *     All rights reserved
  *
- *     @author Floffah & Mangium Contributors
+ *     See GNU GPL v3 license
+ *
+ *     See file copyright for individual contributors information
+ *
+ *     @author Floffah
  *     @link https://github.com/floffah/
  */
 
@@ -11,23 +16,23 @@ import {
     BulbOutlined,
     CheckOutlined,
     CloseOutlined,
+    CloudServerOutlined,
     ContainerOutlined,
     DashboardOutlined,
+    GithubOutlined,
     HomeOutlined,
     InfoCircleOutlined,
+    ProjectOutlined,
     SettingOutlined,
     ToolOutlined,
     UnorderedListOutlined,
-    UserOutlined,
-    ProjectOutlined,
-    CloudServerOutlined,
-    GithubOutlined
+    UserOutlined
 } from "@ant-design/icons";
 import {changePage, getPermissions, getQInfo} from "../../ui";
 import DiscordOutlined from "../icon/DiscordOutlined";
 
 function permissionOrOverride(perm) {
-    if(getPermissions()[perm] === true || getPermissions().override === "ALL" || getPermissions().override === "all") {
+    if (getPermissions()[perm] === true || getPermissions().override === "ALL" || getPermissions().override === "all") {
         return true;
     } else {
         return false;
@@ -85,15 +90,17 @@ export default function Body(p) {
                         <Menu.Item key="dashboard" icon={<DashboardOutlined/>}
                                    onClick={() => changePage("/home/dashboard")}>Dashboard</Menu.Item>
                         {function () {
-                            if(permissionOrOverride("canSelfProjects")) {
-                                return <Menu.Item key="projects" icon={<ProjectOutlined />} onClick={() => changePage("/home/projects")}>Projects</Menu.Item>
+                            if (permissionOrOverride("canSelfProjects")) {
+                                return <Menu.Item key="projects" icon={<ProjectOutlined/>}
+                                                  onClick={() => changePage("/home/projects")}>Projects</Menu.Item>
                             } else {
                                 return "";
                             }
                         }()}
                         {function () {
-                            if(permissionOrOverride("canSelfServices")) {
-                                return <Menu.Item disabled key="services" icon={<CloudServerOutlined />} onClick={() => changePage("/home/services")}>Services</Menu.Item>
+                            if (permissionOrOverride("canSelfServices")) {
+                                return <Menu.Item disabled key="services" icon={<CloudServerOutlined/>}
+                                                  onClick={() => changePage("/home/services")}>Services</Menu.Item>
                             } else {
                                 return "";
                             }
@@ -103,7 +110,7 @@ export default function Body(p) {
                     <Menu.SubMenu key="info" title="Information" icon={<InfoCircleOutlined/>}>
                         <Menu.Item key="build" icon={<InfoCircleOutlined/>} onClick={() => changePage("/info")}>Build
                             Info</Menu.Item>
-                        <Menu.Item disabled key="credits" icon={<BulbOutlined/>}
+                        <Menu.Item key="credits" icon={<BulbOutlined/>}
                                    onClick={() => changePage("/info/credits")}>Credits</Menu.Item>
                     </Menu.SubMenu>
                 </Menu>
@@ -147,7 +154,7 @@ export default function Body(p) {
                 }} onClick={() => changePage("/home")}>Mangium</h2>
                 {
                     (() => {
-                        if(getQInfo().links === "true") {
+                        if (getQInfo().links === "true") {
                             return [
                                 <GithubOutlined style={{
                                     fontSize: 25,
@@ -157,7 +164,8 @@ export default function Body(p) {
                                     top: 7.5,
                                     userSelect: "none",
                                     cursor: "pointer"
-                                }} key={0} onClick={() => window.open("https://github.com/mangium/mangium", "_blank")}/>,
+                                }} key={0}
+                                                onClick={() => window.open("https://github.com/mangium/mangium", "_blank")}/>,
                                 <DiscordOutlined style={{
                                     fontSize: 25,
                                     color: "white",
@@ -166,7 +174,7 @@ export default function Body(p) {
                                     top: 7.5,
                                     userSelect: "none",
                                     cursor: "pointer"
-                            }} key={1} onClick={() => window.open("https://discord.gg/2Nrkvd5", "_blank")}/>
+                                }} key={1} onClick={() => window.open("https://discord.gg/2Nrkvd5", "_blank")}/>
                             ]
                         } else {
                             return "";

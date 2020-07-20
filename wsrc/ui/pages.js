@@ -1,7 +1,12 @@
 /*
  *     Copyright (C) 2020   Floffah
+ *     All rights reserved
  *
- *     @author Floffah & Mangium Contributors
+ *     See GNU GPL v3 license
+ *
+ *     See file copyright for individual contributors information
+ *
+ *     @author Floffah
  *     @link https://github.com/floffah/
  */
 
@@ -23,6 +28,7 @@ import DockerContainers from "./pages/util/DockerContainers";
 import Users from "./pages/Users/Users";
 import User from "./pages/Users/User";
 import UserEdit from "./pages/Users/UserEdit";
+import Credits from "./pages/util/Credits";
 
 export default {
     default: () => {
@@ -122,6 +128,13 @@ export default {
             el: <Build/>,
             sidebar: true,
             key: "build"
+        }
+    },
+    "/info/credits": () => {
+        return {
+            el: <Credits/>,
+            sidebar: true,
+            key: "credits"
         }
     }
 }
