@@ -20,7 +20,8 @@ const Logger = require('../log/Log'),
     DatabaseManager = require('./DatabaseManager'),
     DockerManager = require('../docker/DockerManager'),
     Events = require('../events/Events'),
-    PluginManager = require('../plugins/PluginManager');
+    PluginManager = require('../plugins/PluginManager'),
+    ActionManager = require('../actions/ActionManager');
 
 class Manager {
     /**
@@ -89,6 +90,9 @@ class Manager {
         this._dbManager = new DatabaseManager(this, "sqlite");
         this._dbManager.init();
 
+        this._actionManager = new ActionManager(this);
+        this._actionManager.initDefaults();
+
         // db web create
         if (this._config.get("enable.webpanel").value() === true) {
             this._webManager = new WebManager(this);
@@ -136,6 +140,7 @@ class Manager {
             this._webManager.stop();
         }
         this.getLogger().info("Mangium stopped.");
+        process.exit();
     }
 
     /**
@@ -182,6 +187,13 @@ class Manager {
      */
     getDbManager() {
         return this._dbManager;
+    }
+
+    /**
+     * @returns {ActionManager}
+     */
+    getActionManager() {
+        return this._actionManager
     }
 
     /**

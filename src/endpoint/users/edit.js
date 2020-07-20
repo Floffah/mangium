@@ -73,6 +73,11 @@ class UserEdit extends Endpoint {
                         getuser.type = data.type;
                     }
 
+                    this.manager.getActionManager().fireAction('userEdit', {
+                        user: user.username,
+                        target: getuser.username
+                    });
+
                     return {
                         user: {
                             username: getuser.username,

@@ -18,7 +18,7 @@ class Action {
      * @param {String} info.displayname Display name. Required.
      * @param {String} info.[description] Description displayed in action help list
      * @param {String} info.message Message shown in action list. You can use \{\{variables\}\} passed to the action event.
-     * @param {String} info.icon Name or path of icon. Translated to Ant Design icon if using an icon name.
+     * @param {object} [info.variables] What variables should be passed. Will be shown in action help list. Example: \{userid: "number"\}
      */
     constructor(info) {
         this.info = info;
@@ -44,6 +44,13 @@ class ActionEvent {
     showOnList(a) {
         this.show = a;
     };
+
+    /**
+     * @returns {boolean}
+     */
+    isShown() {
+        return this.show;
+    }
 }
 
 module.exports = {

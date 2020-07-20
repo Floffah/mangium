@@ -30,7 +30,8 @@ class DatabaseManager {
             this.q = {
                 common: require('../db/queries/sqlite/common'),
                 settings: require('../db/queries/sqlite/settings'),
-                user: require('../db/queries/sqlite/user')
+                user: require('../db/queries/sqlite/user'),
+                actions: require('../db/queries/sqlite/actions'),
             }
         }
     }
@@ -62,6 +63,9 @@ class DatabaseManager {
             }
             if (!arrays(this._dbs.userDb.run(q.common.listTables()).all()).hasExact({name: 'access'})) {
                 this._dbs.userDb.run(this.q.user.createAccess()).run();
+            }
+            if (!arrays(this._dbs.systemDb.run(q.common.listTables()).all()).hasExact({name: 'actions'})) {
+                this._dbs.systemDb.run(this.q.actions.createTable()).run();
             }
 
             this._manager.getLogger().info("Database initialised");
