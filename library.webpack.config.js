@@ -62,13 +62,13 @@ module.exports = {
     devtool: 'source-map',
     output: {
         filename: '[name].dll.js',
-        path: path.resolve(__dirname, './media/dist/library'),
+        path: path.resolve(__dirname, './wsrc/dist/library'),
         library: '[name]'
     },
     plugins: [
         new webpack.DllPlugin({
             name: '[name]',
-            path: './media/dist/library/[name].json'
+            path: './wsrc/dist/library/[name].json'
         }),
         new webpack.IgnorePlugin(/^electron$/),
     ]

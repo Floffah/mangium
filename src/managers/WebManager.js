@@ -32,7 +32,7 @@ class WebManager {
         this._app = express()
         this._server = require("http").createServer(this._app)
 
-        this._app.use("/media", express.static(Path.resolve(__dirname, "../../media/dist")))
+        this._app.use("/media", express.static(this._manager.getPath("web")))
 
         this._app.get("/", (req, res) => {
             res.sendFile(Path.resolve(this._manager.getPath("web"), "index.html"), {

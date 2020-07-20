@@ -24,6 +24,7 @@ import {
     GithubOutlined
 } from "@ant-design/icons";
 import {changePage, getPermissions, getQInfo} from "../../ui";
+import DiscordOutlined from "../icon/DiscordOutlined";
 
 function permissionOrOverride(perm) {
     if(getPermissions()[perm] === true || getPermissions().override === "ALL" || getPermissions().override === "all") {
@@ -146,7 +147,6 @@ export default function Body(p) {
                 }} onClick={() => changePage("/home")}>Mangium</h2>
                 {
                     (() => {
-                        console.log(getQInfo().links)
                         if(getQInfo().links === "true") {
                             return [
                                 <GithubOutlined style={{
@@ -157,7 +157,16 @@ export default function Body(p) {
                                     top: 7.5,
                                     userSelect: "none",
                                     cursor: "pointer"
-                                }} key={0} onClick={() => window.open("https://github.com/mangium/mangium", "_blank")}/>
+                                }} key={0} onClick={() => window.open("https://github.com/mangium/mangium", "_blank")}/>,
+                                <DiscordOutlined style={{
+                                    fontSize: 25,
+                                    color: "white",
+                                    position: "absolute",
+                                    marginLeft: 20,
+                                    top: 7.5,
+                                    userSelect: "none",
+                                    cursor: "pointer"
+                            }} key={1} onClick={() => window.open("https://discord.gg/2Nrkvd5", "_blank")}/>
                             ]
                         } else {
                             return "";

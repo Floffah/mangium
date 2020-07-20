@@ -12,7 +12,7 @@ import {post, settingGet} from "./lib/comms";
 import Body from './component/ui/Body'
 import {showError} from './lib/overlay'
 import SetupM from './setup';
-import "../media/sass/styles.sass"
+import "./sass/styles.sass"
 
 let clientpermissions = {};
 let qinfo = {};

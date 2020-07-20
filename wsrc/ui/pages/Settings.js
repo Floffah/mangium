@@ -7,7 +7,13 @@
 
 import React, {useState} from "react";
 import {Button, Col, Input, message, Row, Select, Switch} from "antd";
-import {CheckOutlined, ExclamationCircleFilled, ExclamationCircleOutlined, LockOutlined, CloseOutlined} from '@ant-design/icons'
+import {
+    CheckOutlined,
+    CloseOutlined,
+    ExclamationCircleFilled,
+    ExclamationCircleOutlined,
+    LockOutlined
+} from '@ant-design/icons'
 import {post, settingSet} from "../../lib/comms";
 import {showError} from "../../lib/overlay";
 import {changePage} from "../../ui";
@@ -16,12 +22,12 @@ let whatchanged = {};
 let changedto = {};
 
 let settings = {};
-if(Object.keys(settings).length < 1) {
+if (Object.keys(settings).length < 1) {
     post("/settings", {
         type: "all",
         "access-code": localStorage.getItem("access_code")
     }).then((d) => {
-        if(d.data.error) {
+        if (d.data.error) {
             changePage("/");
         } else {
             let stngs = {};
@@ -112,12 +118,13 @@ export default function Settings() {
                 <Setting name="Name">
                     <Input value="Mangium" disabled style={{width: "200px"}}/>
                 </Setting>
-                <Setting name="Panel links">
-                    <Switch
-                        checkedChildren={<CheckOutlined />}
-                        unCheckedChildren={<CloseOutlined />}
+                <Setting name="Panel links" message={<SettingMessage type="info" message="Whether or not to show the links at the top of the screen. You will need to refresh the page for this to take effect"/>}>
+                    <div style={{width: 200}}>
+                        <Switch
+                        checkedChildren={<CheckOutlined/>}
+                        unCheckedChildren={<CloseOutlined/>}
                         defaultChecked={(() => {
-                            if(settings.panelLinks) {
+                            if (settings.panelLinks) {
                                 return settings.panelLinks === "true";
                             } else {
                                 return true;
@@ -125,14 +132,16 @@ export default function Settings() {
                         })()}
                         onChange={(v) => changed(v + "", "panellinks")}
                     />
+                    </div>
                 </Setting>
+
             </SettingsSection>
 
 
             <SettingsSection title="Server Details">
                 <Setting name="Memory save interval">
                     <Select defaultValue={(() => {
-                        if(settings.memorySaveInterval) {
+                        if (settings.memorySaveInterval) {
                             return settings.memorySaveInterval + "";
                         } else {
                             return "10"

@@ -56,7 +56,7 @@ module.exports = {
     entry: "./wsrc/index.js",
     output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname, 'media/dist'),
+        path: path.resolve(__dirname, 'wsrc/dist'),
         publicPath: "/media/",
         library: "Mangium",
         libraryTarget: "umd",
@@ -111,7 +111,7 @@ module.exports = {
     plugins: [
         new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require('./media/dist/library/library.json')
+            manifest: require('./wsrc/dist/library/library.json')
         }),
         new webpack.IgnorePlugin(/^electron$/),
         new webpack.ProvidePlugin({
@@ -121,7 +121,7 @@ module.exports = {
         new HtmlPlugin({
             title: 'Mangium',
             hash: true,
-            template: "media/html/index.html"
+            template: "wsrc/html/index.html"
         })
     ],
     devtool: 'source-map',

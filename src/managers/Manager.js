@@ -31,7 +31,7 @@ class Manager {
             ["data", Path.join(__dirname, '../../data')],
             ["config", Path.join(__dirname, '../../data/config')],
             ["cache", Path.join(__dirname, '../../data/cache')],
-            ["web", Path.join(__dirname, '../../media/dist')],
+            ["web", Path.join(__dirname, '../../wsrc/dist')],
             ["db", Path.join(__dirname, '../../data/db')],
             ["logs", Path.join(__dirname, '../../data/logs')],
             ["err", Path.join(__dirname, '../../data/logs/errors')],
