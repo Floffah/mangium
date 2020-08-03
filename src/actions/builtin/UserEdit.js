@@ -10,7 +10,7 @@
  *     @link https://github.com/floffah/
  */
 
-const Action = require('../Action');
+const Action = require('../Action').Action;
 
 class UserEdit extends Action {
     constructor() {
@@ -30,3 +30,5 @@ class UserEdit extends Action {
         actionevent.showOnList(true);
     }
 }
+
+module.exports = UserEdit;

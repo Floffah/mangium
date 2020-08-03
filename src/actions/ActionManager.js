@@ -71,3 +71,5 @@ class ActionManager {
         this.registerAction('userEdit', UserEdit);
     }
 }
+
+module.exports = ActionManager;
