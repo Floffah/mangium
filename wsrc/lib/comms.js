@@ -11,6 +11,7 @@
  */
 
 import axios from 'axios';
+import {changePage} from "../ui";
 
 /**
  *
@@ -19,7 +20,18 @@ import axios from 'axios';
  * @returns {Promise}
  */
 function post(path, data) {
-    return axios.post("/api/v1" + path, data);
+    return new Promise((resolve, reject) => {
+        axios.post("/api/v1" + path, data).then((res) => {
+            if(res.data.error) {
+                if(res.data.error === "invalidUser") {
+                    localStorage.removeItem("access_code");
+                    changePage("/login")
+                }
+            } else {
+                resolve(res);
+            }
+        });
+    })
 }
 
 /**

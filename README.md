@@ -22,7 +22,7 @@ There is kind of a lot of weird things I did to make me seem cool so please read
 When contributing just keep in mind that Mangium shouldn't be completely professional. Put some funny messages in it! Come on, we're developers. Can't we have some fun occasionally?
 
 # FAQ
- - Why is Mangium named after at tree?
+ - Why is Mangium named after a tree?
     - It kind of sounds like manager
     - Mangium can be extended (with plugins) like a tree on steroids can grow branches
  - I just want to try out Mangium. How do I do this?

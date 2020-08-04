@@ -26,7 +26,7 @@ class State extends Endpoint {
             path: '/settings',
             types: ['post'],
             description: 'Send multiple "requests" as one.',
-            errors: ["incoReq", "noPermission"],
+            errors: ["incoReq", "noPermission", "invalidUser"],
             posts: [{
                 "access-code": "string",
                 settings: [{
@@ -59,6 +59,11 @@ class State extends Endpoint {
 
     changeSettings(info, nocheck) {
         let user = new User(undefined, this.manager).find({access_code: info["access-code"]});
+        if(!user) {
+            return {
+                error: "invalidUser"
+            }
+        }
         if (info.type === "set") {
             let toret;
             info.settings.forEach(v => {
@@ -103,7 +108,7 @@ class State extends Endpoint {
                 return toreturn;
             })();
         } else if (info.type === "all") {
-            if (user.getPermissions().hasPermission("administrator")) {
+            if (user && user.getPermissions().hasPermission("administrator")) {
                 return this.manager.getDbManager().getDbs().systemDb.run(this.manager.getDbManager().q.settings.all()).all();
             } else {
                 return [{
