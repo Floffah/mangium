@@ -65,7 +65,13 @@ class Manager {
             this._config.defaults({
                 web: {
                     hostname: "127.0.0.1",
-                    port: 3000
+                    port: 3000,
+                    keys: {
+                        selfsigned: true,
+                        key: "key.pem",
+                        cert: "cert.pem",
+                        expire: 0
+                    }
                 },
                 database: {
                     type: "sqlite"

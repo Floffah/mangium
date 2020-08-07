@@ -11,7 +11,9 @@
  */
 
 const express = require("express"),
-    Path = require("path");
+    Path = require("path"),
+    fs = require('fs'),
+    ss = require('selfsigned');
 
 const APIManager = require('./APIManager');
 
@@ -32,9 +34,20 @@ class WebManager {
             return
         }
 
+        if (this.manager.getConfig().get("web.keys.selfsigned").value() === true
+            && (!fs.existsSync(Path.resolve(this.manager.getPath("keys"), this.manager.getConfig().get("web.keys.key").value()))
+                || !fs.existsSync(Path.resolve(this.manager.getPath("keys"), this.manager.getConfig().get("web.keys.cert").value())
+                    || (!this.manager.getConfig().get("web.keys.expire").value() || new Date() > new Date(this.manager.getConfig().get("web.keys.expire").value()))))) {
+            this.doCertificates();
+        }
+
         this._handlers = {}
 
         this._app = express()
+        this._server = require("https").createServer({
+            key: fs.readFileSync(Path.resolve(this.manager.getPath("keys"), this.manager.getConfig().get("web.keys.key").value())),
+            cert: fs.readFileSync(Path.resolve(this.manager.getPath("keys"), this.manager.getConfig().get("web.keys.cert").value()))
+        }, this._app)
         this._server = require("http").createServer(this._app)
 
         this._app.use("/media", express.static(this._manager.getPath("web")))
@@ -87,6 +100,22 @@ class WebManager {
         if (this.getState() !== "setup") {
             this.setState("running");
         }
+    }
+
+    doCertificates() {
+        let certs = ss.generate([{name: "commonName", value: "localhost"}], {
+            keySize: 2048,
+            algorithm: "sha512",
+            days: 90,
+            clientCertificateCN: "Mangium"
+        });
+
+        fs.writeFileSync(Path.resolve(this.manager.getPath("keys"), this.manager.getConfig().get("web.keys.key").value()), certs.private, "utf-8");
+        fs.writeFileSync(Path.resolve(this.manager.getPath("keys"), this.manager.getConfig().get("web.keys.cert").value()), certs.cert, "utf-8");
+
+        this.manager.getConfig().set("web.keys.expire", Date.now()).write();
+
+        this.manager.getLogger().info("Created certificates");
     }
 
     /**
