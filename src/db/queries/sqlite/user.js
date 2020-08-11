@@ -51,6 +51,6 @@ module.exports = {
         return "CREATE TABLE 'access' ('token' varchar(256),'userid' integer, 'expires' datetime, FOREIGN KEY(userid) REFERENCES users(userid));"
     },
     createTable() {
-        return "CREATE TABLE 'users' ('userid' integer PRIMARY KEY AUTOINCREMENT, 'username' varchar(255) NOT NULL, 'password' varchar(255) NOT NULL, 'permissions' json, 'type' varchar(20);"
+        return "CREATE TABLE 'users' ('userid' integer PRIMARY KEY AUTOINCREMENT, 'username' varchar(255) NOT NULL, 'password' varchar(255) NOT NULL, 'permissions' json, 'type' varchar(20));"
     },
 }
