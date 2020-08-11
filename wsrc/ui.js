@@ -34,8 +34,7 @@ if (localStorage.getItem("dark") === "yes") {
 
 export function changePage(page, data) {
     pages.default();
-    // let reqpage = window.location.hash.substr(1);
-    let reqpage = "/home/dashboard"
+    let reqpage = window.location.hash.substr(1);
     if (page) {
         reqpage = page;
     }

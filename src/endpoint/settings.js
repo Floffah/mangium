@@ -95,7 +95,12 @@ class State extends Endpoint {
                     let v = info.settings[se];
                     if (settings[v.setting] === ["none"] || user.getPermissions().hasPermissions(settings[v.setting]) || nocheck) {
                         if (v.at === "settings") {
-                            toreturn[v.setting] = this.manager.getDbManager().getDbs().systemDb.run(this.manager.getDbManager().q.settings.get()).get(v.setting).data;
+                            let ret = this.manager.getDbManager().getDbs().systemDb.run(this.manager.getDbManager().q.settings.get()).get(v.setting);
+                            if(ret === undefined) {
+                                toreturn[v.setting] = null;
+                            } else {
+                                toreturn[v.setting] = ret.data;
+                            }
                         } else if (v.at === "config") {
                             toreturn[v.setting] = this.manager.getConfig().get(v.setting).value();
                         }
