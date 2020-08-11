@@ -24,6 +24,11 @@
   "bugs": {
     "url": "https://github.com/mangium/mangium/issues"
   },
+  "private": true,
+  "workspaces": [
+    "src",
+    "wsrc"
+  ],
   "homepage": "https://github.com/mangium/mangium#readme",
   "dependencies": {
     "async": "^3.2.0",
