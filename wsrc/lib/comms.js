@@ -30,8 +30,7 @@ function post(path, data, chpa) {
                         changePage("/login")
                     }
                 }
-                resolve(res);
-                reject(res.data.error);
+                resolve(res, res.data.error);
             } else {
                 resolve(res);
             }

@@ -59,7 +59,7 @@ class State extends Endpoint {
 
     changeSettings(info, nocheck) {
         let user = new User(undefined, this.manager).find({access_code: info["access-code"]});
-        if(!user) {
+        if(!user && !nocheck) {
             return {
                 error: "invalidUser"
             }

@@ -87,7 +87,7 @@ let setupM = {
                     value: JSON.stringify(setupM.settings.get("admin"))
                 }
             ]
-        }).then(res => {
+        }).then((res) => {
             get("/setupDone").then(() => {
                 window.location.reload();
             });
