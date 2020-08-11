@@ -17,16 +17,21 @@ import {changePage} from "../ui";
  *
  * @param {string} path
  * @param {object} data
+ * @param {boolean} chpa
  * @returns {Promise}
  */
-function post(path, data) {
+function post(path, data, chpa) {
     return new Promise((resolve, reject) => {
         axios.post("/api/v1" + path, data).then((res) => {
             if(res.data.error) {
                 if(res.data.error === "invalidUser") {
                     localStorage.removeItem("access_code");
-                    changePage("/login")
+                    if(chpa) {
+                        changePage("/login")
+                    }
                 }
+                resolve(res);
+                reject(res.data.error);
             } else {
                 resolve(res);
             }

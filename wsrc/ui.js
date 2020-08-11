@@ -91,8 +91,7 @@ export function grabPermissions(cb) {
     });
 }
 
-
-if (localStorage.getItem('access_code')) {
+if (localStorage.getItem('access_code') !== null) {
     settingGet([{name: "panellinks"}]).then((d) => {
         qinfo.links = d.data.panelLinks;
         post("/user/permissions", {
@@ -106,24 +105,7 @@ if (localStorage.getItem('access_code')) {
             }
             post('/getState', {
                 currentState: 'pageload'
-            }).then((res) => {
-                try {
-                    if (res.data.state === "setup") {
-                        SetupM.init();
-                    } else if (isMobileDevice()) {
-                        changePage("/nomobile")
-                    } else if (!localStorage.getItem("access_code")) {
-                        changePage("/login");
-                    } else if (res.data.state === "starting") {
-                        changePage("/starting")
-                    } else {
-                        changePage();
-                    }
-                } catch (e) {
-                    console.error(e);
-                    showError("Something wen't wrong while loading the page.")
-                }
-            });
+            }).then(poststate);
         });
     });
 } else {
@@ -131,23 +113,25 @@ if (localStorage.getItem('access_code')) {
         qinfo.links = d.data.panelLinks;
         post('/getState', {
             currentState: 'pageload'
-        }).then((res) => {
-            try {
-                if (res.data.state === "setup") {
-                    SetupM.init();
-                } else if (isMobileDevice()) {
-                    changePage("/nomobile")
-                } else if (!localStorage.getItem("access_code")) {
-                    changePage("/login");
-                } else if (res.data.state === "starting") {
-                    changePage("/starting")
-                } else {
-                    changePage();
-                }
-            } catch (e) {
-                console.error(e);
-                showError("Something wen't wrong while loading the page.")
-            }
-        });
+        }).then(poststate);
     });
+}
+
+function poststate(res) {
+    try {
+        if (res.data.state === "setup") {
+            SetupM.init();
+        } else if (isMobileDevice()) {
+            changePage("/nomobile")
+        } else if (!localStorage.getItem("access_code")) {
+            changePage("/login");
+        } else if (res.data.state === "starting") {
+            changePage("/starting")
+        } else {
+            changePage();
+        }
+    } catch (e) {
+        console.error(e);
+        showError("Something wen't wrong while loading the page.")
+    }
 }
