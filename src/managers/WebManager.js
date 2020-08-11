@@ -64,7 +64,6 @@ class WebManager {
             this._apimanager.create();
         } else {
             this._app.use("/api", (req, res) => {
-                res.head
                 res.status(200).json({
                     error: "apiDisabled"
                 });
