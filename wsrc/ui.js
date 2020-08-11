@@ -38,8 +38,8 @@ export function changePage(page, data) {
     let reqpage = "/home/dashboard"
     if (page) {
         reqpage = page;
-        window.location.href = "#" + page;
     }
+    window.location.href = "#" + reqpage;
     if (typeof pages[reqpage] === "function") {
         let renderPage = pages[reqpage](data);
         if (renderPage.permission) {

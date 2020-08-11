@@ -52,10 +52,10 @@ class WebManager {
 
         this._app.use("/media", express.static(this._manager.getPath("web")))
 
+        let page = fs.readFileSync(Path.resolve(this._manager.getPath("web"), "index.html"), 'utf-8');
         this._app.get("/", (req, res) => {
-            res.sendFile(Path.resolve(this._manager.getPath("web"), "index.html"), {
-                header: "Content-Type: text/html; charset=UTF-8"
-            });
+            res.set("Content-Type", "text/html; charset=UTF-8")
+            res.status(200).send(page);
         });
 
 
@@ -64,6 +64,7 @@ class WebManager {
             this._apimanager.create();
         } else {
             this._app.use("/api", (req, res) => {
+                res.head
                 res.status(200).json({
                     error: "apiDisabled"
                 });
