@@ -70,7 +70,7 @@ class Terms extends Endpoint {
             });
             this._termslink[info.signature] = termsession;
             return {
-                md: fs.readFileSync(Path.resolve(__dirname, '../../media/markdown', 'terms.md'), 'utf8'),
+                md: fs.readFileSync(Path.resolve(__dirname, '../../wsrc/markdown', 'terms.md'), 'utf8'),
             }
         }
     }
