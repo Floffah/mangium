@@ -44,7 +44,7 @@
     "lodash": "^4.17.19",
     "lowdb": "^1.0.0",
     "marked": "^1.1.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "selfsigned": "^1.10.7",
     "semver": "^7.3.2",
     "stacktrace-parser": "^0.1.10",
