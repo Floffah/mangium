@@ -1,5 +1,7 @@
 ![Test](https://github.com/Floffah/mangium/workflows/Test/badge.svg)
 
+[Reason for archival](https://github.com/Mangium/mangium/issues/8)
+
 Came here for the installer? [Click here](https://github.com/Mangium/installer)<br/>
 Came here for the subserver? [Click here](https://github.com/Mangium/subserver)
 
